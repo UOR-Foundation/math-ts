@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Test coverage
+coverage/
+
+# Configuration files
+jest.config.js
+*.config.js
+
+# Generated files
+*.d.ts
