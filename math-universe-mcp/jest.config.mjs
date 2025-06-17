@@ -1,5 +1,5 @@
 /** @type {import('jest').Config} */
-module.exports = {
+export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
@@ -15,6 +15,7 @@ module.exports = {
   transform: {
     '^.+\\.ts$': ['ts-jest', {
       tsconfig: {
+        module: 'commonjs',
         moduleResolution: 'node',
         allowSyntheticDefaultImports: true,
         esModuleInterop: true

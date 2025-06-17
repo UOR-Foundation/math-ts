@@ -28,8 +28,8 @@
  * complex field interference patterns, exactly like denormalization in databases.
  */
 
-// Import types for large number support (dynamic imports in class)
-import type { LargeNumberFieldAnalysis, FieldCollapseFactorization } from './math-universe-large';
+// Note: We use dynamic imports for large number support to avoid circular dependencies
+// Type imports are used here for type checking only
 
 // Type definitions based on the schema
 // Each number activates a subset of these 8 fields based on its binary representation
@@ -228,16 +228,20 @@ class MathematicalUniverseDB {
   ]);
 
   // Large number analyzer for handling up to 2048-bit integers
-  private largeNumberAnalyzer: LargeNumberFieldAnalysis | null = null;
-  private fieldCollapseFactorizer: FieldCollapseFactorization | null = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private largeNumberAnalyzer: any = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private fieldCollapseFactorizer: any = null;
 
   /**
    * Get large number analyzer (lazy initialization)
    */
-  private getLargeNumberAnalyzer(): LargeNumberFieldAnalysis {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private getLargeNumberAnalyzer(): any {
     if (!this.largeNumberAnalyzer) {
-      const { LargeNumberFieldAnalysis } = require('./math-universe-large');
-      this.largeNumberAnalyzer = new LargeNumberFieldAnalysis();
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const largeModule = require('./math-universe-large.js') as typeof import('./math-universe-large.js');
+      this.largeNumberAnalyzer = new largeModule.LargeNumberFieldAnalysis();
     }
     return this.largeNumberAnalyzer;
   }
@@ -245,10 +249,12 @@ class MathematicalUniverseDB {
   /**
    * Get field collapse factorizer (lazy initialization)
    */
-  private getFieldCollapseFactorizer(): FieldCollapseFactorization {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private getFieldCollapseFactorizer(): any {
     if (!this.fieldCollapseFactorizer) {
-      const { FieldCollapseFactorization } = require('./math-universe-large');
-      this.fieldCollapseFactorizer = new FieldCollapseFactorization();
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const largeModule = require('./math-universe-large.js') as typeof import('./math-universe-large.js');
+      this.fieldCollapseFactorizer = new largeModule.FieldCollapseFactorization();
     }
     return this.fieldCollapseFactorizer;
   }
@@ -292,7 +298,7 @@ class MathematicalUniverseDB {
     for (let i = 0; i < 8; i++) {
       const def = SCHEMA_CONSTANTS[i as FieldIndex];
       const fieldName = fieldNames[i];
-      fields[fieldName] = {
+      fields[fieldName as keyof FieldActivation] = {
         active: activeFields.has(i as FieldIndex),
         alpha: def.alpha,
         symbol: def.symbol,
@@ -761,16 +767,16 @@ class MathematicalUniverseDB {
       // Count field activations
       for (const fieldName of fieldNames) {
         const field = number.fields[fieldName as keyof FieldActivation];
-        if (field.active) {
-          fieldCounts[fieldName]++;
+        if (field && field.active) {
+          fieldCounts[fieldName] = (fieldCounts[fieldName] || 0) + 1;
         }
       }
     }
 
     // Calculate resonance statistics
     const mean = resonances.reduce((a, b) => a + b, 0) / resonances.length;
-    const sortedResonances = [...resonances].sort((a, b) => a - b);
-    const median = sortedResonances[Math.floor(sortedResonances.length / 2)];
+    const sortedResonances = [...resonances].sort((a: number, b: number) => a - b);
+    const median = sortedResonances[Math.floor(sortedResonances.length / 2)] ?? 0;
     const variance = resonances.reduce((acc, r) => acc + Math.pow(r - mean, 2), 0) / resonances.length;
     const stdDev = Math.sqrt(variance);
 
@@ -808,11 +814,11 @@ class MathematicalUniverseDB {
    * Check if a large number is prime using field analysis
    * For numbers that may exceed JavaScript's safe integer range
    */
-  async isPrimeLarge(n: string | bigint): Promise<{
+  isPrimeLarge(n: string | bigint): {
     is_prime: boolean;
     confidence: number;
     evidence: string[];
-  }> {
+  } {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
     const analyzer = this.getLargeNumberAnalyzer();
     const result = analyzer.isProbablePrime(bigN);
@@ -839,7 +845,7 @@ class MathematicalUniverseDB {
     const result = await factorizer.attemptFactorization(bigN);
 
     return {
-      factors: result.factors.map(f => f.toString()),
+      factors: result.factors.map((f: bigint) => f.toString()),
       method: result.method,
       confidence: result.confidence,
       iterations: result.iterations
@@ -861,7 +867,7 @@ class MathematicalUniverseDB {
     return {
       primary_pattern: analysis.primary.toString(2).padStart(8, '0'),
       resonance_signature: analysis.resonance_signature,
-      field_harmonics: analysis.harmonics.map(h => h.toString(16)).join(', ')
+      field_harmonics: analysis.harmonics.map((h: number) => h.toString(16)).join(', ')
     };
   }
 
@@ -952,8 +958,9 @@ class MathematicalUniverseDB {
 // // This demonstrates querying the mathematical database by field patterns
 
 // Export the main class and types for use in other modules
-export {
-  MathematicalUniverseDB,
+export { MathematicalUniverseDB, SCHEMA_CONSTANTS };
+
+export type {
   MathematicalNumber,
   FieldActivation,
   ComputedProperties,
@@ -962,6 +969,5 @@ export {
   FieldDefinition,
   Field,
   FieldType,
-  FieldIndex,
-  SCHEMA_CONSTANTS
+  FieldIndex
 };

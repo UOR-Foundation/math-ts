@@ -33,7 +33,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "file:../typescript-sdk",
+    "@modelcontextprotocol/sdk": "^1.12.3",
     "zod": "^3.22.4"
   },
   "devDependencies": {
