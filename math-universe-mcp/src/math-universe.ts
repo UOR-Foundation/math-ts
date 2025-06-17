@@ -237,10 +237,10 @@ class MathematicalUniverseDB {
    * Get large number analyzer (lazy initialization)
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private getLargeNumberAnalyzer(): any {
+  private async getLargeNumberAnalyzer(): Promise<any> {
     if (!this.largeNumberAnalyzer) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const largeModule = require('./math-universe-large.js') as typeof import('./math-universe-large.js');
+      // Use dynamic import for ES modules
+      const largeModule = await import('./math-universe-large.js');
       this.largeNumberAnalyzer = new largeModule.LargeNumberFieldAnalysis();
     }
     return this.largeNumberAnalyzer;
@@ -814,13 +814,13 @@ class MathematicalUniverseDB {
    * Check if a large number is prime using field analysis
    * For numbers that may exceed JavaScript's safe integer range
    */
-  isPrimeLarge(n: string | bigint): {
+  async isPrimeLarge(n: string | bigint): Promise<{
     is_prime: boolean;
     confidence: number;
     evidence: string[];
-  } {
+  }> {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
-    const analyzer = this.getLargeNumberAnalyzer();
+    const analyzer = await this.getLargeNumberAnalyzer();
     const result = analyzer.isProbablePrime(bigN);
 
     return {
@@ -841,7 +841,7 @@ class MathematicalUniverseDB {
     iterations: number;
   }> {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
-    const factorizer = this.getFieldCollapseFactorizer();
+    const factorizer = await this.getFieldCollapseFactorizer();
     const result = await factorizer.attemptFactorization(bigN);
 
     return {
@@ -855,13 +855,13 @@ class MathematicalUniverseDB {
   /**
    * Analyze a large number's field patterns
    */
-  analyzeLargeNumber(n: string | bigint): {
+  async analyzeLargeNumber(n: string | bigint): Promise<{
     primary_pattern: string;
     resonance_signature: number;
     field_harmonics: string;
-  } {
+  }> {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
-    const analyzer = this.getLargeNumberAnalyzer();
+    const analyzer = await this.getLargeNumberAnalyzer();
     const analysis = analyzer.analyzeFieldHarmonics(bigN);
 
     return {

@@ -1,197 +1,235 @@
-# Math Universe MCP Server
+# Mathematical Universe MCP Server
 
-An MCP (Model Context Protocol) server that exposes the Mathematical Universe Database - a revolutionary interpretation of mathematics as a relational database with an 8-field schema.
-
-## Overview
-
-This MCP server provides tools, resources, and prompts for exploring mathematical structures through a database lens where:
-- Every integer is a database record
-- Primes are normalized records (3NF - no redundancy)
-- Composites are denormalized records (contain field artifacts)
-- Multiplication is a JOIN operation
-- Factorization is database normalization
+An MCP (Model Context Protocol) server that explores mathematics as a relational database, where every integer has an 8-field schema and arithmetic operations are database operations.
 
 ## Installation
 
+### From npm (recommended)
 ```bash
-# Install dependencies
-npm install
-
-# Build the server
-npm run build
-
-# Run in development mode
-npm run dev
+npm install -g math-universe-mcp
 ```
 
-## MCP Configuration
+### From source
+```bash
+git clone https://github.com/UOR-Foundation/math-ts.git
+cd math-ts/math-universe-mcp
+npm install
+npm run build
+npm link
+```
 
-Add this server to your MCP client configuration:
+## Configuration
+
+Add to your MCP client configuration:
+
+### Claude Desktop
+
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "math-universe": {
-      "command": "node",
-      "args": ["/path/to/math-universe-mcp/dist/index.js"],
-      "name": "Math Universe",
-      "description": "Explore mathematics as a relational database"
+      "command": "npx",
+      "args": ["math-universe-mcp"]
     }
   }
 }
 ```
 
+### VS Code with Continue
+
+Add to your Continue config:
+
+```json
+{
+  "models": [...],
+  "mcpServers": {
+    "math-universe": {
+      "command": "npx",
+      "args": ["math-universe-mcp"]
+    }
+  }
+}
+```
+
+### Generic MCP Client
+
+```bash
+# Run the server
+npx math-universe-mcp
+
+# Or if installed globally
+math-universe-mcp
+```
+
 ## Available Tools
 
 ### 1. `analyze-number`
-Analyze any integer's field activation pattern, resonance, and database properties.
+Analyze any number's field patterns, resonance, and properties.
 
-**Example**: Analyze the number 77
-- Shows binary representation and active fields
-- Calculates resonance (product of field constants)
-- Identifies if prime (normalized) or composite (denormalized)
+**Parameters:**
+- `value` (number | string): The number to analyze
+
+**Example:**
+```
+Analyze the number 77
+```
 
 ### 2. `normalize-number`
-Perform database normalization (factorization) on composite numbers.
+Factorize numbers using field theory (no trial division).
 
-**Example**: Normalize 77 = 7 × 11
-- Shows denormalization artifacts (fields that appear from nowhere)
-- Identifies redundancy elimination (fields that disappear)
-- Demonstrates field interference patterns
+**Parameters:**
+- `value` (number | string): The number to normalize/factorize
+
+**Example:**
+```
+Factorize 77 and show the field reconciliation
+```
 
 ### 3. `search-patterns`
-Search for numbers matching specific criteria.
+Search for numbers with specific field patterns or resonance.
 
-**Parameters**:
-- `field_pattern`: 8-bit binary string (e.g., "11100000")
-- `resonance_min/max`: Filter by resonance values
-- `page_start/end`: Search within specific 48-number pages
+**Parameters:**
+- `field_pattern` (string, optional): 8-bit binary pattern
+- `resonance_min` (number, optional): Minimum resonance value
+- `resonance_max` (number, optional): Maximum resonance value
+- `page_start` (number): Starting page (default: 0)
+- `page_end` (number): Ending page (default: 2)
+- `limit` (number): Max results (default: 20)
+
+**Example:**
+```
+Find numbers with resonance near 1.0
+```
 
 ### 4. `analyze-page`
-Analyze a 48-number page for statistical patterns.
+Analyze a 48-number page for patterns.
 
-**Reveals**:
-- Prime vs composite distribution
-- Field activation frequencies
-- Resonance statistics (mean, median, std dev)
+**Parameters:**
+- `page_number` (number): The page to analyze
+
+**Example:**
+```
+Analyze page 1 of the mathematical universe
+```
 
 ### 5. `list-primes`
-List prime numbers (normalized records) with pagination.
+List prime numbers with their field patterns.
+
+**Parameters:**
+- `page` (number): Page number (default: 0)
+- `limit` (number): Number of primes (default: 20)
+
+**Example:**
+```
+List the first 10 prime numbers with their fields
+```
 
 ### 6. `database-operation`
-Perform database operations (multiply=JOIN, add=MERGE) and analyze field interference.
+Perform multiply (JOIN) or add (MERGE) operations.
 
-## Available Resources
+**Parameters:**
+- `operation` ('multiply' | 'add'): The operation type
+- `a` (number): First operand
+- `b` (number): Second operand
 
-### 1. `math://schema/fields`
-Returns the complete 8-field schema definition with:
-- Mathematical constants (1, T, φ, ½, 1/2π, 2π, θ, ζ)
-- Field types and descriptions
-- Binary primitive values
+**Example:**
+```
+Multiply 7 by 11 and show the field interference
+```
 
-### 2. `math://special/numbers`
-Information about numbers with special properties:
-- Perfect resonance (48: fields 4×5 = 1.0)
-- Powers of 2 (primitive records)
-- Notable primes and their patterns
+## Resources
 
-## Available Prompts
+### `math://schema/fields`
+The complete 8-field mathematical schema with constants.
 
-### 1. `explore-relationships`
-Generate analysis prompts for exploring relationships between 2-5 numbers.
+### `math://special/numbers`
+Documentation of numbers with special mathematical properties.
 
-### 2. `explore-page`
-Generate prompts for deep analysis of a specific 48-number page.
+## Prompts
 
-### 3. `investigate-field-pattern`
-Generate prompts to investigate numbers with specific binary field patterns.
+### `explore-relationships`
+Generate analysis prompts for number relationships.
 
-## The 8-Field Schema
+### `explore-page`
+Generate analysis prompts for specific pages.
 
-Each number's binary representation maps to field activation:
+### `investigate-field-pattern`
+Generate prompts to investigate field patterns.
 
-| Bit | Field | Symbol | Constant | Type |
-|-----|-------|--------|----------|------|
-| 0 | Identity | I | 1.0 | Primary key |
-| 1 | Tribonacci | T | 1.839... | Decoherence |
-| 2 | Golden | φ | 1.618... | Recursive growth |
-| 3 | Half | ½ | 0.5 | Binary division |
-| 4 | Inv Frequency | 1/2π | 0.159... | Inverse transform |
-| 5 | Frequency | 2π | 6.283... | Forward transform |
-| 6 | Phase | θ | 0.199... | State coupling |
-| 7 | Zeta | ζ | 0.014... | Deep structure |
+## Theory
 
-## Key Insights
+The Mathematical Universe treats mathematics as a relational database where:
 
-1. **Page Structure**: The 48-number periodicity emerges from fields 4×5 = 1/(2π) × 2π = 1
+- Every integer is a database record with 8 fields
+- Each field represents a mathematical constant (1, φ, tribonacci, etc.)
+- Prime numbers are "normalized" records (no redundancy)
+- Composite numbers are "denormalized" (contain redundant information)
+- Multiplication is a JOIN operation that can create artifacts
+- Factorization is database normalization
 
-2. **Denormalization Artifacts**: When multiplying primes, the result doesn't inherit simple field unions - some fields appear/disappear due to interference
+### The 8 Fields
 
-3. **Prime Structure**: Each prime has a unique field signature that cannot be decomposed
+1. **Identity (I)**: α = 1.0
+2. **Tribonacci (T)**: α = 1.839...
+3. **Golden (φ)**: α = 1.618...
+4. **Half (½)**: α = 0.5
+5. **Inv Frequency (1/2π)**: α = 0.159...
+6. **Frequency (2π)**: α = 6.283...
+7. **Phase (θ)**: α = 0.199...
+8. **Zeta (ζ)**: α = 0.0141...
 
-4. **Resonance Patterns**: Special resonances like 1.0 (perfect) and 1.839... (tribonacci) indicate deep mathematical relationships
+## Examples
+
+### Example 1: The Mystery of 77
+
+```
+User: Analyze 77 and explain why it's special
+```
+
+The server reveals that 77 = 7 × 11, but something strange happens:
+- 7 has fields: I, T, φ
+- 11 has fields: I, T, ½
+- 77 has fields: I, φ, ½, θ
+
+Field T (tribonacci) disappears, and field θ (phase) appears from nowhere! This is a "denormalization artifact" - proof that multiplication isn't simple combination but involves field interference.
+
+### Example 2: Perfect Resonance
+
+```
+User: Find numbers with perfect resonance (1.0)
+```
+
+The server finds 48, which has fields 1/2π and 2π active. When multiplied: (1/2π) × (2π) = 1.0. This creates the fundamental 48-number page structure of the mathematical universe.
+
+### Example 3: Large Numbers
+
+```
+User: Is 999999999999999999999999999989 prime?
+```
+
+The server uses field harmonic analysis instead of trial division, examining resonance patterns across multiple scales to determine primality with high confidence.
 
 ## Development
-
-### Quick Start
 
 ```bash
 # Install dependencies
 npm install
 
-# Run all checks
-npm run check
+# Run tests
+npm test
 
 # Run in development mode
 npm run dev
 
-# Run tests
-npm test
+# Build
+npm run build
+
+# Lint and format
+npm run check:fix
 ```
 
-### Code Quality
+## License
 
-This project uses strict TypeScript, ESLint, and Prettier for code quality:
-
-```bash
-# Type checking
-npm run typecheck
-
-# Linting
-npm run lint
-npm run lint:fix    # Auto-fix issues
-
-# Formatting
-npm run format:check
-npm run format      # Auto-format
-
-# Run all checks
-npm run check
-npm run check:fix   # Fix all auto-fixable issues
-```
-
-### Testing
-
-```bash
-# Run tests
-npm test
-
-# Watch mode
-npm run test:watch
-
-# Coverage report
-npm run test:coverage
-```
-
-### Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development guidelines.
-
-## Theory Background
-
-This implementation is based on the synthesis of three mathematical theories:
-- **NTT** (Number Tree Theory): Modular arithmetic patterns
-- **UOR** (Universal Operating Rhythm): Prime emergence at 1.839...
-- **COC** (Cosmic Oscillation Conjecture): Universal resonance patterns
-
-The key insight is that mathematics IS a database, not just modeled as one. Every arithmetic operation is a database operation with specific rules for field combination and interference.
+MIT

@@ -229,7 +229,21 @@ describe('Edge Cases and Error Handling', () => {
       expect(result.iterations).toBe(0);
     });
 
-    test.skip('should handle factorization timeout gracefully', async () => {
+    test('should handle reasonable large numbers efficiently', async () => {
+      // Test with a 20-digit semiprime (product of two 10-digit primes)
+      const semiprime = BigInt('10000000019') * BigInt('10000000033'); // = 100000000520000000627
+      const result = await factorizer.attemptFactorization(semiprime);
+
+      // Should find at least some factors
+      expect(result.factors.length).toBeGreaterThan(0);
+      expect(result.method).toBeDefined();
+      
+      // Verify the factorization is correct
+      const product = result.factors.reduce((acc, f) => acc * f, 1n);
+      expect(product).toBe(semiprime);
+    });
+
+    test('should handle factorization timeout gracefully', async () => {
       // Very large number that might not factor easily
       const veryLarge = BigInt('123456789012345678901234567890123456789012345678901234567890');
       const result = await factorizer.attemptFactorization(veryLarge);
@@ -237,6 +251,14 @@ describe('Edge Cases and Error Handling', () => {
       // Should return something even if can't fully factor
       expect(result.factors.length).toBeGreaterThan(0);
       expect(result.iterations).toBeLessThanOrEqual(100); // Respects iteration limit
+      
+      // Should complete within reasonable time (test timeout is 10s, factorization timeout is 5s)
+      expect(result.method).toBeDefined();
+      
+      // If it timed out, should indicate that
+      if (result.method.includes('timeout')) {
+        expect(result.confidence).toBeLessThanOrEqual(0.5);
+      }
     });
   });
 

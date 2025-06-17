@@ -437,9 +437,23 @@ class FieldCollapseFactorization {
     // Attempt field collapse for remaining factor
     let iterations = 0;
     const maxIterations = 100;
+    const startTime = Date.now();
+    const maxTimeMs = 5000; // 5 second timeout
 
     while (remaining > 1n && iterations < maxIterations) {
       iterations++;
+      
+      // Check timeout
+      if (Date.now() - startTime > maxTimeMs) {
+        // Timeout - return what we have so far
+        factors.push(remaining);
+        return {
+          factors: factors.sort((a, b) => Number(a - b)),
+          method: 'Field collapse factorization (timeout)',
+          confidence: 0.5,
+          iterations
+        };
+      }
 
       // Try field collapse factorization
       const collapseFactor = await this.attemptFieldCollapse(remaining, factor_hints);
@@ -625,7 +639,11 @@ class FieldCollapseFactorization {
       if (Math.abs(resonance - targetResonance) / targetResonance < 0.01) {
         // Found a field pattern with matching resonance
         // Construct candidates with this pattern
-        for (let page = 0n; page < (searchEnd - searchStart) / 256n; page++) {
+        const maxPages = 10000n; // Limit search to prevent hanging
+        const totalPages = (searchEnd - searchStart) / 256n;
+        const pagesToSearch = totalPages > maxPages ? maxPages : totalPages;
+        
+        for (let page = 0n; page < pagesToSearch; page++) {
           const candidate = searchStart + page * 256n + BigInt(fieldMask);
           if (candidate <= searchEnd && n % candidate === 0n) {
             return candidate;
@@ -681,7 +699,11 @@ class FieldCollapseFactorization {
     const maxSize = 1n << BigInt(sizeBits + 4);
 
     // Search for numbers with this pattern in the expected range
-    for (let offset = 0n; offset < (maxSize - baseSize) / 256n; offset++) {
+    const maxOffset = 10000n; // Limit search to prevent hanging
+    const totalOffsets = (maxSize - baseSize) / 256n;
+    const offsetsToSearch = totalOffsets > maxOffset ? maxOffset : totalOffsets;
+    
+    for (let offset = 0n; offset < offsetsToSearch; offset++) {
       const candidate = baseSize + offset * 256n + BigInt(pattern);
       if (candidate < maxSize) {
         return candidate;

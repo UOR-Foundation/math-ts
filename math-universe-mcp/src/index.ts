@@ -43,7 +43,7 @@ server.registerTool(
   async ({ value }: { value: number | string }) => {
     // Handle large numbers
     if (typeof value === 'string' && value.length > 15) {
-      const largeAnalysis = mathDB.analyzeLargeNumber(value);
+      const largeAnalysis = await mathDB.analyzeLargeNumber(value);
       const primalityCheck = await mathDB.isPrimeLarge(value);
 
       const analysis = [

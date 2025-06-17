@@ -4,6 +4,14 @@
   "description": "MCP server for the Mathematical Universe Database - exploring mathematics as a relational database",
   "main": "dist/index.js",
   "type": "module",
+  "bin": {
+    "math-universe-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -30,8 +38,17 @@
     "database",
     "primes"
   ],
-  "author": "",
+  "author": "UOR Foundation",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UOR-Foundation/math-ts.git",
+    "directory": "math-universe-mcp"
+  },
+  "homepage": "https://github.com/UOR-Foundation/math-ts/tree/main/math-universe-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/UOR-Foundation/math-ts/issues"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.3",
     "zod": "^3.22.4"
