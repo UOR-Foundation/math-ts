@@ -1,0 +1,112 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build packages
+        run: npm run build
+
+      - name: Verify package contents
+        run: |
+          # Check that all packages have necessary files
+          for package in packages/*/; do
+            if [ -d "$package" ] && [ -f "$package/package.json" ]; then
+              echo "Checking $package"
+              if [ ! -d "$package/dist" ]; then
+                echo "Error: No dist directory in $package"
+                exit 1
+              fi
+              if [ ! -f "$package/package.json" ]; then
+                echo "Error: No package.json in $package"
+                exit 1
+              fi
+              if [ ! -f "$package/README.md" ]; then
+                echo "Warning: No README.md in $package"
+              fi
+            fi
+          done
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Publishing version: $VERSION"
+
+      - name: Update package versions
+        run: |
+          # Update all package.json files with the new version
+          npx lerna version ${{ steps.version.outputs.version }} --exact --no-git-tag-version --no-push --yes
+
+      - name: Publish to NPM
+        run: |
+          # Configure npm for publishing
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+          
+          # Publish all packages
+          npx lerna publish from-package --registry https://registry.npmjs.org --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          body: |
+            ## Changes in ${{ steps.version.outputs.version }}
+            
+            This release includes updates to the Mathematical Universe implementation.
+            
+            ### Packages Updated
+            - @uor-foundation/field-substrate
+            - @uor-foundation/resonance
+            - @uor-foundation/topology
+            - @uor-foundation/operators
+            - @uor-foundation/algebra
+            - @uor-foundation/geometry
+            - @uor-foundation/calculus
+            - @uor-foundation/self-reference
+            - @uor-foundation/math-ts-core
+            
+            See individual package changelogs for detailed changes.
+            
+            ### Installation
+            ```bash
+            npm install @uor-foundation/math-ts-core@${{ steps.version.outputs.version }}
+            ```
+            
+            ### Documentation
+            - [API Reference](https://github.com/UOR-Foundation/math-ts/tree/main/docs)
+            - [Getting Started](https://github.com/UOR-Foundation/math-ts#quick-start)
+          draft: false
+          prerelease: false

@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "math-universe": {
-      "command": "npx",
-      "args": ["math-universe-mcp"]
-    }
-  }
-}
