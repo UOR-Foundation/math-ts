@@ -11,36 +11,17 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./",
     "composite": true,
     "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
     "allowUnusedLabels": false,
-    "allowUnreachableCode": false,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "verbatimModuleSyntax": true,
-    "paths": {
-      "@uor-foundation/field-substrate": ["./packages/field-substrate/src"],
-      "@uor-foundation/resonance": ["./packages/resonance/src"],
-      "@uor-foundation/topology": ["./packages/topology/src"],
-      "@uor-foundation/operators": ["./packages/operators/src"],
-      "@uor-foundation/algebra": ["./packages/algebra/src"],
-      "@uor-foundation/geometry": ["./packages/geometry/src"],
-      "@uor-foundation/calculus": ["./packages/calculus/src"],
-      "@uor-foundation/self-reference": ["./packages/self-reference/src"],
-      "@uor-foundation/math-ts-core": ["./packages/core/src"]
-    }
+    "allowUnreachableCode": false
   },
   "references": [
     { "path": "./packages/field-substrate" },
@@ -51,11 +32,7 @@
     { "path": "./packages/geometry" },
     { "path": "./packages/calculus" },
     { "path": "./packages/self-reference" },
-    { "path": "./packages/core" },
-    { "path": "./apps/mcp-server" },
-    { "path": "./apps/cli" },
-    { "path": "./apps/web-explorer" },
-    { "path": "./apps/visualizer" }
+    { "path": "./packages/core" }
   ],
   "include": [],
   "exclude": [

@@ -11,5 +11,8 @@
     "dist",
     "node_modules",
     "tests"
+  ],
+  "references": [
+    { "path": "../field-substrate" }
   ]
 }
