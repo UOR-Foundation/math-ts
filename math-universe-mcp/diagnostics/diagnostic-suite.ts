@@ -171,7 +171,7 @@ class MathUniverseDiagnostics {
     ];
 
     for (const { n, expected } of testCases) {
-      const result = this.factorizer.attemptFactorization(n);
+      const result = await this.factorizer.attemptFactorization(n);
       const sortedActual = result.factors.sort((a, b) => Number(a - b));
       const sortedExpected = expected.sort((a, b) => Number(a - b));
       
@@ -474,15 +474,15 @@ class MathUniverseDiagnostics {
       ? this.db.createNumber(Number(n))
       : null;
     
-    const analysis = this.analyzer.analyzeFieldHarmonics(n);
     const primalityCheck = this.analyzer.isProbablePrime(n);
+    const primary = Number(n % 256n);
     
     return {
       number: n,
-      fields: num?.computed.field_signature || `Pattern ${analysis.primary.toString(2).padStart(8, '0')}`,
-      resonance: num?.computed.resonance || analysis.resonance_signature,
+      fields: num?.computed.field_signature || `Pattern ${primary.toString(2).padStart(8, '0')}`,
+      resonance: num?.computed.resonance || 0,
       isPrime: primalityCheck.is_probable_prime,
-      factors: primalityCheck.is_probable_prime ? undefined : this.factorizer.attemptFactorization(n).factors
+      factors: undefined // Skip factorization in data collection for now
     };
   }
 

@@ -165,7 +165,7 @@ async function runQuickDiagnostics() {
     // Test factorization if we have expected factors
     let factorCorrect = true;
     if (test.expectedFactors) {
-      const factorResult = factorizer.attemptFactorization(test.n);
+      const factorResult = await factorizer.attemptFactorization(test.n);
       const actualFactors = factorResult.factors.sort((a, b) => Number(a - b));
       const expectedFactors = test.expectedFactors.sort((a, b) => Number(a - b));
       

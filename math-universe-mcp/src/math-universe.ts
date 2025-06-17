@@ -31,6 +31,7 @@
 // Note: We use dynamic imports for large number support to avoid circular dependencies
 // Type imports are used here for type checking only
 import { LargeNumberFieldAnalysis, FieldCollapseFactorization } from './math-universe-large.js';
+import { HarmonicEntanglementNetwork } from './harmonic-entanglement-network.js';
 
 // Type definitions based on the schema
 // Each number activates a subset of these 8 fields based on its binary representation
@@ -810,15 +811,15 @@ class MathematicalUniverseDB {
    * Factorize a large number using field collapse
    * For numbers up to 2048-bit
    */
-  factorizeLarge(n: string | bigint): {
+  async factorizeLarge(n: string | bigint): Promise<{
     factors: string[];
     method: string;
     confidence: number;
     iterations: number;
-  } {
+  }> {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
     const factorizer = this.fieldCollapseFactorizer;
-    const result = factorizer.attemptFactorization(bigN);
+    const result = await factorizer.attemptFactorization(bigN);
 
     return {
       factors: result.factors.map((f: bigint) => f.toString()),
@@ -837,13 +838,20 @@ class MathematicalUniverseDB {
     field_harmonics: string;
   } {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
-    const analyzer = this.largeNumberAnalyzer;
-    const analysis = analyzer.analyzeFieldHarmonics(bigN);
+    const network = new HarmonicEntanglementNetwork();
+    const analysis = network.analyzeNumber(bigN);
+
+    // Extract primary pattern from the number
+    const primary = Number(bigN % 256n);
+    
+    // Convert harmonic signature to field harmonics representation
+    const signatures = analysis.harmonicSignature.split(':');
+    const harmonics = signatures.join(', ');
 
     return {
-      primary_pattern: analysis.primary.toString(2).padStart(8, '0'),
-      resonance_signature: analysis.resonance_signature,
-      field_harmonics: analysis.harmonics.map((h: number) => h.toString(16)).join(', ')
+      primary_pattern: primary.toString(2).padStart(8, '0'),
+      resonance_signature: analysis.resonanceCoherence,
+      field_harmonics: harmonics
     };
   }
 

@@ -134,10 +134,10 @@ server.registerTool(
         .describe('The integer to normalize (number or string for large values)')
     }
   },
-  ({ value }: { value: number | string }) => {
+  async ({ value }: { value: number | string }) => {
     // Handle large numbers with field collapse factorization
     if (typeof value === 'string' && value.length > 15) {
-      const factorization = mathDB.factorizeLarge(value);
+      const factorization = await mathDB.factorizeLarge(value);
 
       const output = [
         `# Normalization of ${value}`,

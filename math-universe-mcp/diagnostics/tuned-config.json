@@ -1,0 +1,42 @@
+{
+  "primality": {
+    "minConfidenceForPrime": 0.9,
+    "maxConfidenceForComposite": 0.5,
+    "tribonacciDecoherenceWeight": 0.3,
+    "goldenHarmonyWeight": 1.3,
+    "perfectResonanceWeight": 0.5,
+    "pagePositionWeight": 0.8,
+    "checkDivisibilityUpTo": 10,
+    "knownPrimesLimit": 10000,
+    "useMillerRabin": true,
+    "millerRabinIterations": 20
+  },
+  "factorization": {
+    "smallFactorLimit": 10000,
+    "trialDivisionLimit": 10000,
+    "maxIterations": 100,
+    "timeoutMs": 5000,
+    "confidenceThreshold": 0.7,
+    "useFieldCollapse": true,
+    "useResonanceFactorization": true,
+    "usePageRelativeFactorization": true,
+    "factorSearchRadius": "10000n",
+    "harmonicSearchDepth": 32
+  },
+  "fieldAnalysis": {
+    "maxHarmonicBits": 256,
+    "harmonicScaleFactor": 2,
+    "resonancePrecision": 15,
+    "useExactArithmetic": false,
+    "patternMatchTolerance": 0.01,
+    "resonanceMatchTolerance": 0.01
+  },
+  "performance": {
+    "maxCacheSize": 10000,
+    "cacheTimeout": 3600000,
+    "maxSearchIterations": 10000,
+    "maxPageSearch": "10000n",
+    "enableParallel": false,
+    "workerThreads": 4
+  }
+}
