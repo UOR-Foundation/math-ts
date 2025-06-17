@@ -120,16 +120,39 @@ class LargeNumberFieldAnalysis {
         resonance_evidence: ['Small prime: 2']
       };
     }
-    if (n === 3n || n === 5n || n === 7n || n === 11n || n === 13n || n === 17n || n === 19n || n === 23n || 
-        n === 29n || n === 31n || n === 37n || n === 41n || n === 43n || n === 47n || n === 53n || n === 59n ||
-        n === 61n || n === 67n || n === 71n || n === 73n || n === 79n || n === 83n || n === 89n || n === 97n) {
+    if (
+      n === 3n ||
+      n === 5n ||
+      n === 7n ||
+      n === 11n ||
+      n === 13n ||
+      n === 17n ||
+      n === 19n ||
+      n === 23n ||
+      n === 29n ||
+      n === 31n ||
+      n === 37n ||
+      n === 41n ||
+      n === 43n ||
+      n === 47n ||
+      n === 53n ||
+      n === 59n ||
+      n === 61n ||
+      n === 67n ||
+      n === 71n ||
+      n === 73n ||
+      n === 79n ||
+      n === 83n ||
+      n === 89n ||
+      n === 97n
+    ) {
       return {
         is_probable_prime: true,
         confidence: 0.95,
         resonance_evidence: [`Small prime: ${n}`]
       };
     }
-    
+
     const analysis = this.analyzeFieldHarmonics(n);
     const evidence: string[] = [];
     let confidence = 0.5; // Start at 50%
@@ -394,12 +417,12 @@ class FieldCollapseFactorization {
    * This simulates the database normalization process
    * where composite fields "collapse" into prime factors.
    */
-  async attemptFactorization(n: bigint): Promise<{
+  attemptFactorization(n: bigint): {
     factors: bigint[];
     method: string;
     confidence: number;
     iterations: number;
-  }> {
+  } {
     // First check if probably prime
     const primalityCheck = this.analyzer.isProbablePrime(n);
     if (primalityCheck.is_probable_prime && primalityCheck.confidence > 0.7) {
@@ -442,7 +465,7 @@ class FieldCollapseFactorization {
 
     while (remaining > 1n && iterations < maxIterations) {
       iterations++;
-      
+
       // Check timeout
       if (Date.now() - startTime > maxTimeMs) {
         // Timeout - return what we have so far
@@ -456,7 +479,7 @@ class FieldCollapseFactorization {
       }
 
       // Try field collapse factorization
-      const collapseFactor = await this.attemptFieldCollapse(remaining, factor_hints);
+      const collapseFactor = this.attemptFieldCollapse(remaining, factor_hints);
 
       if (collapseFactor && collapseFactor > 1n && collapseFactor < remaining) {
         factors.push(collapseFactor);
@@ -470,7 +493,7 @@ class FieldCollapseFactorization {
         }
       } else {
         // Field collapse failed, try resonance factorization
-        const resonanceFactor = await this.attemptResonanceFactorization(remaining);
+        const resonanceFactor = this.attemptResonanceFactorization(remaining);
         if (resonanceFactor && resonanceFactor > 1n && resonanceFactor < remaining) {
           factors.push(resonanceFactor);
           remaining /= resonanceFactor;
@@ -496,7 +519,14 @@ class FieldCollapseFactorization {
    * This simulates the quantum-like collapse of superposed
    * field states into concrete factors.
    */
-  private async attemptFieldCollapse(n: bigint, _hints: any[]): Promise<bigint | null> {
+  private attemptFieldCollapse(
+    n: bigint,
+    _hints: Array<{
+      field_pattern: string;
+      probable_size: string;
+      confidence: number;
+    }>
+  ): bigint | null {
     // Use field interference patterns to guide search
     const analysis = this.analyzer.analyzeFieldHarmonics(n);
 
@@ -547,7 +577,7 @@ class FieldCollapseFactorization {
    * Uses the principle that factors must have resonances
    * that multiply to create the composite's resonance.
    */
-  private async attemptResonanceFactorization(n: bigint): Promise<bigint | null> {
+  private attemptResonanceFactorization(n: bigint): bigint | null {
     const analysis = this.analyzer.analyzeFieldHarmonics(n);
     const targetResonance = analysis.resonance_signature;
 
@@ -642,7 +672,7 @@ class FieldCollapseFactorization {
         const maxPages = 10000n; // Limit search to prevent hanging
         const totalPages = (searchEnd - searchStart) / 256n;
         const pagesToSearch = totalPages > maxPages ? maxPages : totalPages;
-        
+
         for (let page = 0n; page < pagesToSearch; page++) {
           const candidate = searchStart + page * 256n + BigInt(fieldMask);
           if (candidate <= searchEnd && n % candidate === 0n) {
@@ -702,7 +732,7 @@ class FieldCollapseFactorization {
     const maxOffset = 10000n; // Limit search to prevent hanging
     const totalOffsets = (maxSize - baseSize) / 256n;
     const offsetsToSearch = totalOffsets > maxOffset ? maxOffset : totalOffsets;
-    
+
     for (let offset = 0n; offset < offsetsToSearch; offset++) {
       const candidate = baseSize + offset * 256n + BigInt(pattern);
       if (candidate < maxSize) {
@@ -797,7 +827,7 @@ class FieldCollapseFactorization {
     return components;
   }
 
-  private estimateFactorSizeFromResonance(component: any, n: bigint): bigint {
+  private estimateFactorSizeFromResonance(component: { resonance: number; confidence: number }, n: bigint): bigint {
     // Estimate factor size based on resonance distribution
     const nBits = n.toString(2).length;
 

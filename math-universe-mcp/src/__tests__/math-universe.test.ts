@@ -2,7 +2,7 @@
  * Tests for Mathematical Universe Database Core Implementation
  */
 
-import { MathematicalUniverseDB, MathematicalNumber, FieldActivation, SCHEMA_CONSTANTS } from '../math-universe';
+import { MathematicalUniverseDB } from '../math-universe';
 
 describe('MathematicalUniverseDB', () => {
   let db: MathematicalUniverseDB;

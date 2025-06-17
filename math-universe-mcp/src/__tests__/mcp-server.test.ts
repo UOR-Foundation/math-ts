@@ -3,7 +3,6 @@
  */
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 
 // Mock the math universe modules
@@ -12,7 +11,15 @@ jest.mock('../math-universe-large');
 
 describe('MCP Server Tools', () => {
   let server: McpServer;
-  let mockMathDB: any;
+  let mockMathDB: jest.Mocked<{
+    createNumber: jest.Mock;
+    analyzeLargeNumber: jest.Mock;
+    isPrimeLarge: jest.Mock;
+    normalize: jest.Mock;
+    factorizeLarge: jest.Mock;
+    searchPatterns: jest.Mock;
+    getSchemaFields: jest.Mock;
+  }>;
 
   beforeEach(() => {
     // Reset modules
@@ -65,7 +72,7 @@ describe('MCP Server Tools', () => {
   });
 
   describe('analyze-number tool', () => {
-    test('should analyze regular numbers', async () => {
+    test('should analyze regular numbers', () => {
       // Mock return value
       mockMathDB.createNumber.mockReturnValue({
         value: 7,
@@ -96,13 +103,14 @@ describe('MCP Server Tools', () => {
       });
 
       // Register the actual tool implementation
-      const { server: mcpServer } = require('../index');
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { server: _mcpServer } = require('../index');
 
       // The tool should handle number input
       expect(mockMathDB.createNumber).toBeDefined();
     });
 
-    test('should handle large numbers', async () => {
+    test('should handle large numbers', () => {
       // Mock large number analysis
       mockMathDB.analyzeLargeNumber.mockReturnValue({
         primary_pattern: '11100000',
@@ -123,7 +131,7 @@ describe('MCP Server Tools', () => {
   });
 
   describe('normalize-number tool', () => {
-    test('should normalize regular numbers', async () => {
+    test('should normalize regular numbers', () => {
       mockMathDB.normalize.mockReturnValue({
         original: { value: 12, computed: { field_signature: 'φ+½' } },
         normalized_form: [
@@ -149,7 +157,7 @@ describe('MCP Server Tools', () => {
       expect(mockMathDB.normalize).toBeDefined();
     });
 
-    test('should handle large number factorization', async () => {
+    test('should handle large number factorization', () => {
       mockMathDB.factorizeLarge.mockResolvedValue({
         factors: ['7', '11'],
         method: 'Field collapse factorization',
@@ -162,7 +170,7 @@ describe('MCP Server Tools', () => {
   });
 
   describe('search-patterns tool', () => {
-    test('should search for field patterns', async () => {
+    test('should search for field patterns', () => {
       mockMathDB.searchPatterns.mockReturnValue([
         {
           value: 7,
@@ -181,7 +189,7 @@ describe('MCP Server Tools', () => {
   });
 
   describe('Resources', () => {
-    test('should provide schema fields resource', async () => {
+    test('should provide schema fields resource', () => {
       mockMathDB.getSchemaFields.mockReturnValue([
         {
           index: 0,

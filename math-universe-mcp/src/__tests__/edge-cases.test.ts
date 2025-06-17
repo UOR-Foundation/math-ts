@@ -107,11 +107,11 @@ describe('Edge Cases and Error Handling', () => {
 
       for (const square of squares) {
         const result = db.normalize(square);
-        
+
         // Perfect squares should factor correctly
         const product = result.normalized_form.reduce((acc, n) => acc * n.value, 1);
         expect(product).toBe(square);
-        
+
         // Should have at least 2 factors (since it's a square)
         expect(result.normalized_form.length).toBeGreaterThanOrEqual(2);
       }
@@ -237,7 +237,7 @@ describe('Edge Cases and Error Handling', () => {
       // Should find at least some factors
       expect(result.factors.length).toBeGreaterThan(0);
       expect(result.method).toBeDefined();
-      
+
       // Verify the factorization is correct
       const product = result.factors.reduce((acc, f) => acc * f, 1n);
       expect(product).toBe(semiprime);
@@ -251,10 +251,10 @@ describe('Edge Cases and Error Handling', () => {
       // Should return something even if can't fully factor
       expect(result.factors.length).toBeGreaterThan(0);
       expect(result.iterations).toBeLessThanOrEqual(100); // Respects iteration limit
-      
+
       // Should complete within reasonable time (test timeout is 10s, factorization timeout is 5s)
       expect(result.method).toBeDefined();
-      
+
       // If it timed out, should indicate that
       if (result.method.includes('timeout')) {
         expect(result.confidence).toBeLessThanOrEqual(0.5);

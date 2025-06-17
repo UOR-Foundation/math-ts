@@ -16,7 +16,7 @@ describe('Mathematical Universe Integration Tests', () => {
       // The famous example showing denormalization artifacts
       const seven = db.createNumber(7);
       const eleven = db.createNumber(11);
-      const seventySeven = db.createNumber(77);
+      const _seventySeven = db.createNumber(77);
 
       // 7 has fields I, T, φ
       expect(seven.computed.field_signature).toBe('I+T+φ');
@@ -56,7 +56,7 @@ describe('Mathematical Universe Integration Tests', () => {
     test('should show periodic patterns every 48 numbers', () => {
       // Analyze patterns at page boundaries
       const pageStarts = [0, 48, 96, 144];
-      const resonances = pageStarts.map(n => db.createNumber(n).computed.resonance);
+      const _resonances = pageStarts.map(n => db.createNumber(n).computed.resonance);
 
       // Page boundaries should have special properties
       expect(db.createNumber(48).computed.resonance).toBeCloseTo(1.0, 10);
@@ -98,7 +98,10 @@ describe('Mathematical Universe Integration Tests', () => {
         if (!signatures.has(sig)) {
           signatures.set(sig, []);
         }
-        signatures.get(sig)!.push(p);
+        const sigArray = signatures.get(sig);
+        if (sigArray) {
+          sigArray.push(p);
+        }
       }
 
       // Most primes should have unique or rare signatures
@@ -115,16 +118,16 @@ describe('Mathematical Universe Integration Tests', () => {
 
       // The result should have field patterns that don't simply
       // combine the factors' patterns
-      const thirteen = db.createNumber(13);
-      const seventeen = db.createNumber(17);
+      const _thirteen = db.createNumber(13);
+      const _seventeen = db.createNumber(17);
 
       // Field signatures should be different from simple combination
       expect(result.computed.field_signature).toBeDefined();
     });
 
     test('MERGE operation (addition) creates different patterns', () => {
-      const a = db.createNumber(15);
-      const b = db.createNumber(33);
+      const _a = db.createNumber(15);
+      const _b = db.createNumber(33);
       const sum = db.add(15, 33);
 
       expect(sum.value).toBe(48);
@@ -169,7 +172,7 @@ describe('Mathematical Universe Integration Tests', () => {
   });
 
   describe('Large Number Support', () => {
-    test('should analyze large numbers consistently', async () => {
+    test('should analyze large numbers consistently', () => {
       // Test that large number analysis is available
       const largeNum = '123456789012345678901234567890';
       const analysis = db.analyzeLargeNumber(largeNum);

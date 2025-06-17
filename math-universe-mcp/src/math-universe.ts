@@ -30,6 +30,7 @@
 
 // Note: We use dynamic imports for large number support to avoid circular dependencies
 // Type imports are used here for type checking only
+import { LargeNumberFieldAnalysis, FieldCollapseFactorization } from './math-universe-large.js';
 
 // Type definitions based on the schema
 // Each number activates a subset of these 8 fields based on its binary representation
@@ -228,36 +229,8 @@ class MathematicalUniverseDB {
   ]);
 
   // Large number analyzer for handling up to 2048-bit integers
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private largeNumberAnalyzer: any = null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private fieldCollapseFactorizer: any = null;
-
-  /**
-   * Get large number analyzer (lazy initialization)
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private async getLargeNumberAnalyzer(): Promise<any> {
-    if (!this.largeNumberAnalyzer) {
-      // Use dynamic import for ES modules
-      const largeModule = await import('./math-universe-large.js');
-      this.largeNumberAnalyzer = new largeModule.LargeNumberFieldAnalysis();
-    }
-    return this.largeNumberAnalyzer;
-  }
-
-  /**
-   * Get field collapse factorizer (lazy initialization)
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private getFieldCollapseFactorizer(): any {
-    if (!this.fieldCollapseFactorizer) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const largeModule = require('./math-universe-large.js') as typeof import('./math-universe-large.js');
-      this.fieldCollapseFactorizer = new largeModule.FieldCollapseFactorization();
-    }
-    return this.fieldCollapseFactorizer;
-  }
+  private largeNumberAnalyzer = new LargeNumberFieldAnalysis();
+  private fieldCollapseFactorizer = new FieldCollapseFactorization();
 
   /**
    * Get active fields for a number using bit decomposition
@@ -459,7 +432,10 @@ class MathematicalUniverseDB {
   createNumber(value: number): MathematicalNumber {
     // Check cache first to avoid recomputation
     if (this.cache.has(value)) {
-      return this.cache.get(value)!;
+      const cached = this.cache.get(value);
+      if (cached) {
+        return cached;
+      }
     }
 
     // Step 1: Determine which fields are active based on binary representation
@@ -560,7 +536,7 @@ class MathematicalUniverseDB {
     normalized_form: MathematicalNumber[];
     process: {
       steps: Array<{ operation: string; result: number }>;
-      field_reconciliation: Record<string, any>;
+      field_reconciliation: Record<string, unknown>;
     };
   } {
     // Get the original (potentially denormalized) record
@@ -814,13 +790,13 @@ class MathematicalUniverseDB {
    * Check if a large number is prime using field analysis
    * For numbers that may exceed JavaScript's safe integer range
    */
-  async isPrimeLarge(n: string | bigint): Promise<{
+  isPrimeLarge(n: string | bigint): {
     is_prime: boolean;
     confidence: number;
     evidence: string[];
-  }> {
+  } {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
-    const analyzer = await this.getLargeNumberAnalyzer();
+    const analyzer = this.largeNumberAnalyzer;
     const result = analyzer.isProbablePrime(bigN);
 
     return {
@@ -834,15 +810,15 @@ class MathematicalUniverseDB {
    * Factorize a large number using field collapse
    * For numbers up to 2048-bit
    */
-  async factorizeLarge(n: string | bigint): Promise<{
+  factorizeLarge(n: string | bigint): {
     factors: string[];
     method: string;
     confidence: number;
     iterations: number;
-  }> {
+  } {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
-    const factorizer = await this.getFieldCollapseFactorizer();
-    const result = await factorizer.attemptFactorization(bigN);
+    const factorizer = this.fieldCollapseFactorizer;
+    const result = factorizer.attemptFactorization(bigN);
 
     return {
       factors: result.factors.map((f: bigint) => f.toString()),
@@ -855,13 +831,13 @@ class MathematicalUniverseDB {
   /**
    * Analyze a large number's field patterns
    */
-  async analyzeLargeNumber(n: string | bigint): Promise<{
+  analyzeLargeNumber(n: string | bigint): {
     primary_pattern: string;
     resonance_signature: number;
     field_harmonics: string;
-  }> {
+  } {
     const bigN = typeof n === 'string' ? BigInt(n) : n;
-    const analyzer = await this.getLargeNumberAnalyzer();
+    const analyzer = this.largeNumberAnalyzer;
     const analysis = analyzer.analyzeFieldHarmonics(bigN);
 
     return {

@@ -40,11 +40,11 @@ server.registerTool(
         .describe('The integer to analyze (number or string for large values)')
     }
   },
-  async ({ value }: { value: number | string }) => {
+  ({ value }: { value: number | string }) => {
     // Handle large numbers
     if (typeof value === 'string' && value.length > 15) {
-      const largeAnalysis = await mathDB.analyzeLargeNumber(value);
-      const primalityCheck = await mathDB.isPrimeLarge(value);
+      const largeAnalysis = mathDB.analyzeLargeNumber(value);
+      const primalityCheck = mathDB.isPrimeLarge(value);
 
       const analysis = [
         `# Analysis of ${value}`,
@@ -134,10 +134,10 @@ server.registerTool(
         .describe('The integer to normalize (number or string for large values)')
     }
   },
-  async ({ value }: { value: number | string }) => {
+  ({ value }: { value: number | string }) => {
     // Handle large numbers with field collapse factorization
     if (typeof value === 'string' && value.length > 15) {
-      const factorization = await mathDB.factorizeLarge(value);
+      const factorization = mathDB.factorizeLarge(value);
 
       const output = [
         `# Normalization of ${value}`,
@@ -200,27 +200,34 @@ server.registerTool(
     output.push('This shows how denormalization creates/destroys field information:');
     output.push('');
 
-    const recon = result.process.field_reconciliation;
-    if (recon['artifacts'] && recon['artifacts'].length > 0) {
+    const recon = result.process.field_reconciliation as {
+      artifacts?: number[];
+      missing?: number[];
+    };
+    if (recon.artifacts && recon.artifacts.length > 0) {
       output.push('### Denormalization Artifacts');
       output.push(`Fields that appeared in ${value} but not in its factors:`);
-      for (const artifact of recon['artifacts']) {
-        const fieldDef = Object.values(result.normalized_form[0]?.fields ?? {}).find(
-          (f: any) => f.type === Object.values(result.original.fields)[artifact as any]?.type
-        );
-        output.push(`- Field ${artifact}: ${fieldDef?.symbol || '?'}`);
+      for (const artifact of recon.artifacts) {
+        const fieldNames = ['identity', 'tribonacci', 'golden', 'half', 'inv_freq', 'freq', 'phase', 'zeta'] as const;
+        const fieldName = fieldNames[artifact];
+        if (fieldName && result.original.fields[fieldName]) {
+          const field = result.original.fields[fieldName];
+          output.push(`- Field ${artifact}: ${field.symbol}`);
+        }
       }
       output.push('');
     }
 
-    if (recon['missing'] && recon['missing'].length > 0) {
+    if (recon.missing && recon.missing.length > 0) {
       output.push('### Redundancy Elimination');
       output.push(`Fields from factors that disappeared in ${value}:`);
-      for (const missing of recon['missing']) {
-        const fieldDef = Object.values(result.normalized_form[0]?.fields ?? {}).find(
-          (f: any) => f.type === Object.values(result.original.fields)[missing as any]?.type
-        );
-        output.push(`- Field ${missing}: ${fieldDef?.symbol || '?'}`);
+      for (const missing of recon.missing) {
+        const fieldNames = ['identity', 'tribonacci', 'golden', 'half', 'inv_freq', 'freq', 'phase', 'zeta'] as const;
+        const fieldName = fieldNames[missing];
+        if (fieldName && result.original.fields[fieldName]) {
+          const field = result.original.fields[fieldName];
+          output.push(`- Field ${missing}: ${field.symbol}`);
+        }
       }
     }
 
@@ -253,7 +260,7 @@ server.registerTool(
       limit: z.number().int().min(1).max(100).default(20).describe('Maximum results to return')
     }
   },
-  async ({
+  ({
     field_pattern,
     resonance_min,
     resonance_max,
@@ -331,7 +338,7 @@ server.registerTool(
       page_number: z.number().int().min(0).describe('The page number to analyze (each page contains 48 numbers)')
     }
   },
-  async ({ page_number }: { page_number: number }) => {
+  ({ page_number }: { page_number: number }) => {
     const analysis = mathDB.analyzePage(page_number);
 
     const output = [
@@ -348,12 +355,10 @@ server.registerTool(
     ];
 
     // Sort fields by activation rate
-    const fieldRates = Object.entries(analysis.field_activation_rates).sort(
-      ([, a], [, b]) => (b as number) - (a as number)
-    );
+    const fieldRates = Object.entries(analysis.field_activation_rates).sort(([, a], [, b]) => b - a);
 
     for (const [field, rate] of fieldRates) {
-      output.push(`- ${field}: ${((rate as number) * 100).toFixed(1)}%`);
+      output.push(`- ${field}: ${(rate * 100).toFixed(1)}%`);
     }
 
     output.push('');
@@ -383,7 +388,7 @@ server.registerTool(
       limit: z.number().int().min(1).max(100).default(20).describe('Number of primes to return')
     }
   },
-  async ({ page, limit }: { page: number; limit: number }) => {
+  ({ page, limit }: { page: number; limit: number }) => {
     const result = mathDB.listPrimes(page, limit);
 
     const output = ['# Prime Numbers (Normalized Records)', `Page ${page + 1} of many`, '', '## Primes'];
@@ -423,7 +428,7 @@ server.registerTool(
       b: z.number().int().min(0).describe('Second operand')
     }
   },
-  async ({ operation, a, b }: { operation: 'multiply' | 'add'; a: number; b: number }) => {
+  ({ operation, a, b }: { operation: 'multiply' | 'add'; a: number; b: number }) => {
     const numA = mathDB.createNumber(a);
     const numB = mathDB.createNumber(b);
 
@@ -552,7 +557,7 @@ server.resource(
     description: 'The complete 8-field mathematical schema with constants and descriptions',
     mimeType: 'application/json'
   },
-  async (uri: URL) => {
+  (uri: URL) => {
     const fields = mathDB.getSchemaFields();
     return {
       contents: [
@@ -574,7 +579,7 @@ server.resource(
     description: 'Numbers with special mathematical properties in the universe',
     mimeType: 'text/plain'
   },
-  async (uri: URL) => {
+  (uri: URL) => {
     const special = [
       '# Special Numbers in the Mathematical Universe',
       '',
@@ -625,14 +630,17 @@ server.prompt(
     numbers: z.string().describe('Array of 2-5 numbers to explore, comma-separated')
   },
   ({ numbers }: { numbers: string }) => {
-    const numberArray = numbers.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+    const numberArray = numbers
+      .split(',')
+      .map(n => parseInt(n.trim()))
+      .filter(n => !isNaN(n));
     return {
-    messages: [
-      {
-        role: 'user',
-        content: {
-          type: 'text',
-          text: `Analyze the mathematical relationships between these numbers: ${numberArray.join(', ')}
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `Analyze the mathematical relationships between these numbers: ${numberArray.join(', ')}
 
 Please explore:
 1. Their individual field patterns and what they reveal
@@ -645,11 +653,11 @@ Focus on the database interpretation where:
 - Multiplication is a JOIN creating denormalization artifacts
 - Prime factorization is normalization to remove redundancy
 - Field patterns reveal the deep mathematical structure`
+          }
         }
-      }
-    ]
-  };
-}
+      ]
+    };
+  }
 );
 
 // Prompt: Page exploration
@@ -662,12 +670,12 @@ server.prompt(
   ({ page_number }: { page_number: string }) => {
     const pageNum = parseInt(page_number);
     return {
-    messages: [
-      {
-        role: 'user',
-        content: {
-          type: 'text',
-          text: `Analyze page ${pageNum} of the mathematical universe (numbers ${pageNum * 48} to ${pageNum * 48 + 47}).
+      messages: [
+        {
+          role: 'user',
+          content: {
+            type: 'text',
+            text: `Analyze page ${pageNum} of the mathematical universe (numbers ${pageNum * 48} to ${pageNum * 48 + 47}).
 
 Please investigate:
 1. The distribution of primes vs composites on this page
@@ -678,11 +686,11 @@ Please investigate:
 
 Remember that pages emerge from the field 4 × field 5 = 1 relationship,
 creating natural boundaries in the mathematical structure.`
+          }
         }
-      }
-    ]
-  };
-}
+      ]
+    };
+  }
 );
 
 // Prompt: Field pattern investigation
