@@ -29,7 +29,10 @@
     "check:fix": "npm run typecheck && npm run lint:fix && npm run format",
     "pretest": "npm run check",
     "prepublishOnly": "npm run build && npm test",
-    "prepare": ""
+    "prepare": "",
+    "diagnostics": "tsx diagnostics/run-diagnostics.ts",
+    "diagnostics:quick": "tsx diagnostics/run-diagnostics.ts quick",
+    "diagnostics:tune": "tsx diagnostics/run-diagnostics.ts tune"
   },
   "keywords": [
     "mcp",
