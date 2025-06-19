@@ -113,9 +113,7 @@ describe('AlgebraicStructureDetector', () => {
     expect(ring).not.toBeNull();
 
     // Should detect ideals based on artifact patterns
-    const artifactIdeals = ring!.ideals.filter((ideal) =>
-      ideal.generators.some((g) => g === 77n),
-    );
+    const artifactIdeals = ring!.ideals.filter((ideal) => ideal.generators.some((g) => g === 77n));
 
     expect(artifactIdeals.length).toBeGreaterThanOrEqual(0);
   });

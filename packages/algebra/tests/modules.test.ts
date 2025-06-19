@@ -28,9 +28,9 @@ describe('ModuleAnalyzer', () => {
   test('should create Z-module (abelian group)', () => {
     // Use Z/4Z as the ring
     const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       const elements = new Set([0n, 2n]);
       const module = moduleAnalyzer.createModule(elements, ring);
@@ -46,9 +46,9 @@ describe('ModuleAnalyzer', () => {
   test('should detect free modules', () => {
     // Use Z/3Z as the ring (field)
     const ring = ringDetector.detectRingStructure([0n, 1n, 2n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       const elements = new Set([0n, 1n, 2n]);
       const module = moduleAnalyzer.createModule(elements, ring);
@@ -63,9 +63,9 @@ describe('ModuleAnalyzer', () => {
 
   test('should find torsion elements', () => {
     const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       const elements = new Set([0n, 1n, 2n, 3n]);
       // Custom scalar multiplication that creates torsion
@@ -81,15 +81,15 @@ describe('ModuleAnalyzer', () => {
 
   test('should detect submodules', () => {
     const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n, 4n, 5n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       const elements = new Set([0n, 2n, 4n]);
       const module = moduleAnalyzer.createModule(elements, ring);
-      
+
       expect(module).not.toBeNull();
-      
+
       if (module) {
         const submodules = moduleAnalyzer.detectSubmodules(module);
 
@@ -104,9 +104,9 @@ describe('ModuleAnalyzer', () => {
 
   test('should analyze module homomorphisms', () => {
     const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       const domain = moduleAnalyzer.createModule(new Set([0n, 2n]), ring);
       // Use a proper submodule - the whole ring as codomain
@@ -114,7 +114,7 @@ describe('ModuleAnalyzer', () => {
 
       expect(domain).not.toBeNull();
       expect(codomain).not.toBeNull();
-      
+
       if (domain && codomain) {
         // Map that embeds the submodule into the full module
         const map = (n: bigint): bigint => n;
@@ -130,9 +130,9 @@ describe('ModuleAnalyzer', () => {
 
   test('should detect tensor products', () => {
     const ring = ringDetector.detectRingStructure([0n, 1n, 2n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       // Use the whole ring as modules
       const module1 = moduleAnalyzer.createModule(new Set([0n, 1n, 2n]), ring);
@@ -140,7 +140,7 @@ describe('ModuleAnalyzer', () => {
 
       expect(module1).not.toBeNull();
       expect(module2).not.toBeNull();
-      
+
       if (module1 && module2) {
         const tensorProduct = moduleAnalyzer.detectTensorProduct(module1, module2);
 
@@ -157,9 +157,9 @@ describe('ModuleAnalyzer', () => {
   test('should create vector space over field', () => {
     // Create a field ring Z/2Z
     const fieldRing = ringDetector.detectRingStructure([0n, 1n]);
-    
+
     expect(fieldRing).not.toBeNull();
-    
+
     if (fieldRing) {
       expect(fieldRing.isField).toBe(true);
 
@@ -176,9 +176,9 @@ describe('ModuleAnalyzer', () => {
 
   test('should handle empty module', () => {
     const ring = ringDetector.detectRingStructure([0n, 1n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       const module = moduleAnalyzer.createModule(new Set(), ring);
       expect(module).toBeNull();

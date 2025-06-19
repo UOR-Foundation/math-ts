@@ -90,7 +90,7 @@ describe('GroupDetector', () => {
 
   test('should detect field groups', () => {
     // Numbers with similar field patterns
-    const numbers = [15n, 31n]; // Both have multiple fields active
+    const numbers = [15n, 31n, 47n, 63n]; // All have multiple fields active (pattern 00001111, 00011111, 00101111, 00111111)
     const groups = groupDetector.detectGroups(numbers);
     expect(groups.length).toBeGreaterThan(0);
   });

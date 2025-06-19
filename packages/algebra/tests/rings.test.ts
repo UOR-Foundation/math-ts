@@ -64,13 +64,15 @@ describe('RingDetector', () => {
     const ring = ringDetector.detectRingStructure(numbers);
 
     expect(ring).not.toBeNull();
-    
+
     // In Z/12Z, we have various ideals
     const ideals = ring!.ideals;
     expect(ideals.length).toBeGreaterThan(2); // More than just {0} and the whole ring
-    
+
     // Should have principal ideals like (2), (3), (4), (6)
-    const principalIdeals = ideals.filter((i) => i.isPrincipal && i.elements.size > 1 && i.elements.size < ring!.elements.size);
+    const principalIdeals = ideals.filter(
+      (i) => i.isPrincipal && i.elements.size > 1 && i.elements.size < ring!.elements.size,
+    );
     expect(principalIdeals.length).toBeGreaterThan(0);
   });
 
@@ -98,9 +100,9 @@ describe('RingDetector', () => {
 
   test('should detect quotient rings', () => {
     const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n, 4n, 5n]);
-    
+
     expect(ring).not.toBeNull();
-    
+
     if (ring) {
       const ideal = ring.ideals.find((i) => i.generators.includes(2n));
 
@@ -135,7 +137,7 @@ describe('RingDetector', () => {
     const ring3 = ringDetector.detectRingStructure(numbers3);
     expect(ring3).not.toBeNull();
     expect(ring3!.isField).toBe(false);
-    
+
     // Z/5Z is a field (prime)
     const numbers4 = [0n, 1n, 2n, 3n, 4n];
     const ring4 = ringDetector.detectRingStructure(numbers4);

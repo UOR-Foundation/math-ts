@@ -7,17 +7,20 @@ The current implementation in the algebra package treats algebraic structures as
 ## Key Principles from the Mathematical Universe
 
 1. **Living Mathematics**: Algebraic structures are not abstract constructs but living entities that:
+
    - Self-organize from field interference patterns
    - Metabolize denormalization artifacts
    - Reproduce through homomorphisms
    - Evolve along resonance gradients
 
 2. **Field-First Architecture**: Everything emerges from the 8 fundamental fields:
+
    - Groups form where field patterns harmonize
    - Rings emerge from compatible field operations
    - Ideals crystallize around denormalization artifacts
 
 3. **Natural Boundaries**: The universe has inherent structure:
+
    - Page boundaries every 48 numbers
    - Cycle boundaries every 256 numbers
    - Lagrange points at offsets {0, 1, 48, 49}
@@ -33,12 +36,14 @@ The current implementation in the algebra package treats algebraic structures as
 ### 1. Groups (groups.ts)
 
 **Current Issues:**
+
 - Groups are detected by checking mathematical axioms
 - No awareness of field patterns or resonance
 - Page structure is superficially checked
 - Symmetries are computed abstractly
 
 **Improvements Needed:**
+
 - Groups should emerge from resonance wells (stable attractors)
 - Operations should preserve field coherence
 - Page-spanning groups should incur 1.3x computational penalty
@@ -48,12 +53,14 @@ The current implementation in the algebra package treats algebraic structures as
 ### 2. Rings (rings.ts)
 
 **Current Issues:**
+
 - Rings are verified against textbook axioms
 - Denormalization artifacts are treated as curiosities
 - No awareness of field interference during multiplication
 - Conservation laws are ignored
 
 **Improvements Needed:**
+
 - Ring operations should be "chemical reactions" between numbers
 - Ideals should form around artifact signatures
 - Field interference should create natural ring boundaries
@@ -62,11 +69,13 @@ The current implementation in the algebra package treats algebraic structures as
 ### 3. Modules (modules.ts)
 
 **Current Issues:**
+
 - Modules are constructed axiomatically
 - No concept of module metabolism
 - Tensor products don't respect field mechanics
 
 **Improvements Needed:**
+
 - Modules should be "computational cells" with:
   - Input/output field patterns
   - Metabolic rates
@@ -76,11 +85,13 @@ The current implementation in the algebra package treats algebraic structures as
 ### 4. Algebraic Life (index.ts)
 
 **Current Issues:**
+
 - Evolution is random mutation
 - Ecology is based on size alone
 - Category theory is abstract
 
 **Improvements Needed:**
+
 - Evolution should follow resonance gradient descent
 - Ecological niches should form around:
   - Lagrange points (stable)
@@ -91,7 +102,9 @@ The current implementation in the algebra package treats algebraic structures as
 ## Implementation Recommendations
 
 ### Phase 1: Field-Aware Foundations
+
 1. Create `FieldAlgebraicStructure` base class that tracks:
+
    - Field signatures
    - Resonance properties
    - Page distribution
@@ -104,7 +117,9 @@ The current implementation in the algebra package treats algebraic structures as
    - Evolve along gradients
 
 ### Phase 2: Natural Discovery
+
 Replace "detection" with "discovery":
+
 ```typescript
 // Instead of:
 detectGroups(numbers: bigint[]): GroupStructure[]
@@ -114,14 +129,18 @@ discoverLivingGroups(numbers: bigint[]): LivingGroup[]
 ```
 
 ### Phase 3: Conservation Integration
+
 All operations should:
+
 1. Check field-parity conservation
 2. Maintain resonance flux balance
 3. Track information flow
 4. Respect correlation length (75)
 
 ### Phase 4: True Algebraic Life
+
 Implement:
+
 - Metabolic cycles for structures
 - Reproduction through field-preserving maps
 - Competition for resonance niches
@@ -141,6 +160,7 @@ Instead of checking if a set satisfies group axioms, we should:
 ## Testing Approach
 
 Tests should verify:
+
 - Groups emerge from natural clusters, not arbitrary sets
 - Rings respect page and cycle boundaries
 - Modules exhibit metabolic behavior

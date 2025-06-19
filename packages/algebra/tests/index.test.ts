@@ -175,10 +175,12 @@ describe('AlgebraicStructures', () => {
 
   describe('ModuleAnalyzer', () => {
     test('should create Z-module (abelian group)', () => {
-      const ring = ringDetector.detectRingStructure([0n, 1n, -1n])!;
+      const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
+      expect(ring).not.toBeNull();
+
       const elements = new Set([0n, 2n, 4n, 6n, -2n, -4n, -6n]);
 
-      const module = moduleAnalyzer.createModule(elements, ring);
+      const module = moduleAnalyzer.createModule(elements, ring!);
 
       expect(module).not.toBeNull();
       expect(module!.zero).toBe(0n);
@@ -186,10 +188,12 @@ describe('AlgebraicStructures', () => {
     });
 
     test('should detect free modules', () => {
-      const ring = ringDetector.detectRingStructure([0n, 1n, -1n])!;
+      const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
+      expect(ring).not.toBeNull();
+
       const elements = new Set([0n, 1n, 2n, 3n, -1n, -2n, -3n]);
 
-      const module = moduleAnalyzer.createModule(elements, ring);
+      const module = moduleAnalyzer.createModule(elements, ring!);
 
       expect(module).not.toBeNull();
       expect(module!.isFree).toBe(true);
@@ -208,11 +212,14 @@ describe('AlgebraicStructures', () => {
     });
 
     test('should detect submodules', () => {
-      const ring = ringDetector.detectRingStructure([0n, 1n, -1n])!;
-      const elements = new Set([0n, 2n, 4n, 6n, 8n, -2n, -4n, -6n, -8n]);
-      const module = moduleAnalyzer.createModule(elements, ring)!;
+      const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
+      expect(ring).not.toBeNull();
 
-      const submodules = moduleAnalyzer.detectSubmodules(module);
+      const elements = new Set([0n, 2n, 4n, 6n, 8n, -2n, -4n, -6n, -8n]);
+      const module = moduleAnalyzer.createModule(elements, ring!);
+      expect(module).not.toBeNull();
+
+      const submodules = moduleAnalyzer.detectSubmodules(module!);
 
       expect(submodules.length).toBeGreaterThan(2); // At least trivial, whole, and some cyclic
 
@@ -222,14 +229,19 @@ describe('AlgebraicStructures', () => {
     });
 
     test('should analyze module homomorphisms', () => {
-      const ring = ringDetector.detectRingStructure([0n, 1n, -1n])!;
-      const domain = moduleAnalyzer.createModule(new Set([0n, 2n, 4n, -2n, -4n]), ring)!;
-      const codomain = moduleAnalyzer.createModule(new Set([0n, 1n, 2n, -1n, -2n]), ring)!;
+      const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
+      expect(ring).not.toBeNull();
+
+      const domain = moduleAnalyzer.createModule(new Set([0n, 2n, 4n, -2n, -4n]), ring!);
+      expect(domain).not.toBeNull();
+
+      const codomain = moduleAnalyzer.createModule(new Set([0n, 1n, 2n, -1n, -2n]), ring!);
+      expect(codomain).not.toBeNull();
 
       // Map that divides by 2
       const map = (n: bigint): bigint => n / 2n;
 
-      const homomorphism = moduleAnalyzer.analyzeModuleHomomorphism(domain, codomain, map);
+      const homomorphism = moduleAnalyzer.analyzeModuleHomomorphism(domain!, codomain!, map);
 
       expect(homomorphism.kernel.has(0n)).toBe(true);
       expect(homomorphism.isLinear).toBe(true);
@@ -237,11 +249,16 @@ describe('AlgebraicStructures', () => {
     });
 
     test('should detect tensor products', () => {
-      const ring = ringDetector.detectRingStructure([0n, 1n, -1n])!;
-      const module1 = moduleAnalyzer.createModule(new Set([0n, 1n, 2n, -1n, -2n]), ring)!;
-      const module2 = moduleAnalyzer.createModule(new Set([0n, 3n, -3n]), ring)!;
+      const ring = ringDetector.detectRingStructure([0n, 1n, 2n, 3n]);
+      expect(ring).not.toBeNull();
 
-      const tensorProduct = moduleAnalyzer.detectTensorProduct(module1, module2);
+      const module1 = moduleAnalyzer.createModule(new Set([0n, 1n, 2n, -1n, -2n]), ring!);
+      expect(module1).not.toBeNull();
+
+      const module2 = moduleAnalyzer.createModule(new Set([0n, 3n, -3n]), ring!);
+      expect(module2).not.toBeNull();
+
+      const tensorProduct = moduleAnalyzer.detectTensorProduct(module1!, module2!);
 
       expect(tensorProduct).not.toBeNull();
       expect(tensorProduct!.elements.has(0n)).toBe(true);
