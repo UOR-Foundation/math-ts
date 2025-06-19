@@ -293,3 +293,18 @@ export type { FieldPattern } from '@uor-foundation/field-substrate';
 export type { DenormalizationArtifact } from './carry';
 import type { FieldPattern } from '@uor-foundation/field-substrate';
 import type { DenormalizationArtifact } from './carry';
+
+/**
+ * Create arithmetic operators instance
+ * @param substrate - Field substrate interface
+ * @param resonance - Resonance dynamics interface
+ * @param topology - Page topology interface
+ * @returns Arithmetic operators implementation
+ */
+export function createArithmeticOperators(
+  substrate: FieldSubstrate,
+  resonance: ResonanceDynamics,
+  topology: PageTopology,
+): ArithmeticOperators {
+  return new ArithmeticOperators(substrate, resonance, topology);
+}
