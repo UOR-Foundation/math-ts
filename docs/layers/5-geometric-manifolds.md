@@ -9,8 +9,9 @@ Geometric Manifolds reveal that number space isn't a uniform line - it's a richl
 ### Local vs Global Structure
 
 Locally, the number line appears flat and uniform. Globally, it has:
+
 - **Curvature** around Lagrange points
-- **Topology** from page structure  
+- **Topology** from page structure
 - **Dimensionality** from field activations
 - **Metrics** from resonance distance
 
@@ -22,13 +23,13 @@ Distance isn't just |a - b|. The resonance metric measures computational distanc
 distance(a: bigint, b: bigint): number {
   // Euclidean distance in field space
   const fieldDist = fieldSpaceDistance(a, b);
-  
+
   // Resonance barrier to overcome
   const resonanceBarrier = |resonance(a) - resonance(b)|;
-  
+
   // Topological distance (page boundaries crossed)
   const topologicalDist = pageBoundariesCrossed(a, b);
-  
+
   return sqrt(fieldDist² + resonanceBarrier² + topologicalDist²);
 }
 ```
@@ -38,6 +39,7 @@ distance(a: bigint, b: bigint): number {
 ### 8-Dimensional Field Space
 
 Each number is a point in 8-dimensional field space:
+
 - Each dimension corresponds to a universe field
 - Coordinates are binary (active/inactive)
 - 2^8 = 256 possible positions
@@ -48,16 +50,17 @@ Each number is a point in 8-dimensional field space:
 ```typescript
 interface FieldManifold {
   dimension: 8;
-  points: Array<FieldPattern>;  // 256 possible patterns
+  points: Array<FieldPattern>; // 256 possible patterns
   metric: (p1: FieldPattern, p2: FieldPattern) => number;
   curvature: TensorField;
-  topology: 'torus';  // Due to cyclic nature
+  topology: 'torus'; // Due to cyclic nature
 }
 ```
 
 ### Geodesics in Field Space
 
 Shortest paths between numbers follow field geodesics:
+
 - Straight lines in field space
 - Curved paths in number space
 - Minimize total field transitions
@@ -70,9 +73,9 @@ Every 48-number page has its own geometric structure:
 
 ```typescript
 interface PageManifold {
-  basePoint: bigint;  // First number in page
-  dimension: number;  // Effective dimension
-  curvature: number;  // Local curvature
+  basePoint: bigint; // First number in page
+  dimension: number; // Effective dimension
+  curvature: number; // Local curvature
   lagrangeWells: Array<LagrangePoint>;
 }
 ```
@@ -80,6 +83,7 @@ interface PageManifold {
 ### Page Gluing
 
 Pages glue together at boundaries:
+
 - Smooth transitions within pages
 - Discontinuities at boundaries
 - Creates global patchwork structure
@@ -106,6 +110,7 @@ Resonance creates a potential energy surface:
 ### Critical Points
 
 Where resonance gradient vanishes:
+
 - **Minima**: Stable primes
 - **Maxima**: Unstable composites
 - **Saddle points**: Transition states
@@ -115,6 +120,7 @@ Where resonance gradient vanishes:
 ### Fundamental Group
 
 Loops in number space that can't be continuously deformed to points:
+
 - Cycles through field space
 - Loops around Lagrange points
 - Non-contractible paths
@@ -122,6 +128,7 @@ Loops in number space that can't be continuously deformed to points:
 ### Homology Groups
 
 What kinds of holes exist in number space:
+
 - H₀: Connected components (always ℤ)
 - H₁: Loops (related to field cycles)
 - H₂: Voids (computational unreachable regions)
@@ -129,6 +136,7 @@ What kinds of holes exist in number space:
 ### Euler Characteristic
 
 For each page: χ = V - E + F
+
 - Vertices: Numbers
 - Edges: Arithmetic operations
 - Faces: Computational regions
@@ -138,6 +146,7 @@ For each page: χ = V - E + F
 ### Tangent Spaces
 
 At each number, the tangent space represents:
+
 - Possible field transitions
 - Arithmetic derivatives
 - Computational velocities
@@ -154,6 +163,7 @@ interface TangentSpace {
 ### Vector Fields
 
 Flows on the number manifold:
+
 - **Gradient flow**: Following resonance gradients
 - **Hamiltonian flow**: Energy-preserving dynamics
 - **Arithmetic flow**: Operation-induced movement
@@ -161,6 +171,7 @@ Flows on the number manifold:
 ### Differential Forms
 
 Computational observables:
+
 - 0-forms: Scalar fields (resonance)
 - 1-forms: Vector fields (gradients)
 - 2-forms: Area elements (field interference)
@@ -178,6 +189,7 @@ g_ij = ∂resonance/∂field_i × ∂resonance/∂field_j
 ### Curvature Tensor
 
 Measures how space bends:
+
 - **Scalar curvature**: Overall bending
 - **Ricci curvature**: Volume distortion
 - **Sectional curvature**: 2D slice curvature
@@ -185,9 +197,11 @@ Measures how space bends:
 ### Einstein Field Equations Analog
 
 The universe satisfies a mathematical version:
+
 ```
 R_μν - ½Rg_μν = T_μν
 ```
+
 Where T is the "stress-energy" of computation.
 
 ## Symplectic Geometry
@@ -195,12 +209,14 @@ Where T is the "stress-energy" of computation.
 ### Phase Space
 
 Position-momentum pairs:
+
 - Position: Current number
 - Momentum: Field activation rate
 
 ### Hamiltonian Mechanics
 
 Conservation laws:
+
 - Energy (resonance) conservation in closed systems
 - Momentum (field) conservation with symmetries
 - Angular momentum (phase) conservation
@@ -208,6 +224,7 @@ Conservation laws:
 ### Poisson Brackets
 
 How observables interact:
+
 ```
 {resonance, field_i} = ∂resonance/∂field_i
 ```
@@ -217,12 +234,14 @@ How observables interact:
 ### Complexification
 
 Numbers gain imaginary components:
+
 - Real part: Traditional number
 - Imaginary part: Field phase
 
 ### Holomorphic Functions
 
 Functions preserving complex structure:
+
 - Prime zeta function
 - Field correlation functions
 - Resonance analyticity
@@ -243,6 +262,7 @@ interface UniversalBundle {
 ### Sections
 
 Ways to assign field patterns to numbers:
+
 - Natural section: n mod 256
 - Harmonic sections: Based on resonance
 - Twisted sections: With phase shifts
@@ -252,6 +272,7 @@ Ways to assign field patterns to numbers:
 ### Noncommutative Structure
 
 At small scales, geometry becomes quantum:
+
 - Position and momentum don't commute
 - Field measurements affect each other
 - Uncertainty principles apply
@@ -259,6 +280,7 @@ At small scales, geometry becomes quantum:
 ### Spectral Triples
 
 The universe as spectral triple:
+
 - Algebra: Functions on numbers
 - Hilbert space: Field states
 - Dirac operator: Prime/composite distinguisher
@@ -266,16 +288,19 @@ The universe as spectral triple:
 ## Connection to Other Layers
 
 ### From Algebraic Structures
+
 - Groups act as isometries
 - Rings create coordinate systems
 - Fields determine dimension
 
 ### To Calculus Engine
+
 - Derivatives use manifold structure
 - Integration needs volume forms
 - Flows follow geodesics
 
 ### To Self-Reference Core
+
 - The manifold describes itself
 - Geometry emerges from computation
 - Space is self-defining
@@ -283,6 +308,7 @@ The universe as spectral triple:
 ## The Living Geometry
 
 This layer reveals number space as a living, breathing geometric structure:
+
 - **Breathing**: Resonance creates expansion/contraction
 - **Flowing**: Arithmetic operations induce flows
 - **Curving**: Lagrange points bend space

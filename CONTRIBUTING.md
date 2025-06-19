@@ -102,18 +102,16 @@ packages/[layer-name]/
 // Good: Self-referential, emergent behavior
 export class FieldPattern {
   private readonly pattern: boolean[];
-  
+
   constructor(n: bigint) {
     // Pattern emerges from number's position in field space
     this.pattern = this.computePattern(n);
   }
-  
+
   private computePattern(n: bigint): boolean[] {
     // Fields activate based on bit representation
     const position = Number(n % 256n);
-    return Array.from({ length: 8 }, (_, i) => 
-      Boolean(position & (1 << i))
-    );
+    return Array.from({ length: 8 }, (_, i) => Boolean(position & (1 << i)));
   }
 }
 
@@ -139,6 +137,7 @@ footer
 ```
 
 Types:
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -148,6 +147,7 @@ Types:
 - `chore`: Build process or auxiliary tool changes
 
 Example:
+
 ```
 feat(resonance): implement field interference patterns
 
@@ -178,7 +178,7 @@ Tests should verify emergent behavior, not hard-coded expectations:
 test('lagrange points stabilize computation', () => {
   const universe = new MathematicalUniverse();
   const lagrangePoint = universe.number(48n);
-  
+
   expect(lagrangePoint.isStable()).toBe(true);
   expect(lagrangePoint.resonance).toBeCloseTo(1.0);
 });
@@ -206,10 +206,10 @@ Use JSDoc for public APIs:
 /**
  * Computes the resonance value for a number by multiplying
  * the constants of its active fields.
- * 
+ *
  * @param n - The number to analyze
  * @returns The resonance value (computational mass/energy)
- * 
+ *
  * @example
  * const resonance = computeResonance(7n);
  * // Returns ~2.975 (product of fields I, T, and φ)
@@ -222,6 +222,7 @@ export function computeResonance(n: bigint): number {
 ### Architecture Documentation
 
 When adding new concepts:
+
 1. Update the relevant layer documentation in `docs/layers/`
 2. Add examples to `docs/examples/`
 3. Update the API reference if adding public APIs
@@ -235,6 +236,7 @@ When adding new concepts:
 ## Recognition
 
 Contributors will be recognized in:
+
 - The project README
 - Release notes
 - The contributors graph

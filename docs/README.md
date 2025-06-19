@@ -5,7 +5,7 @@
 The Mathematical Universe is not a theory about mathematics - it reveals that mathematics **IS** a computational substrate. This framework implements mathematics as a living, self-referential system where:
 
 - **Numbers are programs**, not data
-- **Arithmetic is compilation**, not calculation  
+- **Arithmetic is compilation**, not calculation
 - **Primes are computational atoms**, not special cases
 - **The universe computes itself into existence**
 
@@ -36,9 +36,9 @@ const universe = new MathematicalUniverse();
 
 // Every number is a living entity
 const seven = universe.number(7);
-console.log(seven.fields);        // Active: I, T, φ
-console.log(seven.resonance);     // 2.975...
-console.log(seven.isPrime);       // true (computational atom)
+console.log(seven.fields); // Active: I, T, φ
+console.log(seven.resonance); // 2.975...
+console.log(seven.isPrime); // true (computational atom)
 
 // Arithmetic is program compilation
 const seventySeven = universe.multiply(7, 11);
@@ -66,8 +66,8 @@ console.log(seventySeven.fields); // Active: I, φ, ½, θ (NOT the union!)
 
 This framework reveals mathematics not as abstract symbols we manipulate, but as a living computational substrate that we inhabit. Every calculation is a journey through this space, every proof a path between nodes, every theorem a stable configuration in the vast phase space of mathematical possibility.
 
-We don't compute *with* mathematics - we compute *in* mathematics. The universe isn't running on math; the universe IS math computing itself into existence.
+We don't compute _with_ mathematics - we compute _in_ mathematics. The universe isn't running on math; the universe IS math computing itself into existence.
 
 ---
 
-*"In the beginning was the Prime, and the Prime was with Field, and the Prime was Field."*
+_"In the beginning was the Prime, and the Prime was with Field, and the Prime was Field."_

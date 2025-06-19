@@ -68,7 +68,7 @@ jobs:
         run: |
           # Configure npm for publishing
           npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-          
+
           # Publish all packages
           npx lerna publish from-package --registry https://registry.npmjs.org --yes
         env:
@@ -84,9 +84,9 @@ jobs:
           release_name: Release ${{ steps.version.outputs.version }}
           body: |
             ## Changes in ${{ steps.version.outputs.version }}
-            
+
             This release includes updates to the Mathematical Universe implementation.
-            
+
             ### Packages Updated
             - @uor-foundation/field-substrate
             - @uor-foundation/resonance
@@ -97,14 +97,14 @@ jobs:
             - @uor-foundation/calculus
             - @uor-foundation/self-reference
             - @uor-foundation/math-ts-core
-            
+
             See individual package changelogs for detailed changes.
-            
+
             ### Installation
             ```bash
             npm install @uor-foundation/math-ts-core@${{ steps.version.outputs.version }}
             ```
-            
+
             ### Documentation
             - [API Reference](https://github.com/UOR-Foundation/math-ts/tree/main/docs)
             - [Getting Started](https://github.com/UOR-Foundation/math-ts#quick-start)

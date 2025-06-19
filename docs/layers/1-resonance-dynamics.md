@@ -32,18 +32,21 @@ Resonance isn't just a calculated property - it represents:
 ## Key Resonance Patterns
 
 ### Low Resonance (< 1.0)
+
 - Often indicates primality
 - Minimal field activation
 - Computationally "light"
 - Examples: Many larger primes show resonance < 0.1
 
 ### Unity Resonance (≈ 1.0)
+
 - Perfect balance
 - Lagrange points (0, 1, 48, 49...)
 - Computational equilibrium
 - Special stability
 
 ### High Resonance (> 10.0)
+
 - Complex field interactions
 - Usually highly composite
 - Computationally "heavy"
@@ -54,13 +57,17 @@ Resonance isn't just a calculated property - it represents:
 When fields combine, they create complex dynamics:
 
 ### Harmonic Resonance
+
 Some field combinations create harmonic relationships:
+
 - **φ + ½**: Creates golden ratio harmonics
 - **T + I**: Tribonacci sequences with unity
 - **2π + 1/2π**: Perfect resonance = 1.0
 
 ### Resonance Wells
+
 Certain resonance values act as attractors:
+
 - **0.5**: The half-field creates a well
 - **1.0**: Perfect resonance point
 - **φ**: Golden ratio resonance
@@ -85,15 +92,19 @@ Resonance(a × b) = Resonance(a) × Resonance(b)
 ## Quantum-Like Properties
 
 ### Superposition
+
 Before measurement (factorization), a composite exists in superposed prime states.
 
 ### Collapse
+
 Factorization collapses the superposition, revealing constituent primes.
 
 ### Entanglement
+
 Numbers sharing prime factors show entangled resonance patterns.
 
 ### Uncertainty
+
 Cannot simultaneously know exact factorization and resonance behavior.
 
 ## Resonance Signatures
@@ -102,10 +113,10 @@ Each number has a unique resonance signature across scales:
 
 ```typescript
 interface ResonanceSignature {
-  primary: number;      // Base resonance from active fields
-  harmonic: number[];   // Resonances at 8, 16, 32... bit scales  
+  primary: number; // Base resonance from active fields
+  harmonic: number[]; // Resonances at 8, 16, 32... bit scales
   interference: number; // Deviation from expected resonance
-  stability: number;    // Distance from nearest well
+  stability: number; // Distance from nearest well
 }
 ```
 
@@ -129,14 +140,17 @@ Like physical conservation laws, resonance follows patterns:
 ## Computational Implications
 
 ### Resonance-Based Algorithms
+
 - **Prime Detection**: Low resonance suggests primality
 - **Factor Hints**: Resonance patterns hint at factor sizes
 - **Optimization**: Follow resonance gradients
 
 ### Resonance Caching
+
 Lagrange points act as natural cache points - computation stabilizes here.
 
 ### Parallel Resonance
+
 Different bit scales can be computed in parallel, revealing multi-scale structure.
 
 ## Emergent Properties
@@ -151,29 +165,35 @@ From simple resonance calculation emerges:
 ## Connection to Other Layers
 
 ### From Field Substrate
+
 - Receives activated fields and their alpha values
 - Inherits prime encodings in the constants
 
 ### To Page Topology
+
 - Resonance = 1.0 defines primary Lagrange points
 - Creates the energy wells that organize pages
 
 ### To Arithmetic Operators
+
 - Determines computational cost of operations
 - Guides factorization strategies
 
 ### To Higher Layers
+
 - Provides the continuous "physics" atop discrete fields
 - Creates the energy landscape for navigation
 
 ## The Atomic Metaphor
 
 Just as atoms have:
+
 - **Electrons** (fields) in discrete orbitals
 - **Energy levels** from electron configurations
 - **Chemical properties** from electron patterns
 
 Numbers have:
+
 - **Fields** in discrete activations
 - **Resonance** from field configurations
 - **Arithmetic properties** from field patterns

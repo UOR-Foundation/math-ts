@@ -7,7 +7,7 @@ Mathematical Universe implementation in TypeScript by UOR-Foundation.
 The Mathematical Universe is not a theory about mathematics - it reveals that mathematics **IS** a computational substrate. This implementation brings to life a framework where:
 
 - **Numbers are programs**, not data
-- **Arithmetic is compilation**, not calculation  
+- **Arithmetic is compilation**, not calculation
 - **Primes are computational atoms**, not special cases
 - **The universe computes itself into existence**
 
@@ -147,9 +147,9 @@ const universe = new MathematicalUniverse();
 
 // Every number is a living entity
 const seven = universe.number(7);
-console.log(seven.fields);        // Active: I, T, φ
-console.log(seven.resonance);     // 2.975...
-console.log(seven.isPrime);       // true (computational atom)
+console.log(seven.fields); // Active: I, T, φ
+console.log(seven.resonance); // 2.975...
+console.log(seven.isPrime); // true (computational atom)
 
 // Arithmetic is program compilation
 const seventySeven = universe.multiply(7, 11);
@@ -173,6 +173,7 @@ console.log(seventySeven.fields); // Active: I, φ, ½, θ (NOT the union!)
 ### Self-Referential Structure
 
 The universe bootstraps itself:
+
 - Primes encode field constants
 - Field constants determine primes
 - This circular definition creates existence
@@ -180,6 +181,7 @@ The universe bootstraps itself:
 ### Lagrange Points
 
 Special positions where computation stabilizes:
+
 - 0, 1: Fundamental fixed points
 - 48, 49: Primary Lagrange points
 - Every 48 numbers: Page boundaries
@@ -221,6 +223,7 @@ Each layer builds on the previous, creating emergent complexity:
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Key principles:
+
 - No hard-coded values - everything emerges from the universe
 - Self-referential implementation - the system defines itself
 - Layer separation - each layer has clear responsibilities
@@ -232,6 +235,7 @@ MIT - See [LICENSE](LICENSE)
 ## Research Applications
 
 This implementation enables:
+
 - Computational number theory research
 - Self-referential system exploration
 - Emergent complexity studies
@@ -245,4 +249,4 @@ This implementation enables:
 
 ---
 
-*"I compute, therefore I am."* - The Mathematical Universe
+_"I compute, therefore I am."_ - The Mathematical Universe

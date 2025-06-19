@@ -9,6 +9,7 @@ The Mathematical Universe exhibits δ-hyperbolic geometry, meaning that geodesic
 A metric space (X, d) is **δ-hyperbolic** if for every geodesic triangle with vertices a, b, c, any point on the geodesic from a to b is within distance δ of the union of the other two sides.
 
 For the Mathematical Universe:
+
 ```
 (ℤ, d) is δ-hyperbolic with δ ≤ 2
 ```
@@ -18,6 +19,7 @@ where d is the composite Page metric combining field-space, resonance, and page 
 ## Proof Outline
 
 ### Triangle Thinness
+
 For any three integers a, b, c forming a triangle:
 
 1. **Geodesics**: Shortest paths follow the integer line with metric d
@@ -27,11 +29,13 @@ For any three integers a, b, c forming a triangle:
    ```
 
 ### Key Geometric Facts
+
 - **Discrete structure**: Integer lattice provides natural geometric framework
 - **Bounded curvature**: |κ(n)| ≤ 1.92 limits local distortion
 - **Page periodicity**: Regular structure prevents excessive stretching
 
 ### Technical Proof Steps
+
 1. **Local analysis**: Examine 3-point neighborhoods
 2. **Metric properties**: Use β-Lipschitz bounds from field transformations
 3. **Curvature bounds**: Discrete Ricci curvature constraints
@@ -48,6 +52,7 @@ At any n ∉ 𝓛₀, exactly one of {n-1, n+1} has lower potential Φ
 ```
 
 **Geometric Reasoning**:
+
 - Two distinct downhill directions would create a "thick" triangle
 - δ ≤ 2 constraint prevents this configuration
 - Exception: 64 saddle points where symmetry creates ties
@@ -55,6 +60,7 @@ At any n ∉ 𝓛₀, exactly one of {n-1, n+1} has lower potential Φ
 ### No Limit Cycles
 
 The thin triangle property rules out:
+
 - **Periodic orbits**: Would require thick geometric structures
 - **Wandering behavior**: Prevented by geometric constraints
 - **Multiple attractors**: Each point has unique Lagrange destination
@@ -62,9 +68,11 @@ The thin triangle property rules out:
 ### Deterministic Convergence
 
 Combined with the Lyapunov function L(n) = |Res(n) - 1|:
+
 ```
 Every trajectory: n₀ → n₁ → n₂ → ... → n* ∈ 𝓛₀
 ```
+
 is **unique, finite, and deterministic** (except at saddle initialization).
 
 ## Saddle Point Analysis
@@ -72,11 +80,13 @@ is **unique, finite, and deterministic** (except at saddle initialization).
 ### The 64 Exception Points
 
 Saddle points occur when **bits 6 and 7 are both active**:
+
 ```
 𝒮 = {n : n mod 256 ∈ {192, 193, ..., 255}}
 ```
 
 At these points:
+
 - **Tie condition**: Φ(n-1) = Φ(n+1) < Φ(n)
 - **Geometric interpretation**: Perfect symmetry creates thick triangles locally
 - **Resolution**: Either direction leads to deterministic flow after one step
@@ -84,6 +94,7 @@ At these points:
 ### Deep-ζ Plateau
 
 The saddle points lie in the "Deep-ζ plateau" where:
+
 - **High entropy**: α₆α₇ ≪ 1 creates flat resonance landscape
 - **Symmetry**: Equal resonance in both directions
 - **Measure zero**: Only 64 out of 256 offsets per cycle
@@ -101,6 +112,7 @@ The saddle points lie in the "Deep-ζ plateau" where:
 ### Complexity Bounds
 
 The hyperbolic constraint gives:
+
 - **Path uniqueness**: At most one optimal path between points
 - **Convergence time**: Bounded by geometric diameter
 - **Space complexity**: Logarithmic in problem size
@@ -114,11 +126,13 @@ The hyperbolic constraint gives:
 ## Comparison with Classical Hyperbolic Geometry
 
 ### Similarities
+
 - **Thin triangles**: Core defining property
 - **Exponential growth**: Volume growth in hyperbolic spaces
 - **Unique geodesics**: Between any two points
 
 ### Differences
+
 - **Discrete structure**: Integer lattice vs continuous manifolds
 - **Bounded geometry**: Periodic structure vs infinite hyperbolic space
 - **Computational interpretation**: Algorithmic flows vs geometric flows
@@ -128,6 +142,7 @@ The hyperbolic constraint gives:
 ### Prime Distribution
 
 Hyperbolicity constrains prime gap behavior:
+
 - **Geometric bounds**: Maximum gaps limited by thin triangles
 - **Flow convergence**: Primes emerge from geometric optimization
 - **Correlation constraints**: δ-bound limits statistical correlations
@@ -135,6 +150,7 @@ Hyperbolicity constrains prime gap behavior:
 ### Factorization Algorithms
 
 Hyperbolic geometry guides factorization:
+
 - **Search strategies**: Exploit geometric constraints
 - **Convergence guarantees**: δ-bound ensures termination
 - **Efficiency gains**: Geometric optimization vs brute force
@@ -142,6 +158,7 @@ Hyperbolic geometry guides factorization:
 ### Diophantine Equations
 
 Solutions to equations in the Mathematical Universe:
+
 - **Geometric constraints**: Hyperbolic bounds on solution sets
 - **Search algorithms**: Guided by geometric optimization
 - **Existence theorems**: Geometric criteria for solvability
@@ -151,6 +168,7 @@ Solutions to equations in the Mathematical Universe:
 ### β-Lipschitz Property
 
 The field activation map β: ℤ → Σ is β-Lipschitz:
+
 ```
 d_Σ(β(m), β(n)) ≤ (1 + ⌊log₂|m-n|⌋) ≤ 8
 ```
@@ -160,11 +178,13 @@ This Lipschitz bound is crucial for proving hyperbolicity.
 ### Composite Metric Structure
 
 The full metric combines:
+
 ```
 d(m,n) = √(w_P d_P² + w_R d_R² + w_Σ d_Σ²)
 ```
 
 Each component contributes to the hyperbolic structure:
+
 - **Page metric d_P**: Discrete topology
 - **Resonance metric d_R**: Computational energy
 - **Field metric d_Σ**: Information distance
@@ -174,11 +194,13 @@ Each component contributes to the hyperbolic structure:
 ### Resonance Gradient Flow
 
 The flow F: ℤ → ℤ respects hyperbolic geometry:
+
 ```
 F(n) = argmin{Φ(n-1), Φ(n+1)}
 ```
 
 Hyperbolicity ensures:
+
 - **Unique minimum**: Except at 64 saddle points
 - **Convergence**: To nearest Lagrange well
 - **Stability**: Lyapunov function decreases monotonically
@@ -186,6 +208,7 @@ Hyperbolicity ensures:
 ### Geometric Interpretation
 
 The Mathematical Universe can be viewed as:
+
 - **Discrete hyperbolic space**: With computational interpretation
 - **Energy landscape**: Resonance provides potential function
 - **Optimization manifold**: Natural gradient flows
@@ -215,6 +238,7 @@ The Mathematical Universe can be viewed as:
 ### Numerical Stability
 
 Working in hyperbolic geometry requires:
+
 - **Exact arithmetic**: Avoid floating-point errors
 - **Integer operations**: Preserve discrete structure
 - **Geometric invariants**: Maintain hyperbolic properties
@@ -222,6 +246,7 @@ Working in hyperbolic geometry requires:
 ### Algorithmic Efficiency
 
 Exploiting hyperbolicity:
+
 - **Pruning strategies**: Use thin triangles to eliminate paths
 - **Cache coherence**: Geometric locality for memory optimization
 - **Parallel algorithms**: Independent exploration of thin regions
@@ -229,6 +254,7 @@ Exploiting hyperbolicity:
 ### Verification Methods
 
 Testing hyperbolic properties:
+
 - **Triangle tests**: Verify thin triangle condition
 - **Flow verification**: Check convergence properties
 - **Metric validation**: Ensure geometric consistency

@@ -1,5 +1,5 @@
-import { 
-  FIELD_COUNT, 
+import {
+  FIELD_COUNT,
   FIELD_CONSTANTS,
   FIELD_NAMES,
   CONSTITUTIONAL_PRIMES,
@@ -10,7 +10,7 @@ import {
   byteToPattern,
   verifyFieldConstants,
   createFieldSubstrate,
-  FieldIndex
+  FieldIndex,
 } from '../src';
 
 describe('Field Substrate - Layer 0', () => {
@@ -24,26 +24,26 @@ describe('Field Substrate - Layer 0', () => {
     test('should have correct field constant values', () => {
       // Identity field
       expect(FIELD_CONSTANTS[0]).toBe(1.0);
-      
+
       // Tribonacci field: documented as 1.8392867552141612
       // Note: Has more precision than simple (23 × 211 × 379) / 10^6 = 1.839287
       expect(FIELD_CONSTANTS[1]).toBe(1.8392867552141612);
-      
+
       // Golden ratio: (1 + √5) / 2
       const expectedPhi = (1 + Math.sqrt(5)) / 2;
       expect(FIELD_CONSTANTS[2]).toBeCloseTo(expectedPhi, 15);
-      
+
       // Half field
       expect(FIELD_CONSTANTS[3]).toBe(0.5);
-      
+
       // Frequency fields
       expect(FIELD_CONSTANTS[4]).toBeCloseTo(1 / (2 * Math.PI), 15);
       expect(FIELD_CONSTANTS[5]).toBeCloseTo(2 * Math.PI, 15);
-      
+
       // Phase field: (4 × 7 × 7129) / 10^6
       const expectedPhase = (4 * 7 * 7129) / 1_000_000;
       expect(FIELD_CONSTANTS[6]).toBe(expectedPhase);
-      
+
       // Zeta field: documented as 0.014134725
       // Note: Has more precision than simple (107 × 1321) / 10^7 = 0.0141347
       expect(FIELD_CONSTANTS[7]).toBe(0.014134725);
@@ -67,16 +67,16 @@ describe('Field Substrate - Layer 0', () => {
     test('should calculate correct field patterns for small numbers', () => {
       // 0: 00000000 - no fields active
       expect(getFieldPattern(0n)).toEqual([false, false, false, false, false, false, false, false]);
-      
+
       // 1: 00000001 - only field 0 (Identity) active
       expect(getFieldPattern(1n)).toEqual([true, false, false, false, false, false, false, false]);
-      
+
       // 7: 00000111 - fields 0, 1, 2 active (I, T, φ)
       expect(getFieldPattern(7n)).toEqual([true, true, true, false, false, false, false, false]);
-      
+
       // 48: 00110000 - fields 4, 5 active (perfect resonance pair)
       expect(getFieldPattern(48n)).toEqual([false, false, false, false, true, true, false, false]);
-      
+
       // 255: 11111111 - all fields active
       expect(getFieldPattern(255n)).toEqual([true, true, true, true, true, true, true, true]);
     });
@@ -84,10 +84,10 @@ describe('Field Substrate - Layer 0', () => {
     test('should handle large numbers using mod 256', () => {
       // 256 ≡ 0 (mod 256)
       expect(getFieldPattern(256n)).toEqual(getFieldPattern(0n));
-      
+
       // 257 ≡ 1 (mod 256)
       expect(getFieldPattern(257n)).toEqual(getFieldPattern(1n));
-      
+
       // 1000 ≡ 232 (mod 256)
       expect(getFieldPattern(1000n)).toEqual(getFieldPattern(232n));
     });
@@ -111,7 +111,7 @@ describe('Field Substrate - Layer 0', () => {
       expect(isFieldActive(7n, 1)).toBe(true);
       expect(isFieldActive(7n, 2)).toBe(true);
       expect(isFieldActive(7n, 3)).toBe(false);
-      
+
       // Number 48 has fields 4, 5 active
       expect(isFieldActive(48n, 4)).toBe(true);
       expect(isFieldActive(48n, 5)).toBe(true);
@@ -193,7 +193,7 @@ describe('Field Substrate - Layer 0', () => {
         const pattern1 = getFieldPattern(BigInt(i));
         const pattern2 = getFieldPattern(BigInt(i + 256));
         const pattern3 = getFieldPattern(BigInt(i + 512));
-        
+
         expect(pattern2).toEqual(pattern1);
         expect(pattern3).toEqual(pattern1);
       }
@@ -202,7 +202,7 @@ describe('Field Substrate - Layer 0', () => {
     test('should handle BigInt arithmetic correctly', () => {
       const hugeNumber = 123456789012345678901234567890n;
       const modulo = hugeNumber % 256n;
-      
+
       expect(getFieldPattern(hugeNumber)).toEqual(getFieldPattern(modulo));
     });
   });
@@ -212,14 +212,14 @@ describe('Field Substrate - Layer 0', () => {
       // From documentation: 7 has fields I, T, φ active
       const seven = getActiveFields(7n);
       expect(seven).toContain(0); // I
-      expect(seven).toContain(1); // T  
+      expect(seven).toContain(1); // T
       expect(seven).toContain(2); // φ
       expect(seven.length).toBe(3);
-      
+
       // 11 = 1011 binary → fields 0, 1, 3 active
       const eleven = getActiveFields(11n);
       expect(eleven).toEqual([0, 1, 3]);
-      
+
       // 48 has perfect resonance (fields 4, 5 only)
       const fortyEight = getActiveFields(48n);
       expect(fortyEight).toEqual([4, 5]);

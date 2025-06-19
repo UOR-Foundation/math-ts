@@ -14,10 +14,10 @@ Traditional calculus assumes continuity, but our universe is discrete. The solut
 
 ```typescript
 // The discrete derivative
-Δf(n) = f(n+1) - f(n)
+Δf(n) = f(n + 1) - f(n);
 
 // For resonance function:
-ΔResonance(n) = Resonance(n+1) - Resonance(n)
+ΔResonance(n) = Resonance(n + 1) - Resonance(n);
 
 // This measures the "field pressure" driving change
 ```
@@ -227,13 +227,15 @@ Small changes in field patterns can cause large effects:
 ### Strange Attractors
 
 In field space, trajectories converge to fractal structures:
+
 - Not fixed points
-- Not limit cycles  
+- Not limit cycles
 - Fractal attractors with non-integer dimension
 
 ### Bifurcation Points
 
 Where system behavior qualitatively changes:
+
 - Period doubling
 - Chaos onset
 - Phase transitions
@@ -243,7 +245,7 @@ Where system behavior qualitatively changes:
 ### Random Walks in Field Space
 
 ```typescript
-field(t+dt) = field(t) + drift*dt + diffusion*dW
+field(t + dt) = field(t) + drift * dt + diffusion * dW;
 
 // dW = Brownian motion
 // Models quantum fluctuations
@@ -266,13 +268,13 @@ Evolution of probability distributions:
 
 ```typescript
 // Shift operator
-E[f(n)] = f(n+1)
+E[f(n)] = f(n + 1);
 
-// Difference operator  
-Δ = E - I
+// Difference operator
+Δ = E - I;
 
 // Identity
-I[f(n)] = f(n)
+I[f(n)] = f(n);
 ```
 
 ### Generating Functions
@@ -288,11 +290,13 @@ G(x) = ∑[n=0 to ∞] a_n * x^n
 ## Connection to Other Layers
 
 ### From Geometric Manifolds
+
 - Uses manifold structure for derivatives
 - Integrates over curved spaces
 - Follows geodesic flows
 
 ### To Self-Reference Core
+
 - Calculus describes its own evolution
 - Derivatives of derivatives
 - Meta-mathematical dynamics
@@ -300,6 +304,7 @@ G(x) = ∑[n=0 to ∞] a_n * x^n
 ## The Self-Aware Universe
 
 The Calculus Engine reveals the universe as self-aware:
+
 - **Knows** its rate of change (derivatives)
 - **Remembers** its history (integrals)
 - **Predicts** its future (differential equations)

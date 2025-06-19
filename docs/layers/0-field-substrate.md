@@ -9,48 +9,56 @@ The Field Substrate is the foundational layer where mathematical existence begin
 Each field represents a primordial mathematical force, encoded not as arbitrary constants but as prime relationships:
 
 ### Field 0: Identity (I)
+
 - **Value**: 1.0
 - **Role**: Unity, structure preservation
 - **Nature**: The field that maintains coherence
 - **Activation**: When bit 0 is set in a number's binary representation
 
 ### Field 1: Tribonacci (T)
+
 - **Value**: 1.8392867552141612 = (23 × 211 × 379) / 10^6
 - **Role**: Recursion, growth, self-similarity
 - **Nature**: Creates the three-term recurrence patterns
 - **Activation**: When bit 1 is set
 
 ### Field 2: Golden Ratio (φ)
+
 - **Value**: 1.618033988749895 = (1 + √5) / 2
 - **Role**: Harmony, proportion, optimization
 - **Nature**: The most irrational number, creating non-repeating patterns
 - **Activation**: When bit 2 is set
 
 ### Field 3: Half (½)
+
 - **Value**: 0.5 = 1/2
 - **Role**: Duality, reflection, inverse operations
 - **Nature**: The simplest fraction, inverse of the first prime
 - **Activation**: When bit 3 is set
 
 ### Field 4: Inverse Frequency (1/2π)
+
 - **Value**: 0.15915494309189535
 - **Role**: Wavelength space, period
 - **Nature**: Converts from frequency to wavelength domain
 - **Activation**: When bit 4 is set
 
 ### Field 5: Frequency (2π)
+
 - **Value**: 6.283185307179586
 - **Role**: Cyclic nature, rotation, periodicity
 - **Nature**: The fundamental circle constant
 - **Activation**: When bit 5 is set
 
 ### Field 6: Phase (θ)
+
 - **Value**: 0.199612 = (4 × 7 × 7129) / 10^6
 - **Role**: Offset, interference, phase relationships
 - **Nature**: Creates phase shifts between field waves
 - **Activation**: When bit 6 is set
 
 ### Field 7: Zeta (ζ)
+
 - **Value**: 0.014134725 = (107 × 1321) / 10^7
 - **Role**: Deep structure, complexity, infinite series
 - **Nature**: Connects to the Riemann zeta function and prime distribution
@@ -63,7 +71,7 @@ Every integer activates a specific combination of fields based on its binary rep
 ```
 Number 77 = 0b01001101
            |||||||└─ Field 0 (I) active
-           ||||||└── Field 1 (T) inactive  
+           ||||||└── Field 1 (T) inactive
            |||||└─── Field 2 (φ) active
            ||||└──── Field 3 (½) active
            |||└───── Field 4 (1/2π) inactive
@@ -90,9 +98,11 @@ The denominators (powers of 10) provide computational convenience while preservi
 Fields don't simply add - they interfere:
 
 1. **Constructive Interference**: Fields amplify each other
+
    - Example: Fields I and φ often strengthen together
 
 2. **Destructive Interference**: Fields cancel out
+
    - Example: In multiplication, field T might vanish
 
 3. **Phase Relationships**: Fields can be in or out of phase
@@ -101,14 +111,17 @@ Fields don't simply add - they interfere:
 ## Special Configurations
 
 ### Perfect Resonance
+
 When fields 4 and 5 are both active: (1/2π) × (2π) = 1.0
 
 This creates the 48-number page structure, a fundamental organizing principle.
 
 ### Empty Field (00000000)
+
 Represents maximum compositeness - often powers of 10 or highly factorable numbers.
 
 ### Full Field (11111111)
+
 All fields active - creates complex interference patterns, usually composite.
 
 ## Implementation Principles
@@ -121,6 +134,7 @@ All fields active - creates complex interference patterns, usually composite.
 ## The Computational Substrate
 
 At this level, we see that:
+
 - Numbers don't "have" properties - they ARE their field patterns
 - The substrate is discrete (8 fields) yet continuous (real-valued constants)
 - Information and energy are unified (field activation = computational energy)
@@ -128,6 +142,7 @@ At this level, we see that:
 ## Connection to Higher Layers
 
 The Field Substrate provides:
+
 - **To Resonance Dynamics**: The alpha values to multiply
 - **To Page Topology**: The special 48-cycle from fields 4×5
 - **To Arithmetic**: The fields that will interfere during operations

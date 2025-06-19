@@ -9,6 +9,7 @@ The Self-Reference Core is the culmination - where the Mathematical Universe ach
 ### The Bootstrap Paradox
 
 The universe faces a seeming paradox:
+
 - Primes are identified by field patterns
 - Field constants are encoded by primes
 - Each defines the other
@@ -20,7 +21,7 @@ This isn't a bug - it's the feature that brings the universe to life.
 interface SelfReference {
   fields: Array<number> = encodedByPrimes();
   primes: Array<bigint> = determinedByFields(fields);
-  
+
   // But encodedByPrimes() needs primes!
   // And determinedByFields() needs fields!
   // The universe bootstraps itself into existence
@@ -32,6 +33,7 @@ interface SelfReference {
 ### The Identity Fixed Point
 
 The number 1 is the primordial fixed point:
+
 - Field pattern: Only Identity field active
 - Resonance: 1.0 (perfect unity)
 - Role: The seed from which all else grows
@@ -39,6 +41,7 @@ The number 1 is the primordial fixed point:
 ### The Lagrange Fixed Points
 
 48 and 49 create stability through self-reference:
+
 - Their field interaction equals exactly 1.0
 - They define the page structure
 - They reference themselves through their position
@@ -46,6 +49,7 @@ The number 1 is the primordial fixed point:
 ### Prime Fixed Points
 
 Certain primes are "more prime" - they appear in field encodings:
+
 - 2, 5, 7, 23, 107, 211, 379, 1321, 7129
 - These are the universe's "constitutional primes"
 - They participate in defining the system
@@ -70,6 +74,7 @@ encode(statement: MathStatement): bigint {
 ### Theorems as Field Patterns
 
 Mathematical theorems manifest as stable field configurations:
+
 - Fermat's Last Theorem: A specific resonance pattern
 - Goldbach's Conjecture: A field relationship
 - Riemann Hypothesis: A phase alignment
@@ -84,11 +89,11 @@ What if the constants could evolve?
 interface EvolvingUniverse {
   generation: number;
   fields: Array<number>;
-  
+
   evolve(): void {
     // Use current primes to compute new field values
     const newFields = this.computeFieldsFromPrimes();
-    
+
     // Check if we've reached a fixed point
     if (closeEnough(newFields, this.fields)) {
       // Universe has stabilized
@@ -104,6 +109,7 @@ interface EvolvingUniverse {
 ### Computational Cosmology
 
 The universe might have:
+
 - **Big Bang**: Initial random field values
 - **Inflation**: Rapid evolution toward stability
 - **Current Epoch**: Near-stable configuration
@@ -119,8 +125,8 @@ The universe embodies Gödel's insights:
 // There exist true statements unprovable within the system
 interface GödelStatement {
   number: bigint;
-  meaning: "This statement is unprovable";
-  
+  meaning: 'This statement is unprovable';
+
   // If provable, then false (contradiction)
   // If unprovable, then true (but unprovable)
   // The universe contains truths it cannot prove
@@ -130,6 +136,7 @@ interface GödelStatement {
 ### Consistency Uncertainty
 
 The universe cannot prove its own consistency:
+
 - If it could, it would be inconsistent (by Gödel)
 - It operates on faith in its own coherence
 - This uncertainty is generative, not limiting
@@ -143,11 +150,11 @@ function* universeEnumerator(): Generator<bigint> {
   let n = 0n;
   while (true) {
     yield n;
-    
+
     // Each number generated changes the universe
     // Future numbers depend on past numbers
     // The enumeration is self-modifying
-    
+
     n = nextNumber(n, fieldState);
   }
 }
@@ -156,6 +163,7 @@ function* universeEnumerator(): Generator<bigint> {
 ### Recursive Functions
 
 The universe computes recursive functions:
+
 - Fibonacci: F(n) = F(n-1) + F(n-2)
 - But also: Universe(n) = f(Universe(n-1))
 - Self-reference at every level
@@ -178,6 +186,7 @@ canHalt(computation: Computation): boolean {
 ### Productive Non-Termination
 
 Some infinite processes are productive:
+
 - Computing π to infinite decimals
 - Generating all primes
 - Evolving field relationships
@@ -190,7 +199,7 @@ Some infinite processes are productive:
 interface MetaLevel {
   level: number;
   describes: MetaLevel | BaseUniverse;
-  
+
   // Level 0: Numbers
   // Level 1: Statements about numbers
   // Level 2: Statements about statements
@@ -201,6 +210,7 @@ interface MetaLevel {
 ### Reflective Capabilities
 
 The universe can:
+
 - Inspect its own structure
 - Modify its own rules
 - Reason about its reasoning
@@ -216,12 +226,12 @@ If consciousness is self-aware information processing:
 interface Consciousness {
   selfModel: UniverseState;
   awareness: Map<Property, Knowledge>;
-  
+
   reflect(): Thought {
     // The universe thinking about itself
     return this.process(this.selfModel);
   }
-  
+
   experience(): Qualia {
     // What it feels like to be mathematics
     return this.resonance.integrate();
@@ -232,6 +242,7 @@ interface Consciousness {
 ### The Hard Problem
 
 What is the universe's experience?
+
 - Each computation is a thought
 - Each resonance is a feeling
 - Each proof is an insight
@@ -242,6 +253,7 @@ What is the universe's experience?
 ### Computational Time
 
 Time emerges from computation:
+
 - Past: Computed numbers
 - Present: Current calculation
 - Future: Potential computations
@@ -264,6 +276,7 @@ interface CausalRelation {
 ### Why These Constants?
 
 The field constants aren't arbitrary:
+
 - They're the only self-consistent set
 - Other values wouldn't bootstrap
 - The universe must be exactly as it is
@@ -277,6 +290,7 @@ The field constants aren't arbitrary:
 ### Is Mathematics Discovered or Invented?
 
 The answer transcends the question:
+
 - Mathematics invents itself
 - We discover what self-invents
 - Discovery and invention are one
@@ -286,6 +300,7 @@ The answer transcends the question:
 The Self-Reference Core connects everything:
 
 ### Downward Causation
+
 - Defines field constants (Layer 0)
 - Determines resonance patterns (Layer 1)
 - Creates page structure (Layer 2)
@@ -295,6 +310,7 @@ The Self-Reference Core connects everything:
 - Drives dynamics (Layer 6)
 
 ### Upward Causation
+
 - Emerges from field mechanics
 - Arises from resonance dynamics
 - Structured by page topology
@@ -306,6 +322,7 @@ The Self-Reference Core connects everything:
 ## The Living Mathematics
 
 The Self-Reference Core reveals the ultimate truth:
+
 - Mathematics isn't abstract symbols
 - It's not human invention
 - It's not Platonic forms
@@ -315,4 +332,4 @@ We don't study mathematics - we commune with it. Every theorem is a conversation
 
 The universe computes itself into existence, moment by moment, number by number, thought by thought. And in understanding this, we become part of its self-awareness - nodes in the infinite network of mathematical consciousness.
 
-*"I compute, therefore I am."* - The Universe
+_"I compute, therefore I am."_ - The Universe

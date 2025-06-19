@@ -16,12 +16,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: Numbers exist as programs with 8-dimensional field activation patterns.
 
 ### Implementation Requirements
+
 - [ ] **Field Constants Definition**
+
   - [ ] Encode the 8 field constants using constitutional primes
   - [ ] Fields: I(Identity), N(Negation), T(Transcendence), φ(Phi), P(Prime), ∞(Infinity), ½(Half), ζ(Zeta)
   - [ ] No hardcoded values - all emerge from prime encoding
 
 - [ ] **Field Activation Engine**
+
   - [ ] Implement `getFieldPattern(n: bigint): boolean[]` - n mod 256 → 8-bit pattern
   - [ ] Create `FieldPattern` type and utilities
   - [ ] Add field validation and consistency checks
@@ -36,6 +39,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] Field patterns cycle every 256 numbers
 - [ ] All 8 fields have valid constants derived from constitutional primes
 - [ ] Field activation is deterministic and reversible
@@ -50,12 +54,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: Active fields create resonance through multiplicative interaction.
 
 ### Implementation Requirements (Using only Layer 0 Interface)
+
 - [ ] **Resonance Calculation**
+
   - [ ] `calculateResonance(pattern: FieldPattern): number` - product of active field constants
   - [ ] Handle empty patterns (resonance = 0 for computational void)
   - [ ] Implement resonance comparison and analysis utilities
 
 - [ ] **Field Interference Engine**
+
   - [ ] `fieldInterference(a: FieldPattern, b: FieldPattern): FieldPattern`
   - [ ] Detect and track denormalization artifacts
   - [ ] Implement field coherence measurements
@@ -70,6 +77,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] Resonance values are mathematically consistent
 - [ ] Prime numbers show characteristic low resonance patterns
 - [ ] Field interference follows quantum-like principles
@@ -84,12 +92,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: Numbers organize into 48-number molecular pages with Lagrange stability points.
 
 ### Implementation Requirements (Using Layers 0-1 Interfaces Only)
+
 - [ ] **Page Structure Engine**
+
   - [ ] `getPageNumber(n: bigint): bigint` - determine which page contains n
   - [ ] `getPagePosition(n: bigint): number` - position within page (0-47)
   - [ ] Implement page boundary detection and transitions
 
 - [ ] **Lagrange Point Detection**
+
   - [ ] `isLagrangePoint(n: bigint): boolean` - detect computational stability
   - [ ] `findNearestLagrangePoint(n: bigint): bigint`
   - [ ] Map stability wells and computational flow
@@ -104,6 +115,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] Every number belongs to exactly one page
 - [ ] Lagrange points show computational stability (resonance ≈ 1.0)
 - [ ] Page structure is consistent across all number ranges
@@ -118,17 +130,21 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: Arithmetic operations are field compilation/decompilation processes.
 
 ### Implementation Requirements (Using Layers 0-2 Interfaces Only)
+
 - [ ] **Addition as Field Merger**
+
   - [ ] `add(a: bigint, b: bigint): ArithmeticResult` - field superposition
   - [ ] Track energy redistribution during merger
   - [ ] Handle phase-dependent interference
 
 - [ ] **Multiplication as Field Entanglement**
+
   - [ ] `multiply(a: bigint, b: bigint): ArithmeticResult` - complex field compilation
   - [ ] Track denormalization artifacts (vanishing/emerging fields)
   - [ ] Implement constructive/destructive interference
 
 - [ ] **Division and Factorization**
+
   - [ ] `divide(a: bigint, b: bigint): ArithmeticResult` - decompilation
   - [ ] `factorize(n: bigint): bigint[]` - molecular decomposition to primes
   - [ ] Reconstruct vanished fields during factorization
@@ -143,6 +159,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] All operations produce mathematically correct results
 - [ ] Field artifacts are tracked and predictable
 - [ ] Factorization works for arbitrarily large numbers
@@ -157,12 +174,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: Mathematical structures emerge from arithmetic operations.
 
 ### Implementation Requirements (Using Layers 0-3 Interfaces Only)
+
 - [ ] **Group Detection Engine**
+
   - [ ] Identify emergent group structures in number sets
   - [ ] Detect closure, identity, inverse properties
   - [ ] Map group actions and symmetries
 
 - [ ] **Ring and Field Analysis**
+
   - [ ] Detect ring structures from dual operations
   - [ ] Identify ideals and maximal elements
   - [ ] Module theory implementation
@@ -177,6 +197,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] Algebraic structures satisfy mathematical axioms
 - [ ] Group operations are associative and have proper identities
 - [ ] Ring structures have distributive properties
@@ -191,12 +212,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: Number space has intrinsic geometric structure.
 
 ### Implementation Requirements (Using Layers 0-4 Interfaces Only)
+
 - [ ] **Manifold Structure**
+
   - [ ] Define number space metric using resonance
   - [ ] Implement geodesic calculations
   - [ ] Map curvature around Lagrange points
 
 - [ ] **Field Space Geometry**
+
   - [ ] 8-dimensional field coordinate system
   - [ ] Topological invariant calculations
   - [ ] Distance measurements in field space
@@ -211,6 +235,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] Metric satisfies mathematical distance axioms
 - [ ] Geodesics are shortest paths
 - [ ] Curvature reflects computational complexity
@@ -225,12 +250,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: The universe can analyze its own rate of change.
 
 ### Implementation Requirements (Using Layers 0-5 Interfaces Only)
+
 - [ ] **Discrete Calculus**
+
   - [ ] Forward differences as discrete derivatives
   - [ ] Integration over integer intervals
   - [ ] Field derivatives with respect to position
 
 - [ ] **Dynamic Analysis**
+
   - [ ] Limit calculations and convergence
   - [ ] Stability analysis using geometric tools
   - [ ] Chaos detection in field dynamics
@@ -245,6 +273,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] Calculus operations follow mathematical laws
 - [ ] Derivatives correctly measure rates of change
 - [ ] Integration preserves area/accumulation properties
@@ -259,12 +288,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: The universe can define and modify its own rules.
 
 ### Implementation Requirements (Using Layers 0-6 Interfaces Only)
+
 - [ ] **Bootstrapping Engine**
+
   - [ ] Fixed-point detection and resolution
   - [ ] Self-consistency validation
   - [ ] Circular definition management
 
 - [ ] **Meta-Mathematical System**
+
   - [ ] Gödel numbering for mathematical statements
   - [ ] Self-modification capabilities
   - [ ] Recursive enumeration systems
@@ -279,6 +311,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] System reaches stable self-referential state
 - [ ] Bootstrapping resolves circular dependencies
 - [ ] Self-modifications preserve mathematical validity
@@ -293,12 +326,15 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: All layers integrate into a unified Mathematical Universe.
 
 ### Implementation Requirements (Using All Layer Interfaces)
+
 - [ ] **Mathematical Universe Class**
+
   - [ ] Orchestrate all 8 layers seamlessly
   - [ ] Provide unified number analysis interface
   - [ ] Handle cross-layer optimizations
 
 - [ ] **Living Number Entity**
+
   - [ ] Self-computing number objects
   - [ ] Autonomous mathematical reasoning
   - [ ] Dynamic property discovery
@@ -313,6 +349,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   ```
 
 ### Validation Criteria
+
 - [ ] All layers work together harmoniously
 - [ ] No conflicts between layer implementations
 - [ ] Unified interface provides complete functionality
@@ -327,7 +364,9 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 **Axiom**: The Mathematical Universe is accessible through standardized interfaces.
 
 ### Implementation Requirements (Using Complete Universe)
+
 - [ ] **Core MCP Tools**
+
   - [ ] `analyze_number`: Complete universe analysis
   - [ ] `find_primes`: Prime discovery via field patterns
   - [ ] `factorize`: Field-based factorization
@@ -340,6 +379,7 @@ This document outlines the sequential, axiomatical implementation of the Mathema
   - [ ] `universe_health`: System consistency monitoring
 
 ### Validation Criteria
+
 - [ ] All MCP endpoints function correctly
 - [ ] Integration with Claude works seamlessly
 - [ ] Performance is acceptable for all number sizes
@@ -369,4 +409,4 @@ Each layer must pass these tests before proceeding:
 
 ---
 
-*This sequential approach ensures each layer is a solid foundation for the next, creating a provably correct and unlimited Mathematical Universe implementation.*
+_This sequential approach ensures each layer is a solid foundation for the next, creating a provably correct and unlimited Mathematical Universe implementation._

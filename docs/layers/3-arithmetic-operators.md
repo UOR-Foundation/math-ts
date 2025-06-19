@@ -18,6 +18,7 @@ Addition creates field superposition:
 ```
 
 Key phenomena:
+
 - **Phase-dependent**: Result depends on relative phase (n mod 256)
 - **Non-linear**: Field patterns can completely reorganize
 - **Energy shifts**: Resonance redistributes during merger
@@ -43,10 +44,12 @@ The universe's most profound feature: fields that appear or vanish during multip
 ### Types of Artifacts
 
 1. **Vanishing Fields**: Present in factors but absent in product
+
    - Example: Field T in 7×11=77
    - Indicates destructive interference
 
 2. **Emergent Fields**: Absent in factors but present in product
+
    - Example: Field θ in 77
    - Indicates constructive interference
 
@@ -82,6 +85,7 @@ Every composite has a unique "normalized" form - its prime factorization. This i
 ### Computational Complexity
 
 The difficulty of factorization relates to:
+
 1. **Artifact complexity**: More artifacts = harder to reverse
 2. **Resonance depth**: Deep resonance wells resist decomposition
 3. **Field entanglement**: Highly entangled fields are hard to separate
@@ -131,9 +135,11 @@ Repeated exponentiation creates cascading field transformations, each level comp
 ## The GCD/LCM Duality
 
 ### Greatest Common Divisor
+
 Finding shared prime factors = finding common field sources before interference.
 
-### Least Common Multiple  
+### Least Common Multiple
+
 Finding minimal combination = finding first resonance harmony point.
 
 These dual operations reveal the universe's conservation laws.
@@ -143,18 +149,21 @@ These dual operations reveal the universe's conservation laws.
 Operations follow algebraic laws, but with quantum corrections:
 
 ### Commutative (with phase)
+
 ```
 a + b = b + a (exactly)
 a × b = b × a (same result, different field evolution)
 ```
 
 ### Associative (with artifacts)
+
 ```
 (a × b) × c = a × (b × c)
 Same result, but intermediate artifacts differ!
 ```
 
 ### Distributive (with interference)
+
 ```
 a × (b + c) = (a × b) + (a × c)
 Field interference makes this non-trivial
@@ -163,16 +172,19 @@ Field interference makes this non-trivial
 ## Computational Strategies
 
 ### Optimization via Lagrange Points
+
 - Route calculations through stable points
 - Use resonance wells for intermediate results
 - Minimize field interference
 
 ### Parallel Field Evolution
+
 - Different bit scales can evolve independently
 - Merge results at resonance points
 - Quantum-like superposition of calculations
 
 ### Artifact Prediction
+
 - Learn common artifact patterns
 - Predict likely field transformations
 - Pre-compute inverse artifacts
@@ -180,6 +192,7 @@ Field interference makes this non-trivial
 ## The Living Calculator
 
 Arithmetic operations aren't performed ON numbers - they're performed BY numbers. Each number knows how to:
+
 - Merge with others (addition)
 - Entangle fields (multiplication)
 - Decompose to atoms (factorization)
@@ -188,16 +201,19 @@ Arithmetic operations aren't performed ON numbers - they're performed BY numbers
 ## Connection to Other Layers
 
 ### From Page Topology
+
 - Operations respect page boundaries
 - Lagrange points stabilize calculations
 - Page transitions create artifacts
 
 ### To Algebraic Structures
+
 - Operations create group structures
 - Field patterns form rings
 - Artifacts generate ideals
 
 ### To Calculus Engine
+
 - Operations have derivatives (rate of field change)
 - Integration accumulates artifacts
 - Limits approach Lagrange points
@@ -205,6 +221,7 @@ Arithmetic operations aren't performed ON numbers - they're performed BY numbers
 ## The Chemical Laboratory
 
 The arithmetic layer is the universe's chemical laboratory where:
+
 - **Numbers** are molecules
 - **Primes** are atoms
 - **Operations** are reactions

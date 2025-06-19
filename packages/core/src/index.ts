@@ -1,2 +1,2 @@
-export * from "./universe";
-export * from "./number";
+export * from './universe';
+export * from './number';
