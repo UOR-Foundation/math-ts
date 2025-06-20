@@ -87,3 +87,6 @@ test-mcp-client.js
 math-universe-mcp/
 math-universe-ts.ts
 typescript-sdk/
+
+# nx
+.nx/
