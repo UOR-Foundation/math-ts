@@ -91,7 +91,7 @@ export function fieldInterference(a: FieldPattern, b: FieldPattern): Interferenc
   }
 
   // Calculate coherence (how "clean" the interference is)
-  const totalActive = a.filter((x) => x).length + b.filter((x) => x).length;
+  const totalActive = a.filter((x: boolean) => x).length + b.filter((x: boolean) => x).length;
   const coherence = totalActive > 0 ? activeInResult / totalActive : 1.0;
 
   return {

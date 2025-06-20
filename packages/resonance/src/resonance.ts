@@ -131,7 +131,7 @@ export interface ResonanceSignature {
 export function getResonanceSignature(substrate: FieldSubstrate, n: bigint): ResonanceSignature {
   const pattern = substrate.getFieldPattern(n);
   const resonance = calculateResonance(substrate, n);
-  const activeCount = pattern.filter((b) => b).length;
+  const activeCount = pattern.filter((b: boolean) => b).length;
 
   return {
     primary: resonance,

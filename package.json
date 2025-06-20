@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "build": "lerna run build",
+    "build:tsc": "tsc --build",
     "test": "lerna run test",
     "test:coverage": "jest --coverage",
     "test:integration": "lerna run test:integration",
@@ -19,6 +20,7 @@
     "format:check": "prettier --check .",
     "dev": "lerna run dev --parallel",
     "clean": "lerna run clean && rm -rf node_modules",
+    "clean:build": "tsc --build --clean",
     "docs:build": "typedoc",
     "test:field-substrate": "npm run test --workspace=@uor-foundation/field-substrate",
     "test:resonance": "npm run test --workspace=@uor-foundation/resonance",
