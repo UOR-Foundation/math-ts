@@ -16,7 +16,7 @@ describe('Geometry Package', () => {
     // The interfaces are TypeScript types, not runtime values
     // We can only check that the module exports the expected classes
     const exports = require('../src/index');
-    
+
     // Check that we have the main classes
     expect(typeof exports.MathematicalManifold).toBe('function');
     expect(typeof exports.ResonanceMetric).toBe('function');

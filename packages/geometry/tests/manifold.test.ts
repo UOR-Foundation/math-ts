@@ -72,9 +72,16 @@ describe('MathematicalManifold', () => {
     });
 
     it('should return 0 for same number', () => {
-      mockFieldSubstrate.getFieldPattern.mockReturnValue(
-        [true, false, true, false, false, false, false, false]
-      );
+      mockFieldSubstrate.getFieldPattern.mockReturnValue([
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ]);
 
       mockResonance.calculateResonance.mockReturnValue(2.5);
 
@@ -88,9 +95,16 @@ describe('MathematicalManifold', () => {
 
   describe('findGeodesic', () => {
     it('should find path between two numbers', () => {
-      mockFieldSubstrate.getFieldPattern.mockReturnValue(
-        [true, false, false, false, false, false, false, false]
-      );
+      mockFieldSubstrate.getFieldPattern.mockReturnValue([
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ]);
 
       mockResonance.calculateResonance.mockReturnValue(1.0);
 
@@ -106,9 +120,16 @@ describe('MathematicalManifold', () => {
 
   describe('getCurvature', () => {
     it('should compute curvature tensor at a point', () => {
-      mockFieldSubstrate.getFieldPattern.mockReturnValue(
-        [true, true, false, false, false, false, false, false]
-      );
+      mockFieldSubstrate.getFieldPattern.mockReturnValue([
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ]);
 
       mockFieldSubstrate.getFieldConstants.mockReturnValue([
         2.71, 3.14, 1.61, 1.73, 2.24, 2.44, 1.41, 1.92,
@@ -135,9 +156,16 @@ describe('MathematicalManifold', () => {
     it('should create page manifold structure', () => {
       mockTopology.getPageInfo.mockReturnValue({ pageNumber: 1 } as any);
 
-      mockFieldSubstrate.getFieldPattern.mockReturnValue(
-        [true, false, true, false, false, false, false, false]
-      );
+      mockFieldSubstrate.getFieldPattern.mockReturnValue([
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ]);
 
       mockResonance.calculateResonance.mockReturnValue(2.0);
 
@@ -155,9 +183,16 @@ describe('MathematicalManifold', () => {
 
   describe('getTangentSpace', () => {
     it('should create tangent space at a point', () => {
-      mockFieldSubstrate.getFieldPattern.mockReturnValue(
-        [true, true, false, false, false, false, false, false]
-      );
+      mockFieldSubstrate.getFieldPattern.mockReturnValue([
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ]);
 
       mockFieldSubstrate.getFieldConstants.mockReturnValue([
         2.71, 3.14, 1.61, 1.73, 2.24, 2.44, 1.41, 1.92,

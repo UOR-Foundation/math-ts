@@ -63,9 +63,16 @@ describe('FieldSpaceGeometry', () => {
 
   describe('getFieldCoordinate', () => {
     it('should create field coordinate from number', () => {
-      mockFieldSubstrate.getFieldPattern.mockReturnValue(
-        [true, false, true, false, false, false, false, false]
-      );
+      mockFieldSubstrate.getFieldPattern.mockReturnValue([
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ]);
 
       const coord = fieldSpace.getFieldCoordinate(42n);
 
