@@ -19,30 +19,80 @@ import type { CalculusEngine } from '@uor-foundation/calculus';
 
 // Mock implementations for testing
 const mockAlgebra: AlgebraicStructures = {
-  detectGroups: () => ({ groups: [], confidence: 0.5 }),
-  detectRings: () => ({ rings: [], confidence: 0.5 }),
-  detectFields: () => ({ fields: [], confidence: 0.5 }),
-  findHomomorphisms: () => ({ homomorphisms: [], confidence: 0.5 }),
-  analyzeSymmetries: () => ({ symmetries: [], confidence: 0.5 }),
+  detectGroups: () => [],
+  findRingStructure: () => null,
+  analyzeSymmetries: () => ({ 
+    generators: [],
+    order: 1n,
+    isFinite: true,
+    symmetryType: 'trivial',
+  }),
+  createModule: () => null,
+  detectAlgebraicLife: () => ({
+    groups: [],
+    rings: [],
+    modules: [],
+    ecology: {
+      cooperativeStructures: [],
+      dominantStructures: [],
+      nichStructures: [],
+      lagrangeAnchored: [],
+      artifactBorn: [],
+      pageLocal: [],
+    },
+    evolution: [],
+    metabolism: {
+      totalMetabolicRate: 0,
+      fieldConsumption: new Map(),
+      denormalizationActivity: 0,
+      resonanceFlux: 0,
+      informationThroughput: 0,
+    },
+    conservation: {
+      fieldParityConserved: true,
+      resonanceFluxBalanced: true,
+      informationConserved: true,
+      violationLocations: [],
+    },
+    emergence: {
+      spontaneousGroups: 0,
+      crystallizedRings: 0,
+      selfOrganizingModules: 0,
+      resonanceWells: [],
+      evolutionaryPressure: 0,
+    },
+  }),
 };
 
 const mockGeometry: GeometricManifolds = {
-  embedInSpace: () => ({ coordinates: [0, 0, 0], curvature: 0 }),
-  calculateCurvature: () => 0,
-  findGeodesics: () => ({ paths: [], distance: 0 }),
-  detectSingularities: () => ({ singularities: [], type: 'regular' }),
-  computeTopology: () => ({ genus: 0, eulerCharacteristic: 2 }),
+  getMetric: () => 1,
+  findGeodesic: () => [1n, 2n, 3n],
+  getCurvature: () => ({
+    scalar: 0,
+    ricci: [[0]],
+    sectional: new Map(),
+  }),
 };
 
 const mockCalculus: CalculusEngine = {
   derivative: () => 0,
-  integral: () => 0,
-  limit: () => 0,
-  findCriticalPoints: () => ({ points: [], types: [] }),
-  solveDifferentialEquation: () => ({ solution: 'x', stability: 'stable' }),
-  gradientFlow: (start: bigint, maxSteps: number) => [start],
-  computeLyapunovExponent: (seed: bigint, iterations: number) => 0.1,
-} as any;
+  higherDerivative: () => 0,
+  fieldDerivative: () => ({ fieldIndex: 0, derivative: 0, isActive: true }),
+  jacobianMatrix: () => ({ rows: 8, cols: 8, values: [[]] }),
+  integrate: () => 0,
+  pathIntegral: () => 0,
+  findLimit: () => ({ exists: true, value: 1 }),
+  convergenceRate: () => 0.1,
+  evolveFieldPattern: () => [],
+  findEquilibrium: () => 1n,
+  computeLyapunovExponent: () => 0.1,
+  detectChaos: () => ({ lyapunovExponent: 0.1, isChaoctic: false, bifurcationPoints: [], attractorType: 'fixed' }),
+  taylorExpansion: () => ({ center: 0n, coefficients: [1], radius: 1, type: 'taylor' }),
+  fourierAnalysis: () => ({ center: 0n, coefficients: [1], radius: 1, type: 'fourier' }),
+  isStable: () => true,
+  stabilityRadius: () => 10,
+  gradientFlow: (start: bigint) => [start],
+} as CalculusEngine;
 
 describe('Self-Reference Integration', () => {
   let selfReference: SelfReference;
@@ -64,7 +114,8 @@ describe('Self-Reference Integration', () => {
       operators,
       mockAlgebra,
       mockGeometry,
-      mockCalculus
+      mockCalculus,
+      { skipExpensiveInit: true }
     );
   });
 

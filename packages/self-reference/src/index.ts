@@ -159,7 +159,7 @@ export interface EmergentStructure {
 }
 
 // Meta-mathematical types
-export type MathematicalStatement = 
+export type MathematicalStatement =
   | { type: 'isPrime'; number: bigint }
   | { type: 'hasFieldPattern'; number: bigint; pattern: number }
   | { type: 'hasResonance'; number: bigint; resonance: number }
@@ -167,7 +167,7 @@ export type MathematicalStatement =
   | { type: 'isFixedPoint'; number: bigint; operation: string }
   | { type: 'conserves'; lawType: 'field-parity' | 'resonance-flux' | 'energy' | 'information' }
   | { type: 'selfReference'; number: bigint; encodedStatement: bigint }
-  | { type: 'theorem'; name: string; content: string; symbols: string[] }
+  | { type: 'theorem'; name: string; content: string; symbols: string[] };
 
 export interface SelfAwareness {
   // Current self-model of the universe
@@ -243,6 +243,7 @@ export class SelfReference implements SelfReferenceCore {
     private algebra: AlgebraicStructures,
     private geometry: GeometricManifolds,
     private calculus: CalculusEngine,
+    options?: { skipExpensiveInit?: boolean },
   ) {
     // Initialize engines
     this.bootstrapEngine = new BootstrapEngine(fieldSubstrate, resonance, topology, operators);
@@ -255,6 +256,7 @@ export class SelfReference implements SelfReferenceCore {
       algebra,
       geometry,
       calculus,
+      options,
     );
 
     this.fixedPointEngine = new FixedPointEngine(
