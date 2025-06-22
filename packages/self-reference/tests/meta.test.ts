@@ -1,6 +1,6 @@
 /**
  * Meta-Mathematical System Tests
- * 
+ *
  * Tests Gödel numbering, self-modification, and meta-reasoning capabilities
  */
 
@@ -22,7 +22,7 @@ import type { MathematicalStatement } from '../src';
 const mockAlgebra: AlgebraicStructures = {
   detectGroups: () => [],
   findRingStructure: () => null,
-  analyzeSymmetries: () => ({ 
+  analyzeSymmetries: () => ({
     generators: [],
     order: 1n,
     isFinite: true,
@@ -87,7 +87,12 @@ const mockCalculus: CalculusEngine = {
   evolveFieldPattern: () => [],
   findEquilibrium: () => 1n,
   computeLyapunovExponent: () => 0.1,
-  detectChaos: () => ({ lyapunovExponent: 0.1, isChaoctic: false, bifurcationPoints: [], attractorType: 'fixed' }),
+  detectChaos: () => ({
+    lyapunovExponent: 0.1,
+    isChaoctic: false,
+    bifurcationPoints: [],
+    attractorType: 'fixed',
+  }),
   taylorExpansion: () => ({ center: 0n, coefficients: [1], radius: 1, type: 'taylor' }),
   fourierAnalysis: () => ({ center: 0n, coefficients: [1], radius: 1, type: 'fourier' }),
   isStable: () => true,
@@ -107,7 +112,7 @@ describe('MetaMathematicalSystem', () => {
     resonance = createResonanceDynamics(fieldSubstrate);
     topology = createPageTopology(fieldSubstrate, resonance);
     operators = createArithmeticOperators(fieldSubstrate, resonance, topology);
-    
+
     metaSystem = new MetaMathematicalSystem(
       fieldSubstrate,
       resonance,
@@ -116,14 +121,14 @@ describe('MetaMathematicalSystem', () => {
       mockAlgebra,
       mockGeometry,
       mockCalculus,
-      { skipExpensiveInit: true }
+      { skipExpensiveInit: true },
     );
   });
 
   describe('Consistency Validation', () => {
     it('should validate overall system consistency', async () => {
       const report = await metaSystem.validateConsistency();
-      
+
       expect(report).toBeDefined();
       expect(typeof report.consistent).toBe('boolean');
       expect(Array.isArray(report.godelLimitations)).toBe(true);
@@ -134,12 +139,12 @@ describe('MetaMathematicalSystem', () => {
 
     it('should identify Gödel limitations', async () => {
       const report = await metaSystem.validateConsistency();
-      
+
       expect(report.godelLimitations.length).toBeGreaterThan(0);
-      
+
       // Should find the liar paradox
       const liarParadox = report.godelLimitations.find(
-        g => g.statement === 'This statement is false'
+        (g) => g.statement === 'This statement is false',
       );
       expect(liarParadox).toBeDefined();
       expect(liarParadox?.provable).toBe(false);
@@ -148,12 +153,12 @@ describe('MetaMathematicalSystem', () => {
 
     it('should check conservation laws', async () => {
       const report = await metaSystem.validateConsistency();
-      
+
       expect(report.conservationChecks).toHaveLength(4);
-      
+
       const laws = ['field-parity', 'resonance-flux', 'information', 'energy'];
-      laws.forEach(law => {
-        const check = report.conservationChecks.find(c => c.law === law);
+      laws.forEach((law) => {
+        const check = report.conservationChecks.find((c) => c.law === law);
         expect(check).toBeDefined();
         expect(typeof check?.conserved).toBe('boolean');
       });
@@ -165,9 +170,9 @@ describe('MetaMathematicalSystem', () => {
       const statements: MathematicalStatement[] = [
         { type: 'isPrime', number: 7n },
         { type: 'hasFieldPattern', number: 15n, pattern: 0b11110000 },
-        { type: 'conserves', lawType: 'energy' }
+        { type: 'conserves', lawType: 'energy' },
       ];
-      
+
       for (const statement of statements) {
         const encoded = metaSystem.godelEncode(statement);
         expect(encoded).toBeGreaterThan(0n);
@@ -180,11 +185,11 @@ describe('MetaMathematicalSystem', () => {
         { type: 'isPrime', number: 7n },
         { type: 'equals', left: 5n, right: 5n },
       ];
-      
+
       for (const original of testStatements) {
         const encoded = metaSystem.godelEncode(original);
         const decoded = metaSystem.godelDecode(encoded);
-        
+
         expect(decoded).toBeDefined();
         expect(decoded?.type).toBe(original.type);
       }
@@ -197,13 +202,13 @@ describe('MetaMathematicalSystem', () => {
       // The actual encoding is more complex, just verify it's a positive bigint
       expect(primeEncoded).toBeGreaterThan(0n);
       expect(typeof primeEncoded).toBe('bigint');
-      
+
       // Test conserves encoding
       const conservesStatement: MathematicalStatement = { type: 'conserves', lawType: 'energy' };
       const conservesEncoded = metaSystem.godelEncode(conservesStatement);
       expect(conservesEncoded).toBeGreaterThan(0n);
       expect(typeof conservesEncoded).toBe('bigint');
-      
+
       // Verify different statements get different encodings
       expect(primeEncoded).not.toBe(conservesEncoded);
     });
@@ -212,7 +217,7 @@ describe('MetaMathematicalSystem', () => {
   describe('Self-Model Creation', () => {
     it('should create a self-model of the universe', async () => {
       const selfModel = metaSystem.createSelfModel();
-      
+
       expect(selfModel).toBeDefined();
       expect(selfModel.fields).toHaveLength(8);
       expect(selfModel.primes.length).toBeGreaterThan(0);
@@ -226,22 +231,22 @@ describe('MetaMathematicalSystem', () => {
       const startTime = Date.now();
       const report = await metaSystem.validateConsistency();
       const duration = Date.now() - startTime;
-      
+
       expect(report).toBeDefined();
       expect(duration).toBeLessThan(2000); // Should complete within 2 seconds
     });
 
     it('should encode/decode efficiently', async () => {
       const testStatement: MathematicalStatement = { type: 'isPrime', number: 13n };
-      
+
       const startEncode = Date.now();
       const encoded = metaSystem.godelEncode(testStatement);
       const encodeTime = Date.now() - startEncode;
-      
+
       const startDecode = Date.now();
       const decoded = metaSystem.godelDecode(encoded);
       const decodeTime = Date.now() - startDecode;
-      
+
       expect(encodeTime).toBeLessThan(100);
       expect(decodeTime).toBeLessThan(100);
       expect(decoded).toBeDefined();

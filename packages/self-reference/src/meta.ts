@@ -183,17 +183,21 @@ export class MetaMathematicalSystem {
     // Separate objective vs subjective conservation laws
     const objectiveLaws = ['field-parity', 'energy'];
     const subjectiveLaws = ['resonance-flux', 'information'];
-    
+
     // Objective laws must be conserved
     const objectiveViolations = conservationChecks.filter(
-      (c) => objectiveLaws.includes(c.law) && !c.conserved
+      (c) => objectiveLaws.includes(c.law) && !c.conserved,
     ).length;
-    
+
     // Subjective laws can vary but should have reasonable bounds
     const subjectiveViolations = conservationChecks.filter(
-      (c) => subjectiveLaws.includes(c.law) && !c.conserved && c.magnitude !== undefined && c.magnitude > 10.0
+      (c) =>
+        subjectiveLaws.includes(c.law) &&
+        !c.conserved &&
+        c.magnitude !== undefined &&
+        c.magnitude > 10.0,
     ).length;
-    
+
     const consistent =
       godelLimitations.filter((g) => g.true === false && g.provable).length === 0 &&
       circularDependencies.filter((c) => c.resolution === 'axiom').length <= 3 &&
@@ -304,11 +308,11 @@ export class MetaMathematicalSystem {
 
   /**
    * Find Gödel-style limitations using proper diagonalization
-   * 
+   *
    * This method discovers the fundamental limitations of the Mathematical Universe
    * through self-reference. It demonstrates that even our computational universe
    * must obey Gödel's incompleteness theorems.
-   * 
+   *
    * The limitations found include:
    * 1. Self-referential paradoxes (liar paradox)
    * 2. Gödel's first incompleteness theorem (true but unprovable statements)
@@ -319,30 +323,29 @@ export class MetaMathematicalSystem {
   private findGodelLimitations(): GodelStatement[] {
     const limitations: GodelStatement[] = [];
 
-
     /**
      * Gödel's Diagonalization Lemma
-     * 
+     *
      * This implements the core of Gödel's proof - the ability to construct
      * self-referential statements. We search for fixed points where a statement's
      * Gödel number equals the number it refers to.
-     * 
+     *
      * The Mathematical Universe's topology provides natural fixed points (Lagrange points)
      * which often correspond to self-referential structures.
      */
     const diagonalize = (f: (n: bigint) => MathematicalStatement): bigint => {
       // Start from Lagrange points - these are natural fixed points in the topology
       const lagrangePoints = this.topology.findLagrangePoints(0n, 100n);
-      
+
       for (const lp of lagrangePoints) {
         const statement = f(lp.position);
         const encoded = this.godelEncode(statement);
-        
+
         // Check if this is a fixed point (φ(n) = n)
         if (encoded === lp.position) {
           return lp.position;
         }
-        
+
         // Also check if the encoded value is itself a Lagrange point
         // This represents a meta-stable self-referential structure
         const encodedLP = this.topology.nearestLagrangePoint(encoded);
@@ -350,14 +353,14 @@ export class MetaMathematicalSystem {
           return encoded;
         }
       }
-      
+
       // Return 0 if no fixed point found - this itself demonstrates incompleteness!
       return 0n;
     };
 
     /**
      * 1. THE LIAR PARADOX
-     * 
+     *
      * First, we search for self-referential statements using diagonalization.
      * The Mathematical Universe often discovers these at specific Lagrange points.
      */
@@ -376,10 +379,10 @@ export class MetaMathematicalSystem {
         true: 'undecidable',
       });
     }
-    
+
     /**
      * THE CLASSIC LIAR PARADOX
-     * 
+     *
      * We always include the classic formulation "This statement is false"
      * as it's the most fundamental self-referential paradox. This demonstrates
      * that the Mathematical Universe, like all sufficiently powerful systems,
@@ -394,7 +397,7 @@ export class MetaMathematicalSystem {
 
     /**
      * 2. GÖDEL'S FIRST INCOMPLETENESS THEOREM
-     * 
+     *
      * "This statement is not provable in the Mathematical Universe"
      * This is the heart of Gödel's discovery - a statement that is true
      * but cannot be proven within the system. If it were provable, it would
@@ -410,7 +413,7 @@ export class MetaMathematicalSystem {
 
     /**
      * 3. GÖDEL'S SECOND INCOMPLETENESS THEOREM
-     * 
+     *
      * "The Mathematical Universe is consistent"
      * A consistent system cannot prove its own consistency. This is perhaps
      * even more profound than the first theorem - the universe cannot fully
@@ -426,7 +429,7 @@ export class MetaMathematicalSystem {
 
     /**
      * 4. TARSKI'S UNDEFINABILITY THEOREM
-     * 
+     *
      * Truth cannot be defined within the system itself. The Mathematical
      * Universe can manipulate symbols and perform calculations, but cannot
      * capture the full concept of "truth" in its own language.
@@ -441,7 +444,7 @@ export class MetaMathematicalSystem {
 
     /**
      * 5. TURING'S HALTING PROBLEM
-     * 
+     *
      * The universe cannot predict whether all computations will halt.
      * This connects incompleteness to computation - some questions about
      * the universe's own behavior are fundamentally unanswerable.
@@ -1236,7 +1239,7 @@ export class MetaMathematicalSystem {
         // For isPrime, we just encode the number directly (bounded)
         const n = statement.number;
         // Use multiplication with bounded value instead of exponentiation
-        encoding = encoding * primes[1] * (n % 100n + 1n);
+        encoding = encoding * primes[1] * ((n % 100n) + 1n);
         break;
       }
 
@@ -1245,7 +1248,7 @@ export class MetaMathematicalSystem {
         const n = statement.number;
         const pattern = BigInt(statement.pattern);
         // Use the universe's arithmetic to combine values
-        encoding = encoding * primes[1] * (n % 50n + 1n) * primes[2] * (pattern + 1n);
+        encoding = encoding * primes[1] * ((n % 50n) + 1n) * primes[2] * (pattern + 1n);
         break;
       }
 
@@ -1253,7 +1256,7 @@ export class MetaMathematicalSystem {
         // Encode number and resonance
         const n = statement.number;
         const res = BigInt(Math.floor(statement.resonance * 1000));
-        encoding = encoding * primes[1] * (n % 50n + 1n) * primes[3] * (res % 50n + 1n);
+        encoding = encoding * primes[1] * ((n % 50n) + 1n) * primes[3] * ((res % 50n) + 1n);
         break;
       }
 
@@ -1263,7 +1266,7 @@ export class MetaMathematicalSystem {
         const b = statement.right;
         const szudzik = a >= b ? a * a + a + b : a + b * b;
         // Use primes[2] instead of primes[1] to distinguish from isPrime
-        encoding = encoding * primes[2] * (szudzik % 100n + 1n);
+        encoding = encoding * primes[2] * ((szudzik % 100n) + 1n);
         break;
       }
 
@@ -1271,7 +1274,7 @@ export class MetaMathematicalSystem {
         // Encode number and operation hash
         const n = statement.number;
         const opHash = this.hashString(statement.operation);
-        encoding = encoding * primes[1] * (n % 50n + 1n) * primes[4] * (opHash % 50n + 1n);
+        encoding = encoding * primes[1] * ((n % 50n) + 1n) * primes[4] * ((opHash % 50n) + 1n);
         break;
       }
 
@@ -1293,7 +1296,7 @@ export class MetaMathematicalSystem {
         const self = statement.encodedStatement;
         // Use quine-like construction
         const quine = (n * primes[5] + self) % primes[8];
-        encoding = encoding * primes[1] * (n % 30n + 1n) * primes[6] * (quine % 30n + 1n);
+        encoding = encoding * primes[1] * ((n % 30n) + 1n) * primes[6] * ((quine % 30n) + 1n);
         break;
       }
 
@@ -1301,7 +1304,8 @@ export class MetaMathematicalSystem {
         // Encode theorem name and symbols
         const nameHash = this.hashString(statement.name);
         const symbolHash = this.hashString(statement.symbols.join(''));
-        encoding = encoding * primes[1] * (nameHash % 50n + 1n) * primes[7] * (symbolHash % 50n + 1n);
+        encoding =
+          encoding * primes[1] * ((nameHash % 50n) + 1n) * primes[7] * ((symbolHash % 50n) + 1n);
         break;
       }
     }
@@ -1325,7 +1329,7 @@ export class MetaMathematicalSystem {
    */
   /**
    * Decode a Gödel number back to a mathematical statement
-   * 
+   *
    * Since we use multiplication-based encoding (not exponentiation) for efficiency,
    * the decoding process identifies statements by their constitutional prime signatures.
    * The Mathematical Universe's living numbers carry their meaning through their
@@ -1334,7 +1338,7 @@ export class MetaMathematicalSystem {
   godelDecode(number: bigint): MathematicalStatement | null {
     try {
       const primes = CONSTITUTIONAL_PRIMES;
-      
+
       // Define type codes matching the encoder
       const typeEncodings: Record<string, bigint> = {
         isPrime: 2n,
@@ -1346,18 +1350,18 @@ export class MetaMathematicalSystem {
         selfReference: 17n,
         theorem: 19n,
       };
-      
+
       // Find which type this encodes
       // The encoding format is: primes[0] * typeCode * [type-specific data]
       // We need to find the largest typeCode that divides the number
       let statementType: string | null = null;
       let largestTypeCode: bigint = 0n;
-      
+
       for (const [type, code] of Object.entries(typeEncodings)) {
         // Check if this encoding matches the pattern
         if (number % (primes[0] * code) === 0n) {
           const remainder = number / (primes[0] * code);
-          
+
           // Different types use different primes in their encoding
           let validPattern = false;
           if (type === 'conserves') {
@@ -1373,7 +1377,7 @@ export class MetaMathematicalSystem {
             // Most types use primes[1] as the next prime
             validPattern = remainder % primes[1] === 0n;
           }
-          
+
           if (validPattern) {
             // Use the largest type code to get the most specific match
             if (code > largestTypeCode) {
@@ -1383,11 +1387,11 @@ export class MetaMathematicalSystem {
           }
         }
       }
-      
-      if (!statementType) {
+
+      if (statementType === null) {
         return null;
       }
-      
+
       // Decode based on type - properly reverse the encoding
       switch (statementType) {
         case 'isPrime': {
@@ -1400,40 +1404,43 @@ export class MetaMathematicalSystem {
             // The original number was n % 100n, so we return the bounded value
             return {
               type: 'isPrime',
-              number: nBounded
+              number: nBounded,
             };
           }
           break;
         }
-        
+
         case 'equals': {
           // Reverse: encoding = primes[0] * 7n * primes[2] * (szudzik % 100n + 1n)
-          let remainder = number / (primes[0] * 7n);
+          const remainder = number / (primes[0] * 7n);
           if (remainder % primes[2] === 0n) {
             const szudzikBounded = remainder / primes[2] - 1n;
             // Reverse Szudzik pairing for bounded value
             const sqrtSz = this.bigIntSqrt(szudzikBounded);
-            if (sqrtSz * sqrtSz <= szudzikBounded && (sqrtSz + 1n) * (sqrtSz + 1n) > szudzikBounded) {
+            if (
+              sqrtSz * sqrtSz <= szudzikBounded &&
+              (sqrtSz + 1n) * (sqrtSz + 1n) > szudzikBounded
+            ) {
               // Determine a and b from the Szudzik encoding
               const diff = szudzikBounded - sqrtSz * sqrtSz;
               if (diff < sqrtSz) {
                 return {
                   type: 'equals',
                   left: diff,
-                  right: sqrtSz
+                  right: sqrtSz,
                 };
               } else {
                 return {
                   type: 'equals',
                   left: sqrtSz,
-                  right: diff - sqrtSz
+                  right: diff - sqrtSz,
                 };
               }
             }
           }
           break;
         }
-        
+
         case 'hasFieldPattern': {
           // Reverse: encoding = primes[0] * 3n * primes[1] * (n % 50n + 1n) * primes[2] * (pattern + 1n)
           let remainder = number / (primes[0] * 3n);
@@ -1453,13 +1460,13 @@ export class MetaMathematicalSystem {
               return {
                 type: 'hasFieldPattern',
                 number: foundN,
-                pattern: Number(pattern)
+                pattern: Number(pattern),
               };
             }
           }
           break;
         }
-        
+
         case 'hasResonance': {
           // Reverse: encoding = primes[0] * 5n * primes[1] * (n % 50n + 1n) * primes[3] * (res % 50n + 1n)
           let remainder = number / (primes[0] * 5n);
@@ -1490,14 +1497,14 @@ export class MetaMathematicalSystem {
                 return {
                   type: 'hasResonance',
                   number: foundN,
-                  resonance: resonance
+                  resonance: resonance,
                 };
               }
             }
           }
           break;
         }
-        
+
         case 'conserves': {
           // Reverse: encoding = primes[0] * 13n * primes[2] * lawCode
           const remainder = number / (primes[0] * 13n);
@@ -1518,12 +1525,12 @@ export class MetaMathematicalSystem {
             }
             return {
               type: 'conserves',
-              lawType: lawType
+              lawType: lawType,
             };
           }
           break;
         }
-        
+
         case 'selfReference': {
           // Reverse: encoding = primes[0] * 17n * primes[1] * (n % 30n + 1n) * primes[6] * (quine % 30n + 1n)
           let remainder = number / (primes[0] * 17n);
@@ -1554,14 +1561,14 @@ export class MetaMathematicalSystem {
                 return {
                   type: 'selfReference',
                   number: foundN,
-                  encodedStatement: foundQuine
+                  encodedStatement: foundQuine,
                 };
               }
             }
           }
           break;
         }
-        
+
         case 'isFixedPoint': {
           // Reverse: encoding = primes[0] * 11n * primes[1] * (n % 50n + 1n) * primes[4] * (opHash % 50n + 1n)
           let remainder = number / (primes[0] * 11n);
@@ -1591,14 +1598,14 @@ export class MetaMathematicalSystem {
                 return {
                   type: 'isFixedPoint',
                   number: foundN,
-                  operation: 'op_' + foundOpHash.toString()
+                  operation: 'op_' + foundOpHash.toString(),
                 };
               }
             }
           }
           break;
         }
-        
+
         case 'theorem': {
           // Reverse: encoding = primes[0] * 19n * primes[1] * (nameHash % 50n + 1n) * primes[7] * (symbolHash % 50n + 1n)
           let remainder = number / (primes[0] * 19n);
@@ -1629,7 +1636,7 @@ export class MetaMathematicalSystem {
                   type: 'theorem',
                   name: 'Theorem_' + foundNameHash.toString(),
                   content: 'Mathematical truth with hash signature',
-                  symbols: ['∀', '∃', '⊢', '⊥', '¬']
+                  symbols: ['∀', '∃', '⊢', '⊥', '¬'],
                 };
               }
             }
@@ -1637,20 +1644,20 @@ export class MetaMathematicalSystem {
           break;
         }
       }
-      
+
       return null;
     } catch {
       return null;
     }
   }
-  
+
   /**
    * Helper to compute integer square root
    */
   private bigIntSqrt(n: bigint): bigint {
     if (n < 0n) throw new Error('Square root of negative number');
     if (n === 0n) return 0n;
-    
+
     let x = n;
     let y = (x + 1n) / 2n;
     while (y < x) {
@@ -1835,11 +1842,11 @@ export class MetaMathematicalSystem {
     // The key insight: whatever pattern emerges should be consistent across pages
     const page1XOR = this.calculatePageXOR(0n, 48n);
     const page2XOR = this.calculatePageXOR(48n, 48n);
-    
+
     // Field-parity conservation means the XOR pattern is the same across pages
     let conserved = true;
     let violations = 0;
-    
+
     for (let i = 0; i < 8; i++) {
       if (page1XOR[i] !== page2XOR[i]) {
         conserved = false;
@@ -1860,12 +1867,12 @@ export class MetaMathematicalSystem {
    */
   private calculatePageXOR(pageStart: bigint, pageSize: bigint): boolean[] {
     let xorPattern = [false, false, false, false, false, false, false, false];
-    
+
     for (let i = 0n; i < pageSize; i++) {
       const pattern = this.fieldSubstrate.getFieldPattern(pageStart + i);
       xorPattern = xorPattern.map((bit, idx) => bit !== pattern[idx]);
     }
-    
+
     return xorPattern;
   }
 
@@ -1877,12 +1884,12 @@ export class MetaMathematicalSystem {
     // The exact values may vary, but the pattern should be consistent
     const flux1 = this.calculatePageFlux(0n, 48n);
     const flux2 = this.calculatePageFlux(48n, 48n);
-    
+
     // Check if flux patterns are reasonably similar
     const fluxDifference = Math.abs(flux1 - flux2);
     const averageFlux = (Math.abs(flux1) + Math.abs(flux2)) / 2;
     const relativeError = averageFlux > 0 ? fluxDifference / averageFlux : 0;
-    
+
     // Allow very large variation - resonance can vary dramatically across different implementations
     const conserved = relativeError < 5.0; // 500% variation allowed
 
@@ -1912,20 +1919,20 @@ export class MetaMathematicalSystem {
     const operations = [
       { a: 7n, b: 11n },
       { a: 13n, b: 17n },
-      { a: 23n, b: 29n }
+      { a: 23n, b: 29n },
     ];
-    
+
     let totalCreated = 0;
     let totalDestroyed = 0;
-    
+
     for (const { a, b } of operations) {
       const product = this.operators.multiply(a, b);
-      const artifacts = product.artifacts || [];
-      
-      totalCreated += artifacts.filter(a => a.type === 'emergent').length;
-      totalDestroyed += artifacts.filter(a => a.type === 'vanishing').length;
+      const artifacts = product.artifacts ?? [];
+
+      totalCreated += artifacts.filter((a) => a.type === 'emergent').length;
+      totalDestroyed += artifacts.filter((a) => a.type === 'vanishing').length;
     }
-    
+
     // Information is conserved if creation and destruction are balanced on average
     const totalArtifacts = totalCreated + totalDestroyed;
     if (totalArtifacts === 0) {
@@ -1936,18 +1943,19 @@ export class MetaMathematicalSystem {
         magnitude: 0,
       };
     }
-    
+
     const imbalance = Math.abs(totalCreated - totalDestroyed);
     const conservationRatio = imbalance / totalArtifacts;
-    
+
     // Allow significant imbalance since creation/destruction can be asymmetric
     const conserved = conservationRatio <= 0.8;
 
     return {
       law: 'information',
       conserved,
-      violation: !conserved ? 
-        `Systematic imbalance: ${totalCreated} created, ${totalDestroyed} destroyed` : undefined,
+      violation: !conserved
+        ? `Systematic imbalance: ${totalCreated} created, ${totalDestroyed} destroyed`
+        : undefined,
       magnitude: conservationRatio,
     };
   }
@@ -1959,7 +1967,7 @@ export class MetaMathematicalSystem {
     // According to docs: energy function L(n) = |Res(n) - 1| decreases during flows
     // For fixed points (Lagrange points), energy should be conserved
     const lagrangePoints = this.topology.findLagrangePoints(0n, 100n);
-    
+
     if (lagrangePoints.length === 0) {
       // No Lagrange points to test - assume conservation
       return {
@@ -1968,12 +1976,12 @@ export class MetaMathematicalSystem {
         magnitude: 0,
       };
     }
-    
+
     // Test energy conservation at Lagrange points (should be stable)
     const testPoint = lagrangePoints[0]; // Use first Lagrange point
     const resonance = this.resonance.calculateResonance(testPoint.position);
     const energy = Math.abs(resonance - 1.0); // L(n) = |Res(n) - 1|
-    
+
     // At Lagrange points, energy should be near zero (stable equilibrium)
     const conserved = energy < 0.1; // Allow small deviation from perfect stability
 
@@ -1985,19 +1993,18 @@ export class MetaMathematicalSystem {
     };
   }
 
-
   /**
    * Find problematic self-reference loops
    */
   private findProblematicLoop(): SelfReferenceLoop | null {
     // In a well-designed mathematical universe, most loops should be productive
     // Only detect truly problematic infinite regressions that prevent bootstrap
-    
+
     // Check for circular dependency in field constant computation
     try {
       // Test if we can compute field constants without infinite recursion
       const testConstants = [...this.universeState.fields];
-      
+
       // A simple stability test: field constants should converge
       for (let i = 0; i < testConstants.length; i++) {
         if (!isFinite(testConstants[i]) || isNaN(testConstants[i])) {
@@ -2009,10 +2016,9 @@ export class MetaMathematicalSystem {
           };
         }
       }
-      
+
       // If all field constants are finite and stable, no problematic loop
       return null;
-      
     } catch (error) {
       // If field constant access causes an error, that's problematic
       return {
