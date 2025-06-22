@@ -36,6 +36,9 @@
     "url": "git+https://github.com/UOR-Foundation/math-ts.git",
     "directory": "apps/mcp-server"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.13.0",
     "@uor-foundation/math-ts-core": "^0.1.0",

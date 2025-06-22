@@ -28,6 +28,10 @@ jobs:
       - run: npm run build
 
       - name: Publish to NPM
-        run: npx lerna publish from-package --registry https://registry.npmjs.org --yes
+        run: |
+          # Test NPM authentication first
+          npm whoami --registry https://registry.npmjs.org
+          # Publish with public access for scoped packages
+          npx lerna publish from-package --registry https://registry.npmjs.org --yes -- --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY }}
