@@ -23,7 +23,7 @@ describe('AlgebraicStructureDetector', () => {
     algebraicStructures = new AlgebraicStructureDetector(substrate, resonance, topology, operators);
   });
 
-  test.skip('should detect algebraic life', () => {
+  test('should detect algebraic life', () => {
     const numbers = [0n, 1n, -1n, 2n, -2n];
     const report = algebraicStructures.detectAlgebraicLife(numbers);
 
@@ -34,7 +34,7 @@ describe('AlgebraicStructureDetector', () => {
     expect(report.evolution.length).toBe(5); // 5 generations
   });
 
-  test.skip('should analyze algebraic ecology', () => {
+  test('should analyze algebraic ecology', () => {
     const numbers = [0n, 1n, 2n, 3n];
     const report = algebraicStructures.detectAlgebraicLife(numbers);
 
@@ -47,7 +47,7 @@ describe('AlgebraicStructureDetector', () => {
     expect(classifiedStructures).toBeLessThanOrEqual(totalStructures);
   });
 
-  test.skip('should simulate algebraic evolution', () => {
+  test('should simulate algebraic evolution', () => {
     const numbers = [0n, 1n, 2n];
     const report = algebraicStructures.detectAlgebraicLife(numbers);
 
@@ -96,7 +96,7 @@ describe('AlgebraicStructureDetector', () => {
     expect(report.modules).toEqual([]);
   });
 
-  test.skip('should detect field patterns in algebraic structures', () => {
+  test('should detect field patterns in algebraic structures', () => {
     // Numbers with specific field patterns
     const numbers = [15n, 31n]; // Similar field activation patterns
     const groups = algebraicStructures.detectGroups(numbers);
@@ -105,7 +105,7 @@ describe('AlgebraicStructureDetector', () => {
     expect(groups.length).toBeGreaterThanOrEqual(0);
   });
 
-  test.skip('should integrate with denormalization artifacts', () => {
+  test('should integrate with denormalization artifacts', () => {
     // Numbers that create denormalization when multiplied
     const numbers = [7n, 11n, 77n]; // 7 * 11 = 77 with field artifacts
     const ring = algebraicStructures.findRingStructure(numbers);
