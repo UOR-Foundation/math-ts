@@ -125,7 +125,7 @@ export interface DecisionContext {
   context: {
     energy: number;
     neighbors: bigint[];
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 
@@ -241,7 +241,7 @@ export interface Strategy {
 
 // Adaptation
 export interface Adaptation {
-  context: Record<string, any>;
+  context: Record<string, unknown>;
   strategy: string;
   success: number;
 }
@@ -286,7 +286,7 @@ export interface AlgebraicStructureResult {
   groups: GroupStructure[];
   rings: RingStructure[];
   modules: Module[];
-  categoryStructure: any;
+  categoryStructure: unknown;
 }
 
 // Dynamics analysis
@@ -324,14 +324,17 @@ export interface LivingNumber {
 
   // Methods
   evolve(): LivingNumber;
-  interact(other: LivingNumber, options?: any): InteractionResult;
+  interact(
+    other: LivingNumber,
+    options?: { operation?: string; intent?: string },
+  ): InteractionResult;
   optimize(): OptimizationResult;
   compute(operation: (n: LivingNumber) => LivingNumber): LivingNumber;
   age(time: number): void;
   makeDecision(context: DecisionContext): Decision;
   reflect(): Reflection;
   getStrategy(): Strategy;
-  adaptTo(environment: Record<string, any>): Adaptation;
+  adaptTo(environment: Record<string, unknown>): Adaptation;
   reproduce(): LivingNumber;
   drainEnergy(amount: number): void;
 

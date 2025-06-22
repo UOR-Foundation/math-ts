@@ -19,7 +19,6 @@ import type { SelfReferenceCore } from '@uor-foundation/self-reference';
 import { LivingNumber } from './living-number';
 import type {
   UniverseAnalysis,
-  LivingNumber as ILivingNumber,
   ExtendedArithmeticResult,
   ExtendedFactorizationResult,
   AlgebraicStructureResult,
@@ -33,6 +32,7 @@ import type {
   UniverseMetrics,
   MetaInformation,
   BatchAnalysisResult,
+  DecisionContext,
 } from './types';
 
 export class MathematicalUniverse {
@@ -114,7 +114,9 @@ export class MathematicalUniverse {
   analyze(n: bigint): UniverseAnalysis {
     // Check cache first
     if (this.analysisCache.has(n)) {
-      return this.analysisCache.get(n)!;
+      const cached = this.analysisCache.get(n);
+      if (cached) return cached;
+      throw new Error('Cache miss after has() returned true');
     }
 
     // Get field pattern
@@ -143,7 +145,9 @@ export class MathematicalUniverse {
     );
 
     // Check if this is a Lagrange point
-    const isLagrangePoint = lagrangePoints.some((lp) => lp.position === n);
+    const isLagrangePoint = lagrangePoints.some(
+      (lp) => (lp as { position: bigint }).position === n,
+    );
 
     // Get denormalization artifacts (if any from recent operations)
     const artifacts: DenormalizationArtifact[] = [];
@@ -171,7 +175,9 @@ export class MathematicalUniverse {
   number(n: bigint): LivingNumber {
     // Check cache
     if (this.livingNumberCache.has(n)) {
-      return this.livingNumberCache.get(n)!;
+      const cached = this.livingNumberCache.get(n);
+      if (cached) return cached;
+      throw new Error('Cache miss after has() returned true');
     }
 
     const livingNumber = new LivingNumber(n, this);
@@ -226,7 +232,7 @@ export class MathematicalUniverse {
 
   // Arithmetic operations
   add(a: bigint, b: bigint): ExtendedArithmeticResult {
-    const result = this.arithmeticOperators.add(a, b);
+    // const result = this.arithmeticOperators.add(a, b);
     const resultValue = a + b;
     const artifacts: DenormalizationArtifact[] = [];
 
@@ -321,14 +327,14 @@ export class MathematicalUniverse {
     const energyFlow = Math.abs(quotientResonance - aResonance / bResonance);
 
     // Information balance
-    const divArtifacts = result.decompilationArtifacts || [];
+    const divArtifacts = result.decompilationArtifacts ?? [];
     const informationBalance = {
       created: divArtifacts
-        .filter((a: any) => a.type === 'reconstruction')
-        .map((a: any) => ({ ...a, type: 'field-emerged' as const })),
+        .filter((a) => (a as { type?: string }).type === 'reconstruction')
+        .map((a) => ({ ...a, type: 'emergent' as const }) as DenormalizationArtifact),
       destroyed: divArtifacts
-        .filter((a: any) => a.type === 'loss')
-        .map((a: any) => ({ ...a, type: 'field-vanished' as const })),
+        .filter((a) => (a as { type?: string }).type === 'loss')
+        .map((a) => ({ ...a, type: 'vanishing' as const }) as DenormalizationArtifact),
       conserved: result.remainder === 0n,
       netInformation: divArtifacts.length,
     };
@@ -360,7 +366,7 @@ export class MathematicalUniverse {
       for (const factor of result.factors) {
         if (product > 1n) {
           const multiplyResult = this.arithmeticOperators.multiply(product, factor);
-          artifactSources.push(...multiplyResult.artifacts);
+          artifactSources.push(...(multiplyResult.artifacts ?? []));
         }
         product *= factor;
       }
@@ -386,7 +392,7 @@ export class MathematicalUniverse {
     };
   }
 
-  analyzeSymmetries(n: bigint): any {
+  analyzeSymmetries(n: bigint): { generators: unknown; order: unknown; symmetryType: unknown } {
     return this.algebraicStructures.analyzeSymmetries(n);
   }
 
@@ -399,7 +405,7 @@ export class MathematicalUniverse {
     return this.geometricManifolds.findGeodesic(start, end);
   }
 
-  getCurvature(n: bigint): any {
+  getCurvature(n: bigint): { scalar: unknown; ricci: unknown } {
     return this.geometricManifolds.getCurvature(n);
   }
 
@@ -473,25 +479,34 @@ export class MathematicalUniverse {
   }
 
   // Self-reference operations
-  findFixedPoints(start: bigint, end: bigint): any[] {
+  findFixedPoints(start: bigint, end: bigint): Array<{ point: bigint; type: string }> {
     // Self-reference core doesn't expose fixed point engine directly
     // Use a simple implementation
-    const fixedPoints: any[] = [];
+    const fixedPoints: Array<{ point: bigint; type: string }> = [];
     for (let n = start; n <= end && n <= start + 1000n; n++) {
       // Check if f(n) = n for some simple functions
       if (n === 0n || n === 1n) {
         fixedPoints.push({ point: n, type: 'arithmetic' });
       }
     }
-    return fixedPoints;
+    return fixedPoints as Array<{ point: bigint; type: string }>;
   }
 
-  validateConsistency(): any {
-    return this.selfReferenceCore.validateConsistency();
+  async validateConsistency(): Promise<{
+    consistent: boolean;
+    godelLimitations: unknown;
+    conservationChecks: unknown;
+  }> {
+    const result = await this.selfReferenceCore.validateConsistency();
+    return {
+      consistent: result.consistent,
+      godelLimitations: result.godelLimitations,
+      conservationChecks: result.conservationChecks,
+    };
   }
 
   getMeta(): MetaInformation {
-    const consistency = this.selfReferenceCore.validateConsistency();
+    // const consistency = this.selfReferenceCore.validateConsistency();
 
     return {
       godelNumber: BigInt(this.generation * 1000000 + this.activeNumbers.size),
@@ -515,7 +530,8 @@ export class MathematicalUniverse {
       if (!pageGroups.has(page)) {
         pageGroups.set(page, []);
       }
-      pageGroups.get(page)!.push(n);
+      const pageList = pageGroups.get(page);
+      if (pageList) pageList.push(n);
     }
 
     // Check each complete page
@@ -576,14 +592,14 @@ export class MathematicalUniverse {
     const startTime = Date.now();
 
     // Each number votes based on its decision-making
-    const context = {
+    const context: DecisionContext = {
       options: ['evolve', 'stabilize', 'explore'],
       context: { energy: 0.5, neighbors: numbers.map((n) => n.value) },
     };
 
     for (const num of numbers) {
       const decision = num.makeDecision(context);
-      votes.set(decision.choice, (votes.get(decision.choice) || 0) + 1);
+      votes.set(decision.choice, (votes.get(decision.choice) ?? 0) + 1);
     }
 
     // Find majority decision
@@ -597,7 +613,7 @@ export class MathematicalUniverse {
     }
 
     // Calculate coherence
-    const coherence = maxVotes / numbers.length;
+    const coherence = numbers.length > 0 ? maxVotes / numbers.length : 0;
 
     // Find dissenters
     const dissenters = numbers.filter((num) => num.makeDecision(context).choice !== consensus);
@@ -619,15 +635,17 @@ export class MathematicalUniverse {
         switch (options.target) {
           case 'minimum-energy':
             return num.evolve();
-          case 'maximum-stability':
+          case 'maximum-stability': {
             const optimized = num.optimize();
             // Create a new LivingNumber with evolved value
             const newValue = num.value + BigInt(Math.floor(optimized.improvement * 10));
             return new LivingNumber(newValue, this);
-          case 'information-discovery':
+          }
+          case 'information-discovery': {
             // Explore new territories
             const exploredValue = num.value + BigInt(iter + 1);
             return new LivingNumber(exploredValue, this);
+          }
           default:
             return num;
         }
@@ -647,10 +665,11 @@ export class MathematicalUniverse {
       if (!pageMap.has(pageNum)) {
         pageMap.set(pageNum, []);
       }
-      pageMap.get(pageNum)!.push(num);
+      const pageList = pageMap.get(pageNum);
+      if (pageList) pageList.push(num);
     }
 
-    for (const [_, pageNumbers] of pageMap) {
+    for (const [, pageNumbers] of pageMap) {
       pages.push(pageNumbers);
     }
 
@@ -675,7 +694,8 @@ export class MathematicalUniverse {
 
     for (const n of numbers) {
       if (this.livingNumberCache.has(n)) {
-        const livingNum = this.livingNumberCache.get(n)!;
+        const livingNum = this.livingNumberCache.get(n);
+        if (!livingNum) continue;
         if (livingNum.computationalState.status === 'active') {
           activeCount++;
         } else if (livingNum.computationalState.status === 'dormant') {
@@ -735,14 +755,39 @@ export class MathematicalUniverse {
     return this.analyze(n);
   }
 
-  getArithmeticResult(a: bigint, b: bigint, operation: string): any {
+  getArithmeticResult(
+    a: bigint,
+    b: bigint,
+    operation: string,
+  ): { result: bigint; artifacts: DenormalizationArtifact[] } {
     switch (operation) {
-      case 'add':
-        return this.arithmeticOperators.add(a, b);
-      case 'multiply':
-        return this.arithmeticOperators.multiply(a, b);
-      case 'divide':
-        return this.arithmeticOperators.divide(a, b);
+      case 'add': {
+        const addResult = this.arithmeticOperators.add(a, b);
+        return {
+          result: addResult.result,
+          artifacts: [], // Add operations don't produce artifacts
+        };
+      }
+      case 'multiply': {
+        const multResult = this.arithmeticOperators.multiply(a, b) as {
+          result: bigint;
+          artifacts?: DenormalizationArtifact[];
+        };
+        return {
+          result: multResult.result,
+          artifacts: multResult.artifacts ?? [],
+        };
+      }
+      case 'divide': {
+        const divResult = this.arithmeticOperators.divide(a, b) as {
+          quotient: bigint;
+          decompilationArtifacts?: DenormalizationArtifact[];
+        };
+        return {
+          result: divResult.quotient,
+          artifacts: divResult.decompilationArtifacts ?? [],
+        };
+      }
       default:
         throw new Error(`Unknown operation: ${operation}`);
     }
@@ -754,7 +799,7 @@ export class MathematicalUniverse {
 
   findNearestLagrangePoint(n: bigint): bigint {
     const lp = this.pageTopology.nearestLagrangePoint(n);
-    return lp?.position || 0n;
+    return lp?.position ?? 0n;
   }
 
   getFactorCount(n: bigint): number {
@@ -773,11 +818,12 @@ export class MathematicalUniverse {
 
   // Private helper methods
 
-  private calculateStabilityMetric(n: bigint, lagrangePoints: any[]): number {
+  private calculateStabilityMetric(n: bigint, lagrangePoints: Array<{ position: bigint }>): number {
     // Find distance to nearest Lagrange point
     let minDistance = Number.MAX_SAFE_INTEGER;
     for (const lp of lagrangePoints) {
-      const dist = Number(n > lp.position ? n - lp.position : lp.position - n);
+      const lpPosition = lp.position;
+      const dist = Number(n > lpPosition ? n - lpPosition : lpPosition - n);
       if (dist < minDistance) {
         minDistance = dist;
       }
@@ -787,7 +833,13 @@ export class MathematicalUniverse {
     return Math.exp(-minDistance / 48);
   }
 
-  private calculateUniverseFitness(structures: any): number {
+  private calculateUniverseFitness(structures: {
+    groups: unknown[];
+    rings: unknown[];
+    modules: unknown[];
+    conservation?: { fieldParityConserved?: boolean; resonanceFluxBalanced?: boolean };
+    emergence?: { spontaneousGroups?: number; crystallizedRings?: number };
+  }): number {
     let fitness = 0;
 
     // Reward diverse structures
@@ -796,12 +848,12 @@ export class MathematicalUniverse {
     fitness += structures.modules.length * 20;
 
     // Reward conservation compliance
-    if (structures.conservation.fieldParityConserved) fitness += 25;
-    if (structures.conservation.resonanceFluxBalanced) fitness += 25;
+    if (structures.conservation?.fieldParityConserved === true) fitness += 25;
+    if (structures.conservation?.resonanceFluxBalanced === true) fitness += 25;
 
     // Reward emergence
-    fitness += structures.emergence.spontaneousGroups * 5;
-    fitness += structures.emergence.crystallizedRings * 8;
+    fitness += (structures.emergence?.spontaneousGroups ?? 0) * 5;
+    fitness += (structures.emergence?.crystallizedRings ?? 0) * 8;
 
     return fitness;
   }
@@ -905,5 +957,4 @@ export class MathematicalUniverse {
 }
 
 // Re-export types
-export type { LivingNumber as ILivingNumber } from './types';
 export { LivingNumber } from './living-number';

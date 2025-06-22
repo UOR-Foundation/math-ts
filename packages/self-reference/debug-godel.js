@@ -3,19 +3,19 @@
 // Simulate the encoding function
 function godelEncode(text) {
   if (text.length === 0) return 1n;
-  
+
   if (text.length <= 3) {
     let encoded = 1n;
     const primes = [2n, 3n, 5n];
-    
+
     for (let i = 0; i < text.length; i++) {
       const charCode = BigInt(text.charCodeAt(i));
       encoded *= primes[i] ** charCode;
     }
-    
+
     return encoded;
   }
-  
+
   return 999999n; // Dummy for long strings
 }
 

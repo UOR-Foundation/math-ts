@@ -66,11 +66,14 @@
       "^@uor-foundation/(.*)$": "<rootDir>/../$1/src"
     },
     "transform": {
-      "^.+\\.ts$": ["ts-jest", {
-        "tsconfig": {
-          "module": "commonjs"
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "module": "commonjs"
+          }
         }
-      }]
+      ]
     }
   }
 }

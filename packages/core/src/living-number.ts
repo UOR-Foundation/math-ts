@@ -237,9 +237,12 @@ export class LivingNumber implements ILivingNumber {
   }
 
   // Interact with another number
-  interact(other: LivingNumber, options?: any): InteractionResult {
-    const operation = options?.operation || 'multiply';
-    const intent = options?.intent || 'compute';
+  interact(
+    other: LivingNumber,
+    options?: { operation?: string; intent?: string },
+  ): InteractionResult {
+    const operation = options?.operation ?? 'multiply';
+    // const intent = options?.intent ?? 'compute'; // Currently unused
 
     let result: LivingNumber;
     let artifacts: DenormalizationArtifact[] = [];
@@ -269,7 +272,7 @@ export class LivingNumber implements ILivingNumber {
 
     // Get artifacts from arithmetic result
     const arithmeticResult = this.universe.getArithmeticResult(this.value, other.value, operation);
-    artifacts = arithmeticResult.artifacts || [];
+    artifacts = arithmeticResult.artifacts ?? [];
 
     return {
       result,
@@ -495,13 +498,13 @@ export class LivingNumber implements ILivingNumber {
   }
 
   // Adapt to environment
-  adaptTo(environment: Record<string, any>): Adaptation {
+  adaptTo(environment: Record<string, unknown>): Adaptation {
     let strategy = 'neutral';
 
-    if (environment.highEnergy) {
+    if ((environment as { highEnergy?: boolean }).highEnergy === true) {
       strategy = 'aggressive';
       this.consciousness.adaptability *= 1.2;
-    } else if (environment.lowEnergy) {
+    } else if ((environment as { lowEnergy?: boolean }).lowEnergy === true) {
       strategy = 'conservative';
       this.consciousness.adaptability *= 0.8;
     }
