@@ -2,6 +2,8 @@
 
 This document outlines the sequential, axiomatical implementation of the Mathematical Universe where each layer builds strictly upon the interfaces of lower layers, with no arbitrary limits on number handling.
 
+> **API Documentation**: See [docs/api/README.md](./docs/api/README.md) for the complete API reference and target interfaces for all layers.
+
 ## Core Principles
 
 1. **No Arbitrary Limits**: The universe handles numbers of any size naturally
@@ -325,6 +327,8 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 
 **Axiom**: All layers integrate into a unified Mathematical Universe.
 
+> **Note**: The target API for this layer is fully documented in [docs/api/README.md](./docs/api/README.md) and [docs/api/core-integration.md](./docs/api/core-integration.md).
+
 ### Implementation Requirements (Using All Layer Interfaces)
 
 - [ ] **Mathematical Universe Class**
@@ -362,6 +366,8 @@ This document outlines the sequential, axiomatical implementation of the Mathema
 ## MCP Server Implementation
 
 **Axiom**: The Mathematical Universe is accessible through standardized interfaces.
+
+> **API Reference**: The MCP tools should follow the patterns established in [docs/api/README.md](./docs/api/README.md).
 
 ### Implementation Requirements (Using Complete Universe)
 
