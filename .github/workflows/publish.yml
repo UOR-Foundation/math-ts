@@ -35,8 +35,13 @@ jobs:
       - name: Verify package contents
         run: |
           # Check that all packages have necessary files
-          for package in packages/*/; do
+          for package in packages/*/ apps/*/; do
             if [ -d "$package" ] && [ -f "$package/package.json" ]; then
+              # Skip private packages
+              if grep -q '"private": true' "$package/package.json"; then
+                echo "Skipping private package $package"
+                continue
+              fi
               echo "Checking $package"
               if [ ! -d "$package/dist" ]; then
                 echo "Error: No dist directory in $package"
@@ -65,15 +70,9 @@ jobs:
           npx lerna version ${{ steps.version.outputs.version }} --exact --no-git-tag-version --no-push --yes
 
       - name: Publish to NPM
-        run: |
-          # Configure npm for publishing
-          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-
-          # Publish all packages
-          npx lerna publish from-package --registry https://registry.npmjs.org --yes
+        run: npx lerna publish from-package --registry https://registry.npmjs.org --yes
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY }}
 
       - name: Create GitHub Release
         uses: actions/create-release@v1

@@ -2,7 +2,7 @@
   "name": "@uor-foundation/mcp-server",
   "version": "0.1.0",
   "description": "MCP server for Mathematical Universe - enabling Claude integration",
-  "private": true,
+  "private": false,
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
