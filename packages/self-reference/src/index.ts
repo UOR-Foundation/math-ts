@@ -243,7 +243,6 @@ export class SelfReference implements SelfReferenceCore {
     private algebra: AlgebraicStructures,
     private geometry: GeometricManifolds,
     private calculus: CalculusEngine,
-    options?: { skipExpensiveInit?: boolean },
   ) {
     // Initialize engines
     this.bootstrapEngine = new BootstrapEngine(fieldSubstrate, resonance, topology, operators);
@@ -256,7 +255,6 @@ export class SelfReference implements SelfReferenceCore {
       algebra,
       geometry,
       calculus,
-      options,
     );
 
     this.fixedPointEngine = new FixedPointEngine(

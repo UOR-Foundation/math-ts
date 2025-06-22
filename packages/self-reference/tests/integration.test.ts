@@ -162,6 +162,7 @@ describe('Self-Reference Integration', () => {
       
       // And potentially decode them
       const decoded = selfReference.godelDecode(encoded);
+      
       expect(decoded).toBeDefined();
       expect(decoded?.type).toBe('conserves');
     });
