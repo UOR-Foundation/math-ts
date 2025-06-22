@@ -8,7 +8,7 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - uses: actions/checkout@v4
@@ -22,16 +22,34 @@ jobs:
           scope: '@uor-foundation'
 
       - run: npm ci
-
       - run: npm test
-
       - run: npm run build
 
-      - name: Publish to NPM
+      - name: Publish packages to NPM
         run: |
-          # Test NPM authentication first
+          # Test authentication
           npm whoami --registry https://registry.npmjs.org
-          # Publish with public access for scoped packages
-          npx lerna publish from-package --registry https://registry.npmjs.org --yes -- --access public
+          
+          # Publish each package individually
+          for package in packages/*/; do
+            if [ -d "$package" ] && [ -f "$package/package.json" ]; then
+              if ! grep -q '"private": true' "$package/package.json"; then
+                echo "Publishing $package"
+                cd "$package"
+                npm publish --registry https://registry.npmjs.org
+                cd ../..
+              fi
+            fi
+          done
+          
+          # Publish MCP server
+          if [ -d "apps/mcp-server" ] && [ -f "apps/mcp-server/package.json" ]; then
+            if ! grep -q '"private": true' "apps/mcp-server/package.json"; then
+              echo "Publishing apps/mcp-server"
+              cd apps/mcp-server
+              npm publish --registry https://registry.npmjs.org
+              cd ../..
+            fi
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY }}
