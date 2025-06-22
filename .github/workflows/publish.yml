@@ -64,15 +64,11 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Publishing version: $VERSION"
 
-      - name: Update package versions
-        run: |
-          # Create a temporary branch for Lerna to work with
-          git checkout -b temp-publish-branch
-          # Update all package.json files with the new version
-          npx lerna version ${{ steps.version.outputs.version }} --exact --no-git-tag-version --no-push --yes
-
       - name: Publish to NPM
-        run: npx lerna publish from-package --registry https://registry.npmjs.org --yes
+        run: |
+          # Skip version update since packages already have correct version
+          # Publish packages that are not private
+          npx lerna publish from-package --registry https://registry.npmjs.org --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY }}
 
