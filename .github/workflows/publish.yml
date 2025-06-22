@@ -1,109 +1,33 @@
-name: Publish
+name: Publish Package
 
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  release:
+    types: [created]
 
 jobs:
-  publish:
-    name: Publish to NPM
+  publish-npm:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
+      packages: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
+          scope: '@uor-foundation'
 
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
 
-      - name: Run tests
-        run: npm test
+      - run: npm test
 
-      - name: Build packages
-        run: npm run build
-
-      - name: Verify package contents
-        run: |
-          # Check that all packages have necessary files
-          for package in packages/*/ apps/*/; do
-            if [ -d "$package" ] && [ -f "$package/package.json" ]; then
-              # Skip private packages
-              if grep -q '"private": true' "$package/package.json"; then
-                echo "Skipping private package $package"
-                continue
-              fi
-              echo "Checking $package"
-              if [ ! -d "$package/dist" ]; then
-                echo "Error: No dist directory in $package"
-                exit 1
-              fi
-              if [ ! -f "$package/package.json" ]; then
-                echo "Error: No package.json in $package"
-                exit 1
-              fi
-              if [ ! -f "$package/README.md" ]; then
-                echo "Warning: No README.md in $package"
-              fi
-            fi
-          done
-
-      - name: Extract version from tag
-        id: version
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Publishing version: $VERSION"
+      - run: npm run build
 
       - name: Publish to NPM
-        run: |
-          # Skip version update since packages already have correct version
-          # Publish packages that are not private
-          npx lerna publish from-package --registry https://registry.npmjs.org --yes
+        run: npx lerna publish from-package --registry https://registry.npmjs.org --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY }}
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.version.outputs.version }}
-          body: |
-            ## Changes in ${{ steps.version.outputs.version }}
-
-            This release includes updates to the Mathematical Universe implementation.
-
-            ### Packages Updated
-            - @uor-foundation/field-substrate
-            - @uor-foundation/resonance
-            - @uor-foundation/topology
-            - @uor-foundation/operators
-            - @uor-foundation/algebra
-            - @uor-foundation/geometry
-            - @uor-foundation/calculus
-            - @uor-foundation/self-reference
-            - @uor-foundation/math-ts-core
-
-            See individual package changelogs for detailed changes.
-
-            ### Installation
-            ```bash
-            npm install @uor-foundation/math-ts-core@${{ steps.version.outputs.version }}
-            ```
-
-            ### Documentation
-            - [API Reference](https://github.com/UOR-Foundation/math-ts/tree/main/docs)
-            - [Getting Started](https://github.com/UOR-Foundation/math-ts#quick-start)
-          draft: false
-          prerelease: false
