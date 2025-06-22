@@ -30,12 +30,15 @@ Add to your Claude configuration:
 ### Core Tools
 
 #### `analyze_number`
+
 Perform complete Mathematical Universe analysis on any number.
 
 **Parameters:**
+
 - `number`: The number to analyze (string or number)
 
 **Example:**
+
 ```
 analyze_number(77)
 ```
@@ -43,25 +46,31 @@ analyze_number(77)
 Returns field patterns, resonance, topology information, and denormalization artifacts.
 
 #### `find_primes`
+
 Discover prime numbers (computational atoms) in a range using field pattern analysis.
 
 **Parameters:**
+
 - `start`: Start of range
-- `end`: End of range  
+- `end`: End of range
 - `limit`: Maximum primes to return (default: 100)
 
 #### `factorize`
+
 Decompose numbers into prime factors using field-based analysis.
 
 **Parameters:**
+
 - `number`: Number to factorize
 
 Shows field reconstruction and denormalization artifacts from the factorization process.
 
 #### `explore_patterns`
+
 Discover patterns in number sequences.
 
 **Parameters:**
+
 - `start`: Starting number
 - `count`: How many numbers to analyze (default: 20)
 - `pattern`: Type of pattern to explore ("resonance", "fields", "stability", "lagrange")
@@ -69,32 +78,40 @@ Discover patterns in number sequences.
 ### Advanced Tools
 
 #### `resonance_landscape`
+
 Explore the multi-dimensional resonance landscape around a number.
 
 **Parameters:**
+
 - `center`: Center point for analysis
 - `radius`: Radius of exploration (default: 10)
 - `dimensions`: Dimensions to explore (["arithmetic", "field", "page"])
 
 #### `lagrange_navigation`
+
 Navigate through number space via Lagrange stability points.
 
 **Parameters:**
+
 - `start`: Starting position
 - `target`: Target position
 - `maxHops`: Maximum navigation hops (default: 10)
 
 #### `field_archaeology`
+
 Excavate deep field patterns and denormalization artifacts.
 
 **Parameters:**
+
 - `number`: Number to excavate
 - `depth`: Excavation depth ("surface", "deep", "quantum")
 
 #### `universe_health`
+
 Check Mathematical Universe system health and consistency.
 
 **Parameters:**
+
 - `checkType`: Type of check ("quick", "full", "conservation")
 
 ## Mathematical Concepts
@@ -126,3 +143,4 @@ When Claude has access to this MCP server, you can explore the Mathematical Univ
 
 ```
 Human: What makes 77 special in the Mathematical Universe?
+```

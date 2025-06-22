@@ -14,7 +14,7 @@ describe('MCP Server', () => {
     const fs = require('fs');
     const path = require('path');
     const entryPoint = path.join(__dirname, '../dist/index.js');
-    
+
     // After build, the file should exist
     if (fs.existsSync(entryPoint)) {
       expect(fs.existsSync(entryPoint)).toBe(true);
