@@ -1,5 +1,10 @@
 export * from './resonance';
 export * from './interference';
+export * from './prime-detection';
+export * from './agent-factorization';
+export * from './scalable-agent-factorization';
+export * from './multimodal-factorization';
+export * from './artifact-based-factorization';
 
 import type { FieldSubstrate } from '@uor-foundation/field-substrate';
 import {
@@ -9,6 +14,11 @@ import {
   type ResonanceSignature,
 } from './resonance';
 import { fieldInterference, type InterferenceResult } from './interference';
+import {
+  isResonanceMinimum,
+  isPrimeViaResonance,
+  type ResonanceMinimumAnalysis,
+} from './prime-detection';
 
 /**
  * Resonance Dynamics Interface - Layer 1 of the Mathematical Universe
@@ -36,6 +46,16 @@ export interface ResonanceDynamics {
    * Get complete resonance signature
    */
   getResonanceSignature(n: bigint): ResonanceSignature;
+
+  /**
+   * Check if a number is a resonance local minimum (prime indicator)
+   */
+  isResonanceMinimum(n: bigint): ResonanceMinimumAnalysis;
+
+  /**
+   * Detect if a number is prime using resonance-based O(1) detection
+   */
+  isPrimeViaResonance(n: bigint): boolean;
 }
 
 /**
@@ -61,6 +81,14 @@ export class DefaultResonanceDynamics implements ResonanceDynamics {
 
   getResonanceSignature(n: bigint): ResonanceSignature {
     return getResonanceSignature(this.substrate, n);
+  }
+
+  isResonanceMinimum(n: bigint): ResonanceMinimumAnalysis {
+    return isResonanceMinimum(this.substrate, n);
+  }
+
+  isPrimeViaResonance(n: bigint): boolean {
+    return isPrimeViaResonance(this.substrate, n);
   }
 }
 

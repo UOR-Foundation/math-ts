@@ -129,9 +129,8 @@ export class MathematicalUniverse {
     const pageLoc = this.pageTopology.locateNumber(n);
     const pageInfo = this.pageTopology.getPageInfo(pageLoc.page);
 
-    // Check primality using factorization
-    const factors = this.arithmeticOperators.factorize(n);
-    const isPrime = factors.isPrime;
+    // Check primality using resonance-based O(1) detection
+    const isPrime = this.resonanceDynamics.isPrimeViaResonance(n);
 
     // Get stability metric from page topology
     const lagrangePoints = this.pageTopology.findLagrangePoints(0n, 100n);

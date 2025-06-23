@@ -1,0 +1,19 @@
+{
+  "name": "@uor-foundation/higher-dimensions",
+  "version": "0.1.0",
+  "description": "Higher-dimensional number representations for the Mathematical Universe",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@uor-foundation/field-substrate": "workspace:*",
+    "@uor-foundation/resonance": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

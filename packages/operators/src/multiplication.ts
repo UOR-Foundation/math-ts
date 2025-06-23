@@ -7,6 +7,7 @@ import type { ResonanceDynamics } from '@uor-foundation/resonance';
 import type { PageTopology } from '@uor-foundation/topology';
 import { CarryOperator, type DenormalizationArtifact } from './carry';
 import { DenormalizationEngine } from './denormalization';
+import { FieldFactorization } from './field-factorization';
 import type {
   ArithmeticResult,
   ModularArithmeticResult,
@@ -21,6 +22,7 @@ import type {
 export class MultiplicationOperator {
   private carryOperator: CarryOperator;
   private denormalization: DenormalizationEngine;
+  private fieldFactorization: FieldFactorization;
 
   constructor(
     private substrate: FieldSubstrate,
@@ -29,6 +31,7 @@ export class MultiplicationOperator {
   ) {
     this.carryOperator = new CarryOperator(substrate);
     this.denormalization = new DenormalizationEngine(substrate, resonance);
+    this.fieldFactorization = new FieldFactorization(substrate, resonance, topology);
   }
 
   /**
@@ -204,64 +207,12 @@ export class MultiplicationOperator {
   }
 
   /**
-   * Factorize a number - molecular decomposition to primes
+   * Factorize a number using field-based analysis - NO TRIAL DIVISION
+   * This uses resonance minima, field interference, and Lagrange navigation
    */
   factorize(n: bigint): FactorizationResult {
-    if (n <= 1n) {
-      return {
-        operation: 'factorization',
-        number: n,
-        factors: [],
-        isPrime: false,
-        decompositionSteps: [],
-      };
-    }
-
-    const factors: bigint[] = [];
-    const decompositionSteps: DecompositionStep[] = [];
-    let remainder = n;
-    let divisor = 2n;
-
-    // Track initial state
-    const initialPattern = this.substrate.getFieldPattern(n);
-    const initialResonance = this.resonance.calculateResonance(n);
-
-    while (remainder > 1n && divisor * divisor <= remainder) {
-      if (remainder % divisor === 0n) {
-        factors.push(divisor);
-
-        // Track decomposition step
-        const quotient = remainder / divisor;
-
-        decompositionSteps.push({
-          divisor,
-          quotient,
-          remainderBefore: remainder,
-          fieldReconstruction: this.analyzeFieldReconstruction(remainder, divisor, quotient),
-        });
-
-        remainder = quotient;
-      } else {
-        divisor++;
-      }
-    }
-
-    if (remainder > 1n) {
-      factors.push(remainder);
-    }
-
-    return {
-      operation: 'factorization',
-      number: n,
-      factors,
-      isPrime: factors.length === 1 && factors[0] === n,
-      decompositionSteps,
-      fieldEvolution: {
-        initial: initialPattern,
-        initialResonance,
-        finalFactorPatterns: factors.map((f) => this.substrate.getFieldPattern(f)),
-      },
-    };
+    // Delegate to field-based factorization
+    return this.fieldFactorization.factorize(n);
   }
 
   /**

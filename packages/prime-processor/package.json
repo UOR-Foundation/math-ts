@@ -1,0 +1,18 @@
+{
+  "name": "@uor-foundation/prime-processor",
+  "version": "0.1.0",
+  "description": "Prime Processor Architecture - precomputed gates for efficient prime computation",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@uor-foundation/field-substrate": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
