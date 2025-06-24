@@ -1,6 +1,6 @@
 {
   "name": "@uor-foundation/math-ts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Mathematical Universe implementation - where mathematics computes itself into existence",
   "private": true,
   "workspaces": [
@@ -30,7 +30,8 @@
     "test:geometry": "npm run test --workspace=@uor-foundation/geometry",
     "test:calculus": "npm run test --workspace=@uor-foundation/calculus",
     "test:self-reference": "npm run test --workspace=@uor-foundation/self-reference",
-    "test:core": "npm run test --workspace=@uor-foundation/math-ts-core"
+    "test:core": "npm run test --workspace=@uor-foundation/math-ts-core",
+    "test:embeddings": "npm run test --workspace=@uor-foundation/embeddings"
   },
   "repository": {
     "type": "git",

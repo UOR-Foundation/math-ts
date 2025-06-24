@@ -32,7 +32,8 @@
     { "path": "./packages/geometry" },
     { "path": "./packages/calculus" },
     { "path": "./packages/self-reference" },
-    { "path": "./packages/core" }
+    { "path": "./packages/core" },
+    { "path": "./packages/embeddings" }
   ],
   "include": [],
   "exclude": ["node_modules", "dist", "build", "coverage", "*.config.js", "*.config.ts"]

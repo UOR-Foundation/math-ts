@@ -29,7 +29,7 @@ jobs:
         run: |
           # Test authentication
           npm whoami --registry https://registry.npmjs.org
-          
+
           # Publish each package individually
           for package in packages/*/; do
             if [ -d "$package" ] && [ -f "$package/package.json" ]; then
@@ -41,7 +41,7 @@ jobs:
               fi
             fi
           done
-          
+
           # Publish MCP server
           if [ -d "apps/mcp-server" ] && [ -f "apps/mcp-server/package.json" ]; then
             if ! grep -q '"private": true' "apps/mcp-server/package.json"; then
