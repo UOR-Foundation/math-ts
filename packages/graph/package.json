@@ -1,0 +1,44 @@
+{
+  "name": "@uor-foundation/graph",
+  "version": "0.1.0",
+  "description": "Directed graph architecture for the Mathematical Universe - tracks multiplication relationships and denormalization artifacts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write 'src/**/*.ts' 'tests/**/*.ts'",
+    "format:check": "prettier --check 'src/**/*.ts' 'tests/**/*.ts'"
+  },
+  "keywords": [
+    "mathematical-universe",
+    "graph",
+    "multiplication",
+    "denormalization"
+  ],
+  "author": "UOR Foundation",
+  "license": "MIT",
+  "dependencies": {
+    "@uor-foundation/field-substrate": "^0.1.0",
+    "@uor-foundation/operators": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
+

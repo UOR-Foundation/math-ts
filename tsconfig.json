@@ -33,7 +33,8 @@
     { "path": "./packages/calculus" },
     { "path": "./packages/self-reference" },
     { "path": "./packages/core" },
-    { "path": "./packages/embeddings" }
+    { "path": "./packages/embeddings" },
+    { "path": "./packages/graph" }
   ],
   "include": [],
   "exclude": ["node_modules", "dist", "build", "coverage", "*.config.js", "*.config.ts"]
